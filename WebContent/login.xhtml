@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>éspace étudiant</title>
+</h:head>
+<h:body>
+	<h1>Connectez-Vous</h1>
+	<h:form>
+
+		<table>
+			<tr>
+				<td><h:outputLabel  value="Username:" /></td>
+				<td><h:inputText value="#{authBean.username}" /></td>
+			</tr>
+			<tr>
+				<td><h:outputLabel  value="Password:" /></td>
+				<td><h:inputSecret  value="#{authBean.password}" /></td>
+			</tr>
+			<tr>
+
+				<h:commandButton value="Connecter" action="#{authBean.login}" />
+			</tr>
+
+		</table>
+	</h:form>
+</h:body>
+</html>

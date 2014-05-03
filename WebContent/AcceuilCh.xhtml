@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>espace chef de département</title>
+</head>
+<body>
+<h1>Acceuil</h1>
+    	<p>Bienvenue M. #{authBean.username} !</p>
+    	<h:form>
+    	
+    	<h:commandLink action="PCDch">
+    	<h:outputText value="Projet de Conception et Dévéloppement	"/>
+    	</h:commandLink>
+    	<h:commandLink action="PFEch">
+    	<h:outputText value="Projet de Fin d'Etude	"/>
+    	</h:commandLink>
+    	
+    	<h:commandLink action="PPch">
+    	<h:outputText value="Projet de Programmation	"/>
+    	</h:commandLink>
+    	<h:commandLink action="ChFch">
+    	<h:outputText value="Choix de Filière	"/>
+    	</h:commandLink>
+    	</h:form>
+</body>
+</html>

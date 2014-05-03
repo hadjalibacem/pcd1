@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+     "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+    
+<hibernate-configuration>
+  <session-factory>
+    <!--  Paramètres de connexion à la base de données -->
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost/bd1</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password"></property>
+
+    <!-- Comportement pour la conservation des tables -->
+    <property name="hbm2ddl.auto">insert</property>
+
+    <!-- Fichiers à mapper -->
+    <mapping class="model.Enseignant" />
+    <mapping class="model.Departement"/>
+    <mapping class="model.Etudiant"/>
+    <mapping class="model.Filiere"/>
+    <mapping class="model.Mod_opt"/>
+    <mapping class="model.Pcd"/>
+    <mapping class="model.Pfe"/>
+    <mapping class="model.Projet_prog"/>
+    <mapping class="model.Stage_ete"/>
+    <mapping class="model.Administration"/>
+    <mapping class="model.AffFiliere"/>
+    <mapping class="model.AffModOpt"/>
+    <mapping class="model.AffPCD"/>
+    <mapping class="model.AffPFE"/>
+    <mapping class="model.AffProjProg"/>
+    <mapping class="model.AffStagEte"/>
+    <mapping class="model.ChxFiliere"/>
+    <mapping class="model.ChxModOpt"/>
+    <mapping class="model.ChxPCD"/>
+    <mapping class="model.ChxProjProg"/>
+    <mapping class="model.Message"/>
+    
+  </session-factory>
+</hibernate-configuration>

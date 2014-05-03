@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>espace étudiant</title>
+</head>
+<body>
+<h1>Acceuil</h1>
+
+    	<p>Bienvenue M. #{authBean.username} !</p>
+    	<h:form>
+    	<div>
+    	<h:commandLink action="PCDet">
+    	<h:outputText value="Projet de Conception et Dévéloppement         "/>
+    	</h:commandLink>
+    	</div><div>
+    	<h:commandLink action="PFEet">
+    	<h:outputText value="Projet de Fin d'Etude	         "/>
+    	</h:commandLink></div><div>
+    	<h:commandLink action="PPet">
+    	<h:outputText value="Projet de Programmation	        "/>
+    	</h:commandLink></div><div>
+    	<h:commandLink action="ChFet">
+    	<h:outputText value="Choix de Filière	     "/>
+    	</h:commandLink></div>
+    	
+    	</h:form>
+    	
+</body>
+</html>
