@@ -1,6 +1,7 @@
 package dao;
 
 
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -32,7 +33,11 @@ public class PcdDao {
         {
         	Session session= HibernateUtils.getSessionFactory().openSession();
         	session.beginTransaction();
-        	Query query = session.createQuery("from pcd order by sujet ");
+        	
+        	Query query = session.createQuery("from pcd order");
+        	session.getTransaction().commit();
+        	session.close();
+        	
         	return query.list();
         	
         }

@@ -63,8 +63,38 @@ public class AuthBean implements Serializable {
 
     private String username;
     private String password;
+    private int id;
+    private String statut;
+    public Object getUser() {
+		return user;
+	}
+	public void setUser(Object user) {
+		this.user = user;
+	}
+
+	private Object user;
+    public String getStatut() {
+		return statut;
+	}
+	public void setStatut(String statut) {
+		this.statut = statut;
+	}
+	public AuthentificationDao getAuth() {
+		return auth;
+	}
+	public void setAuth(AuthentificationDao auth) {
+		this.auth = auth;
+	}
+
+	private AuthentificationDao auth=new AuthentificationDao();
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getUsername() {
-		return username;
+		return username;  
 	}
 	public void setUsername(String username) {
 		this.username = username;
@@ -79,24 +109,20 @@ public class AuthBean implements Serializable {
 	public String login()
 	{
 		
-         Etudiant et=new Etudiant(0, "amira", "drihmi", "amira", "amira", 3, "A", "avenue hjkhjkh", "kjkj@y.com", 200, 1);
-        EtudiantDao etD=new EtudiantDao();
-        etD.add(et);
-         
-         /*AuthentificationDao auth= new AuthentificationDao();
-         
-         String user=auth.authentifier(username,password);
         
- 	    if(user!=null) { 
- 	    	//ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-       /* try {
+         
+         String stat=auth.authentifier(username,password,statut);
+        
+ 	    if(stat!=null) { 
+ 	    	/*ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
 			ec.redirect(ec.getRequestContextPath() + "/Acceuil.xhtml");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.print(e.getMessage());
 			e.printStackTrace();
 		}*/
- 	    /*	if (user.equals("[etudiant]"))
+ 	    	if (stat.equals("[etudiant]"))
  	     return "AcceuilEt";
  	    	else if (user.equals("[chefdepart]"))
  	    	return "AcceuilCh";
@@ -104,8 +130,25 @@ public class AuthBean implements Serializable {
  	    }
  	    else {FacesMessage message = new FacesMessage( "your login  is unsuccessfull !" );
  	    FacesContext.getCurrentInstance().addMessage( null, message );}
- 	 */
+ 	 
          return "";
+	}
+	
+	public String SignUp()
+	{
+		user=auth.inscription(id, username, password, statut);
+		if (user!=null)
+		{
+			FacesMessage message = new FacesMessage( "Bien Inscrit" );
+	 	    FacesContext.getCurrentInstance().addMessage( null, message );
+	 	    return "login";
+		}
+		
+		
+		FacesMessage message = new FacesMessage( "Invalid Id !" );
+ 	    FacesContext.getCurrentInstance().addMessage( null, message );
+ 	    return "";
+		
 	}
 
     

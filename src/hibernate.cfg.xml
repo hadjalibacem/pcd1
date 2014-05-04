@@ -13,7 +13,7 @@
     <property name="hibernate.connection.password"></property>
 
     <!-- Comportement pour la conservation des tables -->
-    <property name="hbm2ddl.auto">insert</property>
+    <property name="hbm2ddl.auto">update</property>
 
     <!-- Fichiers à mapper -->
     <mapping class="model.Enseignant" />
@@ -37,6 +37,8 @@
     <mapping class="model.ChxPCD"/>
     <mapping class="model.ChxProjProg"/>
     <mapping class="model.Message"/>
-    
+     <mapping class="model.InscriEtud"/>
+      <mapping class="model.InscriChfDp"/>
+       <mapping class="model.ChefDepart"/>
   </session-factory>
 </hibernate-configuration>

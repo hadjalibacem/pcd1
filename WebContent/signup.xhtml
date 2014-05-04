@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" >
+<h:head>
+	<title>éspace étudiant</title>
+</h:head>
+<h:body>
+	<h1>Inscrivez-Vous</h1>
+	
+	<h:form>
+
+		<table>
+			<tr>
+				<td><h:outputLabel  value="Id:" /></td>
+				<td><h:inputText value="#{authBean.id}" /></td>
+			</tr>
+			<tr>
+				<td><h:outputLabel  value="Username:" /></td>
+				<td><h:inputText value="#{authBean.username}" /></td>
+			</tr>
+			<tr>
+				<td><h:outputLabel  value="Password:" /></td>
+				<td><h:inputSecret  value="#{authBean.password}" /></td>
+			</tr>
+				<tr>
+				<td><h:outputLabel  value="Vous êtes:" /></td>
+				<h:selectOneRadio value="#{authBean.statut}">
+   	<f:selectItem itemValue="etudiant" itemLabel="Etudiant" />
+   	<f:selectItem itemValue="chefdepart" itemLabel="Chef Departement"/>
+</h:selectOneRadio>
+			</tr>
+			<tr>
+
+				<h:commandButton value="Connecter" action="#{authBean.SignUp}" />
+			</tr>
+
+		</table>
+	</h:form>
+</h:body>
+</html>

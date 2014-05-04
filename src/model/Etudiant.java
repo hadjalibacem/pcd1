@@ -11,8 +11,6 @@ public class Etudiant {
 	private int id;
 	private String nom;
 	private String prenom;
-	private String login;
-	private String password;
 	private int niveau;
 	private String groupe;
 	private String adresse;
@@ -20,7 +18,6 @@ public class Etudiant {
 	
 	private int rang;
 	private int departement;
-	private int jkhjkh;
 	
 	
 	public int getId() {
@@ -41,18 +38,7 @@ public class Etudiant {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-	public String getLogin() {
-		return login;
-	}
-	public void setLogin(String login) {
-		this.login = login;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	
 	public int getNiveau() {
 		return niveau;
 	}
@@ -89,15 +75,12 @@ public class Etudiant {
 	public void setDepartement(int departement) {
 		this.departement = departement;
 	}
-	public Etudiant(int id, String nom, String prenom, String login,
-			String password, int niveau, String groupe, String adresse,
+	public Etudiant(int id, String nom, String prenom,int niveau, String groupe, String adresse,
 			String email, int rang, int departement) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
-		this.login = login;
-		this.password = password;
 		this.niveau = niveau;
 		this.groupe = groupe;
 		this.adresse = adresse;
@@ -108,6 +91,8 @@ public class Etudiant {
 	
 	
 	
+	public Etudiant() {
+	}
 	
 	
 	

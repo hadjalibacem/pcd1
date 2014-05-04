@@ -13,15 +13,13 @@
  
     	<h1>JSF 2 dataTable example</h1>
  
-    		<h:dataTable value="#{etudBean.CheckListPcd}" var="sujet"
-    			
-    		>
+    		<h:dataTable value="#{etudBean.listA}" var="sujet">
  
     			<h:column>
     				<!-- column header -->
     				<f:facet name="header">Order No</f:facet>
     				<!-- row record -->
-    				#{sujet.sujet}
+    			   #{sujet.sujet}
     			</h:column>
  
     			<h:column>
