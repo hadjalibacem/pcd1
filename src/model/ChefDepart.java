@@ -15,6 +15,7 @@ public class ChefDepart {
 	
 	private String prenom;
 
+	
 	public int getId() {
 		return id;
 	}
@@ -47,5 +48,8 @@ public class ChefDepart {
 	}
 	
 	
+	public ChefDepart() {
+		super();
+	}
 
 }

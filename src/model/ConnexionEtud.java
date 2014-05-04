@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ConnexionEtud")
-public class InscriEtud {
+public class ConnexionEtud {
 	@Id
 	private int id;
 	
@@ -55,12 +55,17 @@ public class InscriEtud {
 	}
 
 
-	public InscriEtud(int id, String login, String password, int etudiant) {
+	public ConnexionEtud(int id, String login, String password, int etudiant) {
 		super();
 		this.id = id;
 		this.login = login;
 		this.password = password;
 		this.etudiant = etudiant;
+	}
+
+
+	public ConnexionEtud() {
+		super();
 	}
 	
 

@@ -65,6 +65,16 @@ public class AuthBean implements Serializable {
     private String password;
     private int id;
     private String statut;
+    private boolean connecte=false;
+	public boolean isConnecte() {
+		return connecte;
+	}
+	public void setConnecte(boolean connecte) {
+		this.connecte = connecte;
+	}
+
+	private Object user;
+    
     public Object getUser() {
 		return user;
 	}
@@ -72,7 +82,6 @@ public class AuthBean implements Serializable {
 		this.user = user;
 	}
 
-	private Object user;
     public String getStatut() {
 		return statut;
 	}
@@ -111,9 +120,9 @@ public class AuthBean implements Serializable {
 		
         
          
-         String stat=auth.authentifier(username,password,statut);
+         Object user=auth.authentifier(username,password,statut);
         
- 	    if(stat!=null) { 
+ 	    if(user!=null) { 
  	    	/*ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
 			ec.redirect(ec.getRequestContextPath() + "/Acceuil.xhtml");
@@ -122,13 +131,19 @@ public class AuthBean implements Serializable {
 			System.out.print(e.getMessage());
 			e.printStackTrace();
 		}*/
- 	    	if (stat.equals("[etudiant]"))
- 	     return "AcceuilEt";
- 	    	else if (user.equals("[chefdepart]"))
- 	    	return "AcceuilCh";
- 	    	else return "AcceuilEn";
+ 	    	setConnecte(true);
+ 	    /*	if (statut.equals("etudiant"))
+ 	    	{
+ 	    		
+ 	    		return "AcceuilEt";
+ 	    	}
+ 	    	else {
+ 	    		return "AcceuilCh";
+ 	    	}*/
  	    }
- 	    else {FacesMessage message = new FacesMessage( "your login  is unsuccessfull !" );
+ 	    else {
+ 	    	setConnecte(false);
+ 	    	FacesMessage message = new FacesMessage( "your login  is unsuccessfull !" );
  	    FacesContext.getCurrentInstance().addMessage( null, message );}
  	 
          return "";
@@ -150,6 +165,11 @@ public class AuthBean implements Serializable {
  	    return "";
 		
 	}
-
+public void logout()
+{
+	setConnecte(false);
+	
+	//return "login";
+}
     
 }

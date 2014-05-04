@@ -2,14 +2,16 @@ package dao;
 
 
 
+import model.ChefDepart;
+import model.Etudiant;
 import model.HibernateUtils;
 
 
 
 
 
-import model.InscriChfDp;
-import model.InscriEtud;
+import model.ConnexionChfDp;
+import model.ConnexionEtud;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -23,30 +25,31 @@ public class AuthentificationDao {
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
 		if (statut.equals("etudiant"))
-		{Query query=session.createQuery("from Etudiant where id="+id);
-		if(!query.list().isEmpty())
-			{InscriEtud et=new InscriEtud(0,login,password,id);
+		{Query query=session.createQuery("from Etudiant where id="+id+" and not exists (from ConnexionEtud where etudiant="+id+")");
+		Etudiant user=(Etudiant) query.uniqueResult();
+		if(user!=null)
+			{ConnexionEtud et=new ConnexionEtud(0,login,password,id);
 			session.save(et);
 
 	        session.getTransaction().commit();
-	        return et;}
-			else return null;
+			}
+	        return user;
 		}
-		else { Query qr=session.createSQLQuery("select * from Chef_Depart where id="+id+" and not exists (select * from connexionchefdep where chefDepart="+id+")");
-		if(!qr.list().isEmpty())
-			{InscriChfDp chfdp=new InscriChfDp(0,login,password,id);
+		else { Query qr=session.createQuery("from ChefDepart where id="+id+" and not exists (from ConnexionChfDp where chefDepart="+id+")");
+		ChefDepart user=(ChefDepart) qr.uniqueResult();
+		if(user!=null)
+			{ConnexionChfDp chfdp=new ConnexionChfDp(0,login,password,id);
 			session.save(chfdp);
 
-	        session.getTransaction().commit();
-	        return chfdp;}
-		else return null;
+	        session.getTransaction().commit();}
+	        return user;
 		
 		}
 		
 
 	}
 
-	public String authentifier (String un, String pwd,String statut)
+	public Object authentifier (String un, String pwd,String statut)
 	{
 		
 		
@@ -56,12 +59,17 @@ public class AuthentificationDao {
             Query query;
             //session.getTransaction().commit();
         	if (statut.equals("etudiant"))
-        	query=session.createSQLQuery("select * from connexionetud where login='"+un+"' and password='"+pwd+"'");
-        	else query=session.createSQLQuery("select * from connexionchefdep where login='"+un+"' and password='"+pwd+"'");
-        	session.
-        	if (query.list().isEmpty())   return null;
-            
-        	else  return statut;
+        	{query=session.createQuery("from Etudiant where id=(select etudiant from ConnexionEtud where login='"+un+"' and password='"+pwd+"')");
+        	
+        	Etudiant user=(Etudiant) query.uniqueResult();
+        	return user;
+        	}
+        	else {query=session.createQuery("from ChefDepart where id=(select chefDepart from ConnexionChfDp where login='"+un+"' and password='"+pwd+"')");
+        	ChefDepart user=(ChefDepart) query.uniqueResult();
+        	return user;
+        	
+        	}
+        	
            
         
 		

@@ -37,8 +37,8 @@
     <mapping class="model.ChxPCD"/>
     <mapping class="model.ChxProjProg"/>
     <mapping class="model.Message"/>
-     <mapping class="model.InscriEtud"/>
-      <mapping class="model.InscriChfDp"/>
+     <mapping class="model.ConnexionEtud"/>
+      <mapping class="model.ConnexionChfDp"/>
        <mapping class="model.ChefDepart"/>
   </session-factory>
 </hibernate-configuration>

@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ConnexionChefDep")
-public class InscriChfDp {
+public class ConnexionChfDp {
 	@Id
 	private int id;
 	
@@ -57,12 +57,17 @@ public class InscriChfDp {
 
 
 
-	public InscriChfDp(int id, String login, String password, int chefDepart) {
+	public ConnexionChfDp(int id, String login, String password, int chefDepart) {
 		super();
 		this.id = id;
 		this.login = login;
 		this.password = password;
 		this.chefDepart = chefDepart;
+	}
+
+
+	public ConnexionChfDp() {
+		super();
 	}
 	
 
