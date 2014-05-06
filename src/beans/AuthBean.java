@@ -1,7 +1,14 @@
 package beans;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.Principal;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -33,11 +40,31 @@ import javax.faces.context.FacesContext;
 
 
 
+
+
+import javax.servlet.AsyncContext;
+import javax.servlet.DispatcherType;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+
+
+import javax.servlet.http.Part;
+
 import model.Administration;
 import model.Departement;
 import model.Enseignant;
 import model.Etudiant;
 import model.Filiere;
+import model.HibernateUtils;
 import model.Pcd;
 import model.Pfe;
 import model.Projet_prog;
@@ -66,6 +93,9 @@ public class AuthBean implements Serializable {
     private int id;
     private String statut;
     private boolean connecte=false;
+    private Object user;
+    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+ 	HttpSession session = request.getSession();
 	public boolean isConnecte() {
 		return connecte;
 	}
@@ -73,7 +103,6 @@ public class AuthBean implements Serializable {
 		this.connecte = connecte;
 	}
 
-	private Object user;
     
     public Object getUser() {
 		return user;
@@ -119,10 +148,11 @@ public class AuthBean implements Serializable {
 	{
 		
         
-         
-         Object user=auth.authentifier(username,password,statut);
+		
+          user=auth.authentifier(username,password,statut);
         
- 	    if(user!=null) { 
+ 	    if(user!=null) {
+ 	    	
  	    	/*ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
 			ec.redirect(ec.getRequestContextPath() + "/Acceuil.xhtml");
@@ -131,7 +161,9 @@ public class AuthBean implements Serializable {
 			System.out.print(e.getMessage());
 			e.printStackTrace();
 		}*/
+ 	    	session.setAttribute("user", user);
  	    	setConnecte(true);
+ 	    	return "Acceuil";
  	    /*	if (statut.equals("etudiant"))
  	    	{
  	    		
@@ -151,8 +183,8 @@ public class AuthBean implements Serializable {
 	
 	public String SignUp()
 	{
-		user=auth.inscription(id, username, password, statut);
-		if (user!=null)
+		
+		if (auth.inscription(id, username, password, statut)!=null)
 		{
 			FacesMessage message = new FacesMessage( "Bien Inscrit" );
 	 	    FacesContext.getCurrentInstance().addMessage( null, message );
@@ -165,11 +197,13 @@ public class AuthBean implements Serializable {
  	    return "";
 		
 	}
-public void logout()
+public String logout()
 {
 	setConnecte(false);
-	
-	//return "login";
+	return "login";
 }
-    
+    public String goLogin()
+    {
+    	return "login";
+    }
 }

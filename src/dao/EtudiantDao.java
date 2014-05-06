@@ -16,7 +16,7 @@ public class EtudiantDao {
             session.beginTransaction();
             session.save(et);
             session.getTransaction().commit();
-            //session.close();
+            session.close();
             System.out.print("bien ajouté");
         } catch (Exception e) {
             System.out.print("erreur insertion" + e.getMessage());

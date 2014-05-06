@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head />
+<body>
+
+            <h1>Projet de Conception et Developpement</h1>
+	<h:dataTable id="listPCD" value="#{etudBean.listPCD}" var="pcd"
+		border="1">
+    <f:facet name="header">
+        <h:outputText value="Liste des sujets proposés" />
+    </f:facet>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Id" />
+        </f:facet>
+        <h:outputText value="#{pcd.id}" />
+    </h:column>
+<h:column>
+        <f:facet name="header">
+            <h:outputText value="Sujet" />
+        </f:facet>
+        <h:outputText value="#{pcd.sujet}" />
+    </h:column>
+<h:column>
+        <f:facet name="header">
+            <h:outputText value="Description" />
+        </f:facet>
+        <h:outputText value="#{pcd.description_PCD}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Encadrant" />
+        </f:facet>
+        <h:outputText value="#{etudBean.AfficheEnseignant(pcd.encadrant)}" />
+    </h:column>
+ <h:column>
+        <f:facet name="header">
+            <h:outputText value="Departement" />
+        </f:facet>
+        <h:outputText value="#{etudBean.AfficheDepartement(pcd.departement)}" />
+    </h:column>
+    
+	</h:dataTable>
+	<h:form>
+	
+  <c:forEach begin="0" end="19" var="i">
+      <f:facet name="header">
+      <h:outputText value="id de pcd" />
+      </f:facet>
+      <h:inputText value="#{etudBean.listChx.add(i)}" />
+    </c:forEach>
+  <h:commandButton actionListener="#{etudBean.SaisirChoixPCD}" value="Go !"/>
+
+	<div>
+	<h:commandLink action="Acceuil"
+					value="Acceuil" styleClass="link" />
+					</div>
+					<div>
+	<h:commandLink action="#{authBean.logout()}"
+					value="déconnexion" styleClass="link" />
+					</div>
+					</h:form>
+					
+    
+</body>
+</html>

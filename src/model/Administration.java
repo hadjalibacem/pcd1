@@ -70,6 +70,9 @@ public class Administration {
 	public void setPFE_dateCCharge(Date pFE_dateCCharge) {
 		PFE_dateCCharge = pFE_dateCCharge;
 	}
+	public Administration() {
+		super();
+	}
 	public Date getPFE_dateRapport() {
 		return PFE_dateRapport;
 	}

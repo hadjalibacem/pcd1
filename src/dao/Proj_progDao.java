@@ -11,7 +11,7 @@ public class Proj_progDao {
 	public void add(Projet_prog pp) {
 		
 		// TODO Auto-generated method stub
-		Session session = HibernateUtils.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtils.getSessionFactory().openSession();
         try {
             session.beginTransaction();
             session.save(pp);

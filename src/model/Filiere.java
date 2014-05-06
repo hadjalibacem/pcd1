@@ -54,6 +54,9 @@ public class Filiere {
 		this.nombre_min = nombre_min;
 		this.departement = departement;
 	}
+	public Filiere() {
+		super();
+	}
 
 
 	

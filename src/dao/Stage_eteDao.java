@@ -11,7 +11,7 @@ public class Stage_eteDao {
 	public void add(Stage_ete se) {
 		
 		// TODO Auto-generated method stub
-		Session session = HibernateUtils.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtils.getSessionFactory().openSession();
         try {
             session.beginTransaction();
             session.save(se);

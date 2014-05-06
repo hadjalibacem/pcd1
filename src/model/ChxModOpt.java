@@ -43,6 +43,9 @@ public class ChxModOpt {
 		this.etudiant = etudiant;
 		this.rang = rang;
 	}
+	public ChxModOpt() {
+		super();
+	}
 
 	
 }

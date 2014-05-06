@@ -78,6 +78,9 @@ public class AffProjProg {
 		this.dateSoutenance = dateSoutenance;
 		Jury = jury;
 	}
+	public AffProjProg() {
+		super();
+	}
 	
 	
 }

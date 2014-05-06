@@ -71,6 +71,9 @@ public class Stage_ete {
 		this.nom_Entrep = nom_Entrep;
 		
 	}
+	public Stage_ete() {
+		super();
+	}
 	
 	
 	

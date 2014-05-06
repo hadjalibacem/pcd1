@@ -87,6 +87,9 @@ public class AffStagEte {
 		this.Jury = jury;
 		this.Convention = convention;
 	}
+	public AffStagEte() {
+		super();
+	}
 	
 	
 }

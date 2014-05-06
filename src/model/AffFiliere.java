@@ -46,6 +46,9 @@ public class AffFiliere {
 		this.etudiant = etudiant;
 		this.vu = vu;
 	}
+	public AffFiliere() {
+		super();
+	}
 	
 	
 

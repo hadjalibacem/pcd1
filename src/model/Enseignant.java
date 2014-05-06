@@ -55,6 +55,9 @@ public class Enseignant {
 		this.email = email;
 		this.bureau = bureau;
 	}
+	public Enseignant() {
+		super();
+	}
 	
 	
 	

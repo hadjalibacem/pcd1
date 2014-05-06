@@ -11,12 +11,12 @@ public class Mod_optDao {
 	public void add(Mod_opt mod) {
 		
 		// TODO Auto-generated method stub
-		Session session = HibernateUtils.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtils.getSessionFactory().openSession();
         try {
             session.beginTransaction();
             session.save(mod);
             session.getTransaction().commit();
-            //session.close();
+            session.close();
             System.out.print("bien ajouté");
         } catch (Exception e) {
             System.out.print("erreur insertion" + e.getMessage());

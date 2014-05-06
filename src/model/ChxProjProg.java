@@ -43,6 +43,9 @@ public class ChxProjProg {
 		this.proj_prog = proj_prog;
 		this.rang = rang;
 	}
+	public ChxProjProg() {
+		super();
+	}
 
 	
 }

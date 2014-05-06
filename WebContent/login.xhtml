@@ -11,8 +11,11 @@
 <h:body>
 	<h2>Connectez-Vous</h2>
 	<f:view>
-		<c:if test="#{authBean.connecte==false}">
+		<h:form> <h:commandLink action="signup">
+    	<h:outputText value="Inscription"/></h:commandLink></h:form>
 			<h:form>
+			
+    	
 				<h:panelGrid columns="2">
 					<h:outputLabel for="username" value="Login" />
 					<h:inputText id="username" value="#{authBean.username}"
@@ -29,23 +32,9 @@
 				</h:panelGrid>
 				<h:commandButton value="Connecter" action="#{authBean.login()}"
 					type="submit" />
+					
 			</h:form>
-		</c:if>
-		<c:if test="#{authBean.connecte==true}">
-			<h2>
-				<h:outputText value="Bienvenue #{authBean.user.nom}" />
-			</h2>
-			<h:form>
-				<br />
-				<br />
-				<h:commandLink action="AcceuilEt.xhtml" value="Projet de Conception et Developpement"
-					styleClass="link" />
-				<br />
-				<br />
-				<h:commandLink actionListener="#{authBean.logout()}"
-					value="déconnexion" styleClass="link" />
-			</h:form>
-		</c:if>
+	
 	</f:view>
 </h:body>
 </html>

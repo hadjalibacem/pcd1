@@ -93,6 +93,9 @@ public class Pfe {
 		this.resultat = resultat;
 		this.departement = departement;
 	}
+	public Pfe() {
+		super();
+	}
 
 	
 	

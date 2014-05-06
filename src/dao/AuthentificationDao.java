@@ -33,6 +33,7 @@ public class AuthentificationDao {
 
 	        session.getTransaction().commit();
 			}
+		session.close();
 	        return user;
 		}
 		else { Query qr=session.createQuery("from ChefDepart where id="+id+" and not exists (from ConnexionChfDp where chefDepart="+id+")");
@@ -42,6 +43,7 @@ public class AuthentificationDao {
 			session.save(chfdp);
 
 	        session.getTransaction().commit();}
+		session.close();
 	        return user;
 		
 		}
@@ -57,15 +59,20 @@ public class AuthentificationDao {
         
             session.beginTransaction();
             Query query;
-            //session.getTransaction().commit();
         	if (statut.equals("etudiant"))
         	{query=session.createQuery("from Etudiant where id=(select etudiant from ConnexionEtud where login='"+un+"' and password='"+pwd+"')");
         	
         	Etudiant user=(Etudiant) query.uniqueResult();
+            session.getTransaction().commit();
+
+        	session.close();
         	return user;
         	}
         	else {query=session.createQuery("from ChefDepart where id=(select chefDepart from ConnexionChfDp where login='"+un+"' and password='"+pwd+"')");
         	ChefDepart user=(ChefDepart) query.uniqueResult();
+            session.getTransaction().commit();
+
+        	session.close();
         	return user;
         	
         	}
@@ -75,10 +82,5 @@ public class AuthentificationDao {
 		
 	}
 	
-	public String logout ()
-	{
-		Session session = HibernateUtils.getSessionFactory().getCurrentSession();
-		session.close();
-		return null;
-	}
+	
 }

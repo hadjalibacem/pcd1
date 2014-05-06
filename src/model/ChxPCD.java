@@ -43,6 +43,9 @@ public class ChxPCD {
 		this.pcd = pcd;
 		this.rang = rang;
 	}
+	public ChxPCD() {
+		super();
+	}
 
 	
 }

@@ -103,6 +103,9 @@ public class AffPFE {
 		CRenduSuperviseur = cRenduSuperviseur;
 		Convention = convention;
 	}
+	public AffPFE() {
+		super();
+	}
 	
 	
 }

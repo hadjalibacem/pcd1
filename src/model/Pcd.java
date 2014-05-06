@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import dao.EnseignantDao;
+
 @Entity
 @Table(name="pcd")
 public class Pcd {
@@ -14,6 +16,8 @@ public class Pcd {
 	private int encadrant;
 	private int departement;
 	private Boolean affecte;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -60,8 +64,9 @@ public class Pcd {
 		this.departement = departement;
 		this.affecte = affecte;
 	}
-	
-	
+	public Pcd() {
+		super();
+	}
 	
 	
 	

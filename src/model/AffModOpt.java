@@ -61,6 +61,11 @@ public class AffModOpt {
 		this.mod_opt = mod_opt;
 		this.vu = vu;
 	}
+
+
+	public AffModOpt() {
+		super();
+	}
 	
 	
 	

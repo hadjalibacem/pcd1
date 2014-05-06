@@ -52,6 +52,9 @@ public class Projet_prog {
 		this.encadrant = encadrant;
 		this.affecte = affecte;
 	}
+	public Projet_prog() {
+		super();
+	}
 	
 	
 }

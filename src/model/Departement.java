@@ -44,6 +44,10 @@ public class Departement {
 		this.chef_departement = chef_departement;
 	}
 
+	public Departement() {
+		super();
+	}
+
 	
 	
 	

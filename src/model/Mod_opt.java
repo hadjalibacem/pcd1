@@ -54,6 +54,9 @@ public class Mod_opt {
 		this.nb_min = nb_min;
 		this.filiere = filiere;
 	}
+	public Mod_opt() {
+		super();
+	}
 	
 	
 	

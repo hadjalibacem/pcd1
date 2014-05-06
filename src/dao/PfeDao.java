@@ -11,7 +11,7 @@ public class PfeDao {
 	public void add(Pfe pfe) {
 		
 		// TODO Auto-generated method stub
-		Session session = HibernateUtils.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtils.getSessionFactory().openSession();
         try {
             session.beginTransaction();
             session.save(pfe);

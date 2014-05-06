@@ -95,6 +95,9 @@ public class AffPCD {
 		this.resultat = resultat;
 		this.depotConvention = depotConvention;
 	}
+	public AffPCD() {
+		super();
+	}
 	
 	
 

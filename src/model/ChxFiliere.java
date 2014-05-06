@@ -43,6 +43,9 @@ public class ChxFiliere {
 		this.etudiant = etudiant;
 		this.rang = rang;
 	}
+	public ChxFiliere() {
+		super();
+	}
 	
 	
 

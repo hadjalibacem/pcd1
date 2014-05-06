@@ -70,6 +70,9 @@ public class Message {
 		this.sujet = sujet;
 		this.message = message;
 	}
+	public Message() {
+		super();
+	}
 	
 	
 
