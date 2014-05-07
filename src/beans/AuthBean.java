@@ -200,10 +200,8 @@ public class AuthBean implements Serializable {
 public String logout()
 {
 	setConnecte(false);
+	session.setAttribute("user", null);;
 	return "login";
 }
-    public String goLogin()
-    {
-    	return "login";
-    }
+    
 }

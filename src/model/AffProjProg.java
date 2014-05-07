@@ -11,8 +11,10 @@ import javax.persistence.Table;
 public class AffProjProg {
 	@Id
 	private int id;
-	private int etudiant;
+	private int idgroupe;
 	private int proj_prog;
+
+	private int etudiant;
 	private Boolean resultat;
 	private Boolean vu;
 	private Boolean depotRapport;
@@ -48,6 +50,12 @@ public class AffProjProg {
 	public void setVu(Boolean vu) {
 		this.vu = vu;
 	}
+	public int getIdgroupe() {
+		return idgroupe;
+	}
+	public void setIdgroupe(int idgroupe) {
+		this.idgroupe = idgroupe;
+	}
 	public Boolean getDepotRapport() {
 		return depotRapport;
 	}
@@ -66,20 +74,23 @@ public class AffProjProg {
 	public void setJury(String jury) {
 		Jury = jury;
 	}
-	public AffProjProg(int id, int etudiant, int proj_prog, Boolean resultat,
-			Boolean vu, Boolean depotRapport, Date dateSoutenance, String jury) {
+	
+	public AffProjProg() {
+		super();
+	}
+	public AffProjProg(int id, int idgroupe, int proj_prog, int etudiant,
+			Boolean resultat, Boolean vu, Boolean depotRapport,
+			Date dateSoutenance, String jury) {
 		super();
 		this.id = id;
-		this.etudiant = etudiant;
+		this.idgroupe = idgroupe;
 		this.proj_prog = proj_prog;
+		this.etudiant = etudiant;
 		this.resultat = resultat;
 		this.vu = vu;
 		this.depotRapport = depotRapport;
 		this.dateSoutenance = dateSoutenance;
 		Jury = jury;
-	}
-	public AffProjProg() {
-		super();
 	}
 	
 	

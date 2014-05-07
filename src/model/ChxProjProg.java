@@ -9,9 +9,10 @@ import javax.persistence.Table;
 public class ChxProjProg {
 	@Id
 	private int id;
-	private int etudiant;
+	private int idgroupe;
 	private int proj_prog;
 	private int rang;
+	private int etudiant;
 	public int getId() {
 		return id;
 	}
@@ -36,15 +37,24 @@ public class ChxProjProg {
 	public void setRang(int rang) {
 		this.rang = rang;
 	}
-	public ChxProjProg(int id, int etudiant, int proj_prog, int rang) {
-		super();
-		this.id = id;
-		this.etudiant = etudiant;
-		this.proj_prog = proj_prog;
-		this.rang = rang;
+	public int getIdgroupe() {
+		return idgroupe;
 	}
+	public void setIdgroupe(int idgroupe) {
+		this.idgroupe = idgroupe;
+	}
+	
 	public ChxProjProg() {
 		super();
+	}
+	public ChxProjProg(int id, int idgroupe, int proj_prog, int rang,
+			int etudiant) {
+		super();
+		this.id = id;
+		this.idgroupe = idgroupe;
+		this.proj_prog = proj_prog;
+		this.rang = rang;
+		this.etudiant = etudiant;
 	}
 
 	

@@ -15,17 +15,29 @@
     	<p>Bienvenue M. #{authBean.username} !</p>
     	<h:form>
     	<div>
+    	<h:commandLink action="#{etudBean.lireMsgs}">
+    	<c:if test="#{etudBean.listMsgNonVu.size()!=0}">
+    	<h:outputText value="Messages( #{etudBean.listMsgNonVu.size()} )"/>
+    	
+    	</c:if>
+    	<c:if test="#{etudBean.listMsgNonVu.size()==0}">
+    	<h:outputText value="Messages"/>
+    	</c:if>
+    	</h:commandLink>
+    	</div>
+    	
+    	<div>
     	<h:commandLink action="PCD">
     	<h:outputText value="Projet de Conception et Dévéloppement         "/>
     	</h:commandLink>
     	</div><div>
-    	<h:commandLink action="PFEet">
+    	<h:commandLink action="PFE">
     	<h:outputText value="Projet de Fin d'Etude	         "/>
     	</h:commandLink></div><div>
-    	<h:commandLink action="PPet">
+    	<h:commandLink action="PP">
     	<h:outputText value="Projet de Programmation	        "/>
     	</h:commandLink></div><div>
-    	<h:commandLink action="ChFet">
+    	<h:commandLink action="ChF">
     	<h:outputText value="Choix de Filière	     "/>
     	</h:commandLink></div>
     	

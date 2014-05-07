@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head />
+<body>
+
+            <h1>Messages</h1><h:form>
+            <c:if test="#{etudBean.listMsgNonVu.size()!=0}">
+            
+	<h:dataTable id="listMSG" value="#{etudBean.listMsgNonVu}" var="msg"
+		border="1">
+    <f:facet name="header">
+        <h:outputText value="Vos Messages non lus" />
+    </f:facet>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Expéditeur" />
+        </f:facet>
+        <h:outputText value="Departement" />
+    </h:column>
+<h:column>
+        <f:facet name="header">
+            <h:outputText value="Sujet" />
+        </f:facet>
+        <h:outputText value="#{msg.sujet}" />
+    </h:column>
+<h:column>
+        <f:facet name="header">
+            <h:outputText value="Message" />
+        </f:facet>
+        <h:outputText value="#{msg.message}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Date" />
+        </f:facet>
+        <h:outputText value="#{msg.date}" />
+    </h:column>
+ 
+    
+	</h:dataTable>
+</c:if>
+<c:if test="#{etudBean.listMsgNonVu.size()==0}">
+<c:if test="#{etudBean.listMsg.size()==0}">
+<h:outputText>Vous n'avez aucun message</h:outputText>
+</c:if>
+<c:if test="#{etudBean.listMsg.size()!=0}">
+<h:dataTable id="listMSGVu" value="#{etudBean.listMsg}" var="msg"
+		border="1">
+    <f:facet name="header">
+        <h:outputText value="Vos Messages" />
+    </f:facet>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Expéditeur" />
+        </f:facet>
+        <h:outputText value="Departement" />
+    </h:column>
+<h:column>
+        <f:facet name="header">
+            <h:outputText value="Sujet" />
+        </f:facet>
+        <h:outputText value="#{msg.sujet}" />
+    </h:column>
+<h:column>
+        <f:facet name="header">
+            <h:outputText value="Message" />
+        </f:facet>
+        <h:outputText value="#{msg.message}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Date" />
+        </f:facet>
+        <h:outputText value="#{msg.date}" />
+    </h:column>
+ 
+    
+	</h:dataTable>
+</c:if>
+</c:if>
+</h:form>
+<h:form>
+	<div>
+	<h:commandLink action="Acceuil"
+					value="Acceuil" styleClass="link" />
+					</div>
+					<div>
+	<h:commandLink action="#{authBean.logout()}"
+					value="déconnexion" styleClass="link" />
+					</div>
+					</h:form>
+					
+    
+</body>
+</html>

@@ -22,8 +22,22 @@ public class Administration {
 	private Date PFE_dateRapport;
 	private Date filiere_dateChoix;
 	private Date ModOpt_dateChoix;
+	private boolean PCD_choix;
+	private int PCD_nbChoix;
 	public int getAnnee() {
 		return annee;
+	}
+	public boolean isPCD_choix() {
+		return PCD_choix;
+	}
+	public void setPCD_choix(boolean pCD_choix) {
+		PCD_choix = pCD_choix;
+	}
+	public int getPCD_nbChoix() {
+		return PCD_nbChoix;
+	}
+	public void setPCD_nbChoix(int pCD_nbChoix) {
+		PCD_nbChoix = pCD_nbChoix;
 	}
 	public void setAnnee(int annee) {
 		this.annee = annee;

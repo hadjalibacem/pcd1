@@ -12,10 +12,16 @@ public class Message {
 	@Id
 	private int id;
 	private int etudiant;
-	private int enseignant;
+	private int chefDepart;
 	private Date date;
 	private Boolean vu;
 	private String sujet;
+	public int getChefDepart() {
+		return chefDepart;
+	}
+	public void setChefDepart(int chefDepart) {
+		this.chefDepart = chefDepart;
+	}
 	private String message;
 	public int getId() {
 		return id;
@@ -29,12 +35,8 @@ public class Message {
 	public void setEtudiant(int etudiant) {
 		this.etudiant = etudiant;
 	}
-	public int getEnseignant() {
-		return enseignant;
-	}
-	public void setEnseignant(int enseignant) {
-		this.enseignant = enseignant;
-	}
+	
+	
 	public Date getDate() {
 		return date;
 	}
@@ -64,7 +66,7 @@ public class Message {
 		super();
 		this.id = id;
 		this.etudiant = etudiant;
-		this.enseignant = enseignant;
+		this.chefDepart = enseignant;
 		this.date = date;
 		this.vu = vu;
 		this.sujet = sujet;

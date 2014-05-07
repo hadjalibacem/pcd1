@@ -11,30 +11,34 @@
 <h:body>
 	<h2>Connectez-Vous</h2>
 	<f:view>
-		<h:form> <h:commandLink action="signup">
-    	<h:outputText value="Inscription"/></h:commandLink></h:form>
-			<h:form>
-			
-    	
-				<h:panelGrid columns="2">
-					<h:outputLabel for="username" value="Login" />
-					<h:inputText id="username" value="#{authBean.username}"
-						required="true" />
-					<h:outputLabel for="password" value="Password" />
-					<h:inputSecret id="password" value="#{authBean.password}"
-						required="true" />
-					<h:outputLabel for="statut" value="Vous êtes:" />
-					
-					<h:selectOneRadio id="statut" value="#{authBean.statut}" required="true">
-						<f:selectItem itemValue="etudiant" itemLabel="Etudiant" />
-						<f:selectItem itemValue="chefdepart" itemLabel="Chef Departement" />
-					</h:selectOneRadio>
-				</h:panelGrid>
-				<h:commandButton value="Connecter" action="#{authBean.login()}"
-					type="submit" />
-					
-			</h:form>
-	
+		<h:form>
+			<h:commandLink action="signup">
+				<h:outputText value="Inscription" />
+			</h:commandLink>
+		</h:form>
+		<h:form>
+
+
+			<h:panelGrid columns="2">
+				<h:outputLabel for="username" value="Login" />
+				<h:inputText id="username" value="#{authBean.username}"
+					required="true" />
+				<h:outputLabel for="password" value="Password" />
+				<h:inputSecret id="password" value="#{authBean.password}"
+					required="true" />
+				<h:outputLabel for="statut" value="Vous êtes:" />
+
+				<h:selectOneRadio id="statut" value="#{authBean.statut}"
+					required="true">
+					<f:selectItem itemValue="etudiant" itemLabel="Etudiant" />
+					<f:selectItem itemValue="chefdepart" itemLabel="Chef Departement" />
+				</h:selectOneRadio>
+			</h:panelGrid>
+			<h:commandButton value="Connecter" action="#{authBean.login()}"
+				type="submit" />
+
+		</h:form>
+
 	</f:view>
 </h:body>
 </html>

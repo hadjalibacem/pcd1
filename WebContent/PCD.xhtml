@@ -8,6 +8,8 @@
 <body>
 
             <h1>Projet de Conception et Developpement</h1>
+            <c:if test="#{etudBean.adm.PCD_choix==true}">
+            <h:form>
 	<h:dataTable id="listPCD" value="#{etudBean.listPCD}" var="pcd"
 		border="1">
     <f:facet name="header">
@@ -45,16 +47,31 @@
     </h:column>
     
 	</h:dataTable>
-	<h:form>
-	
-  <c:forEach begin="0" end="19" var="i">
+	<c:if test="#{etudBean.date.before(etudBean.adm.getPCD_dateChoix())}">
+	 <h2>Remplissez Votre Liste de choix</h2><div>
+	 <h:outputText value="Id du 1er co-équipier*"/>
+	 <h:inputText value="#{etudBean.coEquip1}" required="true" />
+	 </div><div>
+	  <h:outputText value="Id du 2eme co-équipier"/>
+	 <h:inputText value="#{etudBean.coEquip2}"/>
+	 </div>
+  <h:dataTable value="#{etudBean.listChx}"  var="chx">
+    <h:column>
       <f:facet name="header">
-      <h:outputText value="id de pcd" />
+      <h:outputText value="Choissez vos choix tout en respectant les rangs" />
       </f:facet>
-      <h:inputText value="#{etudBean.listChx.add(i)}" />
-    </c:forEach>
-  <h:commandButton actionListener="#{etudBean.SaisirChoixPCD}" value="Go !"/>
-
+      <h:selectOneMenu value="#{chx.pcd}">
+    <f:selectItems value="#{etudBean.listPCD}" var="pcd" itemValue="#{pcd.id}" itemLabel="#{pcd.sujet}"/>
+							
+</h:selectOneMenu>
+    </h:column>
+    
+  </h:dataTable>
+  <h:commandButton actionListener="#{etudBean.SaisirChoixPCD}" value="Go !"/></c:if>
+  </h:form>
+  
+</c:if>
+<h:form>
 	<div>
 	<h:commandLink action="Acceuil"
 					value="Acceuil" styleClass="link" />

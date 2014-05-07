@@ -9,9 +9,18 @@ import javax.persistence.Table;
 public class ChxPCD {
 	@Id
 	private int id;
-	private int etudiant;
+	private int idgroupe;
+	
 	private int pcd;
 	private int rang;
+	private int etudiant;
+
+	public int getIdgroupe() {
+		return idgroupe;
+	}
+	public void setIdgroupe(int idgroupe) {
+		this.idgroupe = idgroupe;
+	}
 	public int getId() {
 		return id;
 	}
@@ -36,16 +45,17 @@ public class ChxPCD {
 	public void setRang(int rang) {
 		this.rang = rang;
 	}
-	public ChxPCD(int id, int etudiant, int pcd, int rang) {
-		super();
-		this.id = id;
-		this.etudiant = etudiant;
-		this.pcd = pcd;
-		this.rang = rang;
-	}
+	
 	public ChxPCD() {
 		super();
 	}
 
-	
+	public ChxPCD(int id, int idgroupe, int pcd, int rang, int etudiant) {
+		super();
+		this.id = id;
+		this.idgroupe = idgroupe;
+		this.pcd = pcd;
+		this.rang = rang;
+		this.etudiant = etudiant;
+	}
 }

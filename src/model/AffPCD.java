@@ -11,8 +11,9 @@ import javax.persistence.Table;
 public class AffPCD {
 	@Id
 	private int id;
-	private int etudiant;
+	private int idgroupe;
 	private int PCD;
+	private int etudiant;
 	private Boolean vu;
 	private Boolean depotCCharge;
 	private Boolean depotRapport;
@@ -37,6 +38,12 @@ public class AffPCD {
 	}
 	public void setPCD(int pCD) {
 		PCD = pCD;
+	}
+	public int getIdgroupe() {
+		return idgroupe;
+	}
+	public void setIdgroupe(int idgroupe) {
+		this.idgroupe = idgroupe;
 	}
 	public Boolean getVu() {
 		return vu;
@@ -80,13 +87,14 @@ public class AffPCD {
 	public void setDepotConvention(Boolean depotConvention) {
 		this.depotConvention = depotConvention;
 	}
-	public AffPCD(int id, int etudiant, int pCD, Boolean vu,
+	public AffPCD(int id, int idgroupe, int pCD, int etudiant, Boolean vu,
 			Boolean depotCCharge, Boolean depotRapport, Date dateSoutenance,
 			String jury, Boolean resultat, Boolean depotConvention) {
 		super();
 		this.id = id;
-		this.etudiant = etudiant;
+		this.idgroupe = idgroupe;
 		this.PCD = pCD;
+		this.etudiant = etudiant;
 		this.vu = vu;
 		this.depotCCharge = depotCCharge;
 		this.depotRapport = depotRapport;
@@ -95,6 +103,7 @@ public class AffPCD {
 		this.resultat = resultat;
 		this.depotConvention = depotConvention;
 	}
+
 	public AffPCD() {
 		super();
 	}
