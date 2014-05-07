@@ -1,6 +1,9 @@
 package dao;
 
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import model.ChxPCD;
@@ -14,17 +17,28 @@ public class ChxPcdDao {
 		Session session = HibernateUtils.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-            session.save(pcd);
+            session.saveOrUpdate(pcd);
+            //session.save(pcd);
             session.getTransaction().commit();
             session.close();
             System.out.print("bien ajouté");
         } catch (Exception e) {
             System.out.print("erreur insertion" + e.getMessage());
         }
+        
+        
 		
 		
 		
 		
+	}
+	@SuppressWarnings("unchecked")
+	public List<ChxPCD> getListChoix(int id)
+	{
+		Session session=HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from ChxPCD chx where chx.etudiant="+id+" order by chx.rang ");
+		return query.list();
 	}
 
 	}

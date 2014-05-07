@@ -59,6 +59,8 @@ import javax.servlet.http.HttpSession;
 
 import javax.servlet.http.Part;
 
+import org.hibernate.Session;
+
 import model.Administration;
 import model.Departement;
 import model.Enseignant;
@@ -87,15 +89,15 @@ import dao.Mod_optDao;
 public class AuthBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+ 	HttpSession session = request.getSession();
     private String username;
     private String password;
     private int id;
-    private String statut;
+    private String statut=(String) session.getAttribute("statut");
     private boolean connecte=false;
     private Object user;
-    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
- 	HttpSession session = request.getSession();
+    
 	public boolean isConnecte() {
 		return connecte;
 	}
@@ -162,6 +164,7 @@ public class AuthBean implements Serializable {
 			e.printStackTrace();
 		}*/
  	    	session.setAttribute("user", user);
+ 	    	session.setAttribute("statut",statut);
  	    	setConnecte(true);
  	    	return "Acceuil";
  	    /*	if (statut.equals("etudiant"))
@@ -200,7 +203,8 @@ public class AuthBean implements Serializable {
 public String logout()
 {
 	setConnecte(false);
-	session.setAttribute("user", null);;
+	session.setAttribute("user", null);
+
 	return "login";
 }
     

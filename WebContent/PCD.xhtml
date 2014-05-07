@@ -8,6 +8,7 @@
 <body>
 
             <h1>Projet de Conception et Developpement</h1>
+            <c:if test="#{authBean.statut=='etudiant'}">
             <c:if test="#{etudBean.adm.PCD_choix==true}">
             <h:form>
 	<h:dataTable id="listPCD" value="#{etudBean.listPCD}" var="pcd"
@@ -64,6 +65,7 @@
     <f:selectItems value="#{etudBean.listPCD}" var="pcd" itemValue="#{pcd.id}" itemLabel="#{pcd.sujet}"/>
 							
 </h:selectOneMenu>
+
     </h:column>
     
   </h:dataTable>
@@ -71,6 +73,14 @@
   </h:form>
   
 </c:if>
+</c:if>
+<h:form>
+<c:if test="#{authBean.statut=='chefdepart'}">
+<c:if test="#{chefDepartBean.adm==null}">
+<h:outputText> Regluez les dates</h:outputText>
+</c:if>
+</c:if>
+</h:form>
 <h:form>
 	<div>
 	<h:commandLink action="Acceuil"

@@ -3,7 +3,6 @@ package beans;
 import java.io.Serializable;
 //import java.util.List;
 
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -47,13 +46,13 @@ public class EtudBean implements Serializable {
 	private EnseignantDao ensD = new EnseignantDao();
 	private int coEquip1;
 	private int coEquip2 = 0;
-	private Date date=Calendar.getInstance().getTime();
+	private Date date = Calendar.getInstance().getTime();
 	private AdminDao admD = new AdminDao();
-	private Administration adm=admD.getAdministration();
-	private MessageDao msgD=new MessageDao();
-	private List<Message> listMsgNonVu=msgD.MsgNonVu(user);
-	private List<Message> listMsg=msgD.listMsg(user);
-	
+	private Administration adm = admD.getAdministration();
+	private MessageDao msgD = new MessageDao();
+	private List<Message> listMsgNonVu = msgD.MsgNonVu(user);
+	private List<Message> listMsg = msgD.listMsg(user);
+
 	public List<Message> getListMsgNonVu() {
 		return listMsgNonVu;
 	}
@@ -76,6 +75,7 @@ public class EtudBean implements Serializable {
 	private List<ChxPCD> listChx = new ArrayList<ChxPCD>();
 	private DepartementDao depD = new DepartementDao();
 	private ChxPcdDao chxpcdD = new ChxPcdDao();
+
 	public Date getDate() {
 		return date;
 	}
@@ -90,7 +90,7 @@ public class EtudBean implements Serializable {
 
 	public void setAdmD(AdminDao admD) {
 		this.admD = admD;
-		
+
 	}
 
 	public int getCoEquip1() {
@@ -117,8 +117,6 @@ public class EtudBean implements Serializable {
 		this.coEquip2 = coEquip2;
 	}
 
-
-
 	public List<?> getListChx() {
 		return listChx;
 	}
@@ -126,9 +124,6 @@ public class EtudBean implements Serializable {
 	public void setListChx(List<ChxPCD> listChx) {
 		this.listChx = listChx;
 	}
-
-	
-	
 
 	public ChxPcdDao getChxDao() {
 		return chxpcdD;
@@ -145,8 +140,6 @@ public class EtudBean implements Serializable {
 	public void setDepD(DepartementDao depD) {
 		this.depD = depD;
 	}
-
-	
 
 	public PcdDao getPcdD() {
 		return pcdD;
@@ -165,7 +158,7 @@ public class EtudBean implements Serializable {
 	}
 
 	public List<Pcd> getListPCD() {
-		
+
 		return listPCD;
 	}
 
@@ -182,21 +175,13 @@ public class EtudBean implements Serializable {
 	}
 
 	public EtudBean() {
+		listChx=chxpcdD.getListChoix(user.getId());
+		initListChx(listChx);
 
-		for (int i = 0; i < adm.getPCD_nbChoix(); i++) {
-			listChx.add(new ChxPCD(0, user.getId(), 0, i + 1, user.getId()));
-		}
-		
-		
-
-		
-
-	
 	}
-	public String lireMsgs()
-	{
-		if(listMsgNonVu.size()!=0)
-		{
+
+	public String lireMsgs() {
+		if (listMsgNonVu.size() != 0) {
 			for (Message msg : listMsgNonVu) {
 				msgD.SetViewed(msg.getId());
 			}
@@ -210,22 +195,44 @@ public class EtudBean implements Serializable {
 				+ ensD.getEnseignant(id).getPrenom();
 	}
 
+	public void initListChx(List<ChxPCD> list) {
+
+		
+		if (list.isEmpty())
+		for (int i = 0; i < adm.getPCD_nbChoix(); i++) {
+			list.add(new ChxPCD(0, user.getId(), 0, i + 1, user.getId()));
+		}
+
+	}
+
 	public String AfficheDepartement(int id) {
 
 		return depD.getDepartement(id).getNom();
 	}
 
 	public void SaisirChoixPCD(ActionEvent event) {
+		List<ChxPCD> listCoEquip1 = chxpcdD.getListChoix(coEquip1);
+		initListChx(listCoEquip1);
+		List<ChxPCD> listCoEquip2 = null;
+		if (coEquip2 != 0) {
+			listCoEquip2 = chxpcdD.getListChoix(coEquip2);
+			initListChx(listCoEquip2);
+		}
+
+		int i = 0;
 
 		for (ChxPCD chx : listChx) {
 
 			chxpcdD.add(chx);
 			chx.setEtudiant(coEquip1);
+			chx.setId(listCoEquip1.get(i).getId());
 			chxpcdD.add(chx);
 			if (coEquip2 != 0) {
 				chx.setEtudiant(coEquip2);
+				chx.setId(listCoEquip2.get(i).getId());
 				chxpcdD.add(chx);
 			}
+			i++;
 		}
 
 	}
