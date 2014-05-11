@@ -44,8 +44,8 @@ public class DepartementDao {
 		
 		session.beginTransaction();
 		Query query=session.createQuery("from Departement where id="+id);
-		
-		return (Departement) query.uniqueResult();
+		Departement dep=(Departement) query.uniqueResult();
+		return dep;
 	}
 
 	}

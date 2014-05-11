@@ -28,46 +28,39 @@ public class ChxPcdDao {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<ChxPCD> removeCoEquip(int id) {
-		if (!getListChoix(id).isEmpty()) {
+		List<ChxPCD> listchx = getListChoix(id);
+
+		if (!listchx.isEmpty()) {
 			Session session = HibernateUtils.getSessionFactory().openSession();
 			session.beginTransaction();
-			Query query = session.createQuery("from ChxPCD where coEquipier1="
-					+ id + " or coEquipier2=" + id + " or coEquipier3=" + id);
-			List<ChxPCD> listchx = query.list();
-			if ( !listchx.isEmpty()) {
-				if (listchx.get(0).getCoEquipier3() == null)
-					for (ChxPCD chx :listchx)
+			if (listchx.get(0).getCoEquipier3() == null)
+				for (ChxPCD chx : listchx)
 					session.delete(chx);
-				else {
-					if (listchx.get(0).getCoEquipier3().equals(id)) {
-						for (ChxPCD chx :listchx)
+			else {
+				if (listchx.get(0).getCoEquipier3().equals(id)) {
+					for (ChxPCD chx : listchx)
 						chx.setCoEquipier3(null);
-					} else if (listchx.get(0).getCoEquipier2().equals(id)) {
-						for (ChxPCD chx :listchx)
-						{
+				} else if (listchx.get(0).getCoEquipier2().equals(id)) {
+					for (ChxPCD chx : listchx) {
 						chx.setCoEquipier2(chx.getCoEquipier3());
 						chx.setCoEquipier3(null);
-						}
-					} else {
-						for (ChxPCD chx :listchx)
-						{
+					}
+				} else {
+					for (ChxPCD chx : listchx) {
 						chx.setCoEquipier1(chx.getCoEquipier3());
 						chx.setCoEquipier3(null);
-						}
 					}
-
 				}
-				for (ChxPCD chx :listchx)
-				add(chx);
-				session.getTransaction().commit();
-				session.close();
-			}
 
-			return listchx;
+			}
+			for (ChxPCD chx : listchx)
+				add(chx);
+			session.getTransaction().commit();
+			session.close();
 		}
-		return null;
+
+		return listchx;
 
 	}
 
@@ -81,7 +74,5 @@ public class ChxPcdDao {
 						+ id + " order by chx.rang ");
 		return query.list();
 	}
-	
-	
 
 }

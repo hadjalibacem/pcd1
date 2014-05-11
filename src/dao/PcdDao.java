@@ -18,7 +18,7 @@ public class PcdDao {
 		Session session = HibernateUtils.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-            session.save(pcd);
+            session.saveOrUpdate(pcd);
             session.getTransaction().commit();
            session.close();
             System.out.print("bien ajouté");
@@ -50,6 +50,14 @@ public class PcdDao {
         	return query.list();
         	
         }
+		
+		public Pcd getPcd(int id)
+		{
+			Session session=HibernateUtils.getSessionFactory().openSession();
+			session.beginTransaction();
+			Query query=session.createQuery("from Pcd where id="+id);
+			return (Pcd) query.uniqueResult();
+		}
 		
 		
 		

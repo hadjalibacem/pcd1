@@ -10,9 +10,55 @@
 	<h1>Projet de Conception et Developpement</h1>
 	
 	
-<h2>Affectez des sujets</h2>
+<h:form>
+<h:dataTable id="listPCD" value="#{chPcdBean.listPCD}" var="pcd"
+		border="1">
+    <f:facet name="header">
+        <h:outputText value="Liste des sujets proposés" />
+    </f:facet>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Id" />
+        </f:facet>
+        <h:outputText value="#{pcd.id}" />
+    </h:column>
+<h:column>
+        <f:facet name="header">
+            <h:outputText value="Sujet" />
+        </f:facet>
+        <h:inputText value="#{pcd.sujet}" />
+    </h:column>
+<h:column>
+        <f:facet name="header">
+            <h:outputText value="Description" />
+        </f:facet>
+        <h:inputText value="#{pcd.description_PCD}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Encadreur" />
+        </f:facet>
+<h:inputText value="#{pcd.encadreur}"/>
+    </h:column>
+<h:column>
+        <f:facet name="header">
+            <h:outputText value="Nombre A affecter" />
+        </f:facet>
+        <h:inputText value="#{pcd.nbAaffecter}" />
+    </h:column>
+ <h:column>
+        <f:facet name="header">
+            <h:outputText value="Departement" />
+        </f:facet>
+        <h:outputText value="#{chPcdBean.AfficheDepartement(pcd.departement)}" />
+    </h:column>
+    
+	</h:dataTable>
+	<h:commandButton value="Mettre à jour" action="#{chPcdBean.updateListPcd}"
+				type="submit" />
+	</h:form>
 		<h:form>
-
+<h2>Affecter des sujets</h2>
 
 			<h:panelGrid columns="2">
 				<h:outputLabel for="coEquip1" value="Id du 1er Co-Equipier" />
@@ -25,7 +71,7 @@
 				<h:inputText id="coEquip3" value="#{chPcdBean.coEquip3}" />
 				
 				 <h:selectOneMenu value="#{chPcdBean.idPcdAaffecter}">
-    <f:selectItems value="#{chPcdBean.listPCD}" var="pcd" itemValue="#{pcd.id}" itemLabel="#{pcd.sujet}"/>
+    <f:selectItems value="#{chPcdBean.listPCD}" var="pcd" itemValue="#{pcd.id}" itemLabel="#{pcd.sujet}( #{pcd.nbAaffecter} )"/>
 							
 </h:selectOneMenu>
 				

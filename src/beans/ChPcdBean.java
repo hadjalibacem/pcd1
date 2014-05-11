@@ -144,22 +144,30 @@ public class ChPcdBean implements Serializable {
 	
 	public String affecter()
 	{
-		if(!isAffected(coEquip1) && !isAffected(coEquip2) && !isAffected(coEquip3))
-		{
+		
 		if(coEquip3==0) coEquip3=null;
 		AffPCD affP=new AffPCD(0, coEquip1, idPcdAaffecter, coEquip2,false, false, null, null, false, coEquip3);
 		AffPcdDao affpD=new AffPcdDao();
+		affpD.removeCoEquip(coEquip1);
+		affpD.removeCoEquip(coEquip2);
+		if(coEquip3!=null)
+		affpD.removeCoEquip(coEquip3);
+		Pcd pcd=pcdD.getPcd(idPcdAaffecter);
+		if(pcd.getNbAaffecter()>0)
+			{pcd.setNbAaffecter(pcd.getNbAaffecter()-1);
+		pcdD.add(pcd);}
 		affpD.affect(affP);
-		ChxPcdDao chxpcdD=new ChxPcdDao();
+		
+		/*ChxPcdDao chxpcdD=new ChxPcdDao();
 		chxpcdD.removeCoEquip(coEquip1);
 		chxpcdD.removeCoEquip(coEquip2);
 		if(coEquip3!=null)
-		chxpcdD.removeCoEquip(coEquip3);
+		chxpcdD.removeCoEquip(coEquip3);*/
+		
 		FacesMessage message = new FacesMessage( "Groupe affecté !");
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		return "";
-		}
-		return null;
+		
 		
 	}
 
@@ -197,5 +205,18 @@ public class ChPcdBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		return "";
+	}
+	public String updateListPcd()
+	{
+		for (Pcd pcd: listPCD)
+		{
+			pcdD.add(pcd);
+		}
+		return "";
+	}
+	public String AfficheDepartement(int id) {
+
+		if(id!=0) return depD.getDepartement(id).getNom();
+		else return null;
 	}
 }

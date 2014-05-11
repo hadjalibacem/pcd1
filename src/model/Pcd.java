@@ -14,7 +14,7 @@ public class Pcd {
 	private String description_PCD;
 	private int encadreur;
 	private Integer departement;
-	private int NbAaffecter;
+	private int nbAaffecter;
 	
 	
 	public int getId() {
@@ -49,10 +49,10 @@ public class Pcd {
 		this.departement = departement;
 	}
 	public int getNbAaffecter() {
-		return NbAaffecter;
+		return nbAaffecter;
 	}
 	public void setNbAaffecter(int nbAaffecter) {
-		NbAaffecter = nbAaffecter;
+		this.nbAaffecter = nbAaffecter;
 	}
 	
 	public Pcd(int id, String sujet, String description_PCD, int encadrant,
@@ -63,7 +63,7 @@ public class Pcd {
 		this.description_PCD = description_PCD;
 		this.encadreur = encadrant;
 		this.departement = departement;
-		this.NbAaffecter = affecte;
+		this.nbAaffecter = affecte;
 	}
 	public Pcd() {
 		super();

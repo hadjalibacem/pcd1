@@ -175,7 +175,8 @@ public class PcdBean implements Serializable {
 
 	public String AfficheDepartement(int id) {
 
-		return depD.getDepartement(id).getNom();
+		if (id!=0) return depD.getDepartement(id).getNom();
+		else return null;
 	}
 
 	public boolean isAffected(int id) {
