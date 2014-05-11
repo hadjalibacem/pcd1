@@ -11,7 +11,7 @@ public class AffFiliereDao {
 	public void affect(AffFiliere aff) {
 		
 		// TODO Auto-generated method stub
-		Session session = HibernateUtils.getSessionFactory().openSession()();
+		Session session = HibernateUtils.getSessionFactory().openSession();
         try {
             session.beginTransaction();
             session.save(aff);

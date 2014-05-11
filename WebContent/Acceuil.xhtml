@@ -8,20 +8,52 @@
 <title>espace étudiant</title>
 </head>
 <body>
+<c:if test="#{authBean.connecte==false}">
+	<h1>Connectez-Vous</h1>
+	<f:view>
+		<h:form>
+			<h:commandLink action="signup">
+				<h:outputText value="Inscription" />
+			</h:commandLink>
+		</h:form>
+		<h:form>
 
 
-            
+			<h:panelGrid columns="2">
+				<h:outputLabel for="username" value="Login" />
+				<h:inputText id="username" value="#{authBean.username}"
+					required="true" />
+				<h:outputLabel for="password" value="Password" />
+				<h:inputSecret id="password" value="#{authBean.password}"
+					required="true" />
+				<h:outputLabel for="statut" value="Vous êtes:" />
+
+				<h:selectOneRadio id="statut" value="#{authBean.statut}"
+					required="true">
+					<f:selectItem itemValue="etudiant" itemLabel="Etudiant" />
+					<f:selectItem itemValue="chefdepart" itemLabel="Chef Departement" />
+				</h:selectOneRadio>
+			</h:panelGrid>
+			<h:commandButton value="Connecter" action="#{authBean.login()}"
+				type="submit" />
+
+		</h:form>
+
+	</f:view>
+	</c:if>
+
+<c:if test="#{authBean.connecte==true}">            
 <h1>Acceuil</h1>
-    	<p>Bienvenue M. #{authBean.username} !</p>
+    	<p>Bienvenue M. #{authBean.user.nom} !</p>
     	<h:form>
     	<c:if test="#{authBean.statut=='etudiant'}">
     	<div>
-    	<h:commandLink action="#{etudBean.lireMsgs}">
-    	<c:if test="#{etudBean.listMsgNonVu.size()!=0}">
-    	<h:outputText value="Messages( #{etudBean.listMsgNonVu.size()} )"/>
+    	<h:commandLink action="#{homeBean.lireMsgs}">
+    	<c:if test="#{homeBean.listMsgNonVu.size()!=0}">
+    	<h:outputText value="Messages( #{homeBean.listMsgNonVu.size()} )"/>
     	
     	</c:if>
-    	<c:if test="#{etudBean.listMsgNonVu.size()==0}">
+    	<c:if test="#{homeBean.listMsgNonVu.size()==0}">
     	<h:outputText value="Messages"/>
     	</c:if>
     	</h:commandLink>
@@ -44,20 +76,20 @@
     </c:if>
     <c:if test="#{authBean.statut=='chefdepart'}">
     <div>
-    	<h:commandLink action="#{chefDepartBean.lireMsgs}">
-    	<c:if test="#{chefDepartBean.listMsgNonVu.size()!=0}">
-    	<h:outputText value="Messages( #{chefDepartBean.listMsgNonVu.size()} )"/>
+    	<h:commandLink action="#{homeBean.lireMsgs}">
+    	<c:if test="#{homeBean.listMsgNonVu.size()!=0}">
+    	<h:outputText value="Messages( #{homeBean.listMsgNonVu.size()} )"/>
     	
     	</c:if>
-    	<c:if test="#{chefDepartBean.listMsgNonVu.size()==0}">
+    	<c:if test="#{homeBean.listMsgNonVu.size()==0}">
     	<h:outputText value="Messages"/>
     	</c:if>
     	</h:commandLink>
     	</div>
     	
     	<div>
-    	<h:commandLink action="PCD">
-    	<h:outputText value="Projet de Conception et Dévéloppement         "/>
+    	<h:commandLink action="PCD_ChD">
+    	<h:outputText value="Projet de Conception et Développement         "/>
     	</h:commandLink>
     	</div><div>
     	<h:commandLink action="PFE">
@@ -68,7 +100,8 @@
     	</h:commandLink></div><div>
     	<h:commandLink action="ChF">
     	<h:outputText value="Choix de Filière	     "/>
-    	</h:commandLink>
+    	</h:commandLink></div>
+    	<div>
     	<h:commandLink action="Admin">
     	<h:outputText value="Administration	     "/>
     	</h:commandLink></div>
@@ -77,6 +110,7 @@
     	<h:commandLink action="#{authBean.logout()}"
 					value="déconnexion" styleClass="link" />
     	</h:form>
+    	</c:if>
     	
 </body>
 </html>

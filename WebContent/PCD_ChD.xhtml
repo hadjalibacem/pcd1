@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head />
+<body>
+
+	<h1>Projet de Conception et Developpement</h1>
+	
+	
+<h2>Affectez des sujets</h2>
+		<h:form>
+
+
+			<h:panelGrid columns="2">
+				<h:outputLabel for="coEquip1" value="Id du 1er Co-Equipier" />
+				<h:inputText id="coEquip1" value="#{chPcdBean.coEquip1}"
+					required="true" />
+				<h:outputLabel for="coEquip2" value="Id du 2eme Co-Equipier" />
+				<h:inputText id="coEquip2" value="#{chPcdBean.coEquip2}"
+					required="true" />
+				<h:outputLabel for="coEquip3" value="Id du 3eme Co-Equipier" />
+				<h:inputText id="coEquip3" value="#{chPcdBean.coEquip3}" />
+				
+				 <h:selectOneMenu value="#{chPcdBean.idPcdAaffecter}">
+    <f:selectItems value="#{chPcdBean.listPCD}" var="pcd" itemValue="#{pcd.id}" itemLabel="#{pcd.sujet}"/>
+							
+</h:selectOneMenu>
+				
+			</h:panelGrid>
+			<h:commandButton value="Affecter" action="#{chPcdBean.affecter}"
+				type="submit" />
+
+		</h:form>
+		
+		<h2>Ajouter un sujet PCD</h2>
+		<h:form>
+
+
+			<h:panelGrid columns="2">
+				<h:outputLabel for="sujet" value="Sujet" />
+				<h:inputText id="sujet" value="#{chPcdBean.sujet}"
+					required="true" />
+				<h:outputLabel for="desc" value="Description" />
+				<h:inputText id="desc" value="#{chPcdBean.description}"
+					 />
+				<h:outputLabel for="encad" value="Id de l'encadreur" />
+				<h:inputText id="encad" value="#{chPcdBean.encadreur}"
+				required="true"  />
+				<h:outputLabel for="dep" value="Departement" />
+				 <h:selectOneMenu id="dep" value="#{chPcdBean.departement}">
+				 <f:selectItem />
+    <f:selectItems value="#{chPcdBean.listDep}" var="dep" itemValue="#{dep.id}" itemLabel="#{dep.nom}"/>
+							
+</h:selectOneMenu>
+				<h:outputLabel for="nb" value="Nombre à affecter" />
+				<h:inputText id="nb" value="#{chPcdBean.nbAaffecter}"
+				required="true"  />
+			</h:panelGrid>
+			<h:commandButton value="Enregistrer" action="#{chPcdBean.AddPcd}"
+				type="submit" />
+
+		</h:form>
+		
+		<h:form>
+		<div>
+<h:commandLink action="Acceuil"
+					value="Acceuil" styleClass="link" />
+					</div>
+					<div>
+	<h:commandLink action="#{authBean.logout()}"
+					value="déconnexion" styleClass="link" /></div>
+</h:form>
+</body>
+</html>

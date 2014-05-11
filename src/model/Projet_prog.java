@@ -11,7 +11,7 @@ public class Projet_prog {
 	private int id;
 	private String sujet;
 	private String description;
-	private int encadrant;
+	private int encadreur;
 	private Boolean affecte;
 	public int getId() {
 		return id;
@@ -32,10 +32,10 @@ public class Projet_prog {
 		this.description = description;
 	}
 	public int getEncadrant() {
-		return encadrant;
+		return encadreur;
 	}
 	public void setEncadrant(int encadrant) {
-		this.encadrant = encadrant;
+		this.encadreur = encadrant;
 	}
 	public Boolean getAffecte() {
 		return affecte;
@@ -49,7 +49,7 @@ public class Projet_prog {
 		this.id = id;
 		this.sujet = sujet;
 		this.description = description;
-		this.encadrant = encadrant;
+		this.encadreur = encadrant;
 		this.affecte = affecte;
 	}
 	public Projet_prog() {

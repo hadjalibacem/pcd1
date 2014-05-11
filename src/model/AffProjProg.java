@@ -11,10 +11,10 @@ import javax.persistence.Table;
 public class AffProjProg {
 	@Id
 	private int id;
-	private int idgroupe;
+	private int coEquipier1;
 	private int proj_prog;
 
-	private int etudiant;
+	private int coEquipier2;
 	private Boolean resultat;
 	private Boolean vu;
 	private Boolean depotRapport;
@@ -26,17 +26,23 @@ public class AffProjProg {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getEtudiant() {
-		return etudiant;
+	public int getCoEquipier1() {
+		return coEquipier1;
 	}
-	public void setEtudiant(int etudiant) {
-		this.etudiant = etudiant;
+	public void setCoEquipier1(int coEquipier1) {
+		this.coEquipier1 = coEquipier1;
 	}
 	public int getProj_prog() {
 		return proj_prog;
 	}
 	public void setProj_prog(int proj_prog) {
 		this.proj_prog = proj_prog;
+	}
+	public int getCoEquipier2() {
+		return coEquipier2;
+	}
+	public void setCoEquipier2(int coEquipier2) {
+		this.coEquipier2 = coEquipier2;
 	}
 	public Boolean getResultat() {
 		return resultat;
@@ -49,12 +55,6 @@ public class AffProjProg {
 	}
 	public void setVu(Boolean vu) {
 		this.vu = vu;
-	}
-	public int getIdgroupe() {
-		return idgroupe;
-	}
-	public void setIdgroupe(int idgroupe) {
-		this.idgroupe = idgroupe;
 	}
 	public Boolean getDepotRapport() {
 		return depotRapport;
@@ -74,24 +74,24 @@ public class AffProjProg {
 	public void setJury(String jury) {
 		Jury = jury;
 	}
-	
-	public AffProjProg() {
-		super();
-	}
-	public AffProjProg(int id, int idgroupe, int proj_prog, int etudiant,
+	public AffProjProg(int id, int coEquipier1, int proj_prog, int coEquipier2,
 			Boolean resultat, Boolean vu, Boolean depotRapport,
 			Date dateSoutenance, String jury) {
 		super();
 		this.id = id;
-		this.idgroupe = idgroupe;
+		this.coEquipier1 = coEquipier1;
 		this.proj_prog = proj_prog;
-		this.etudiant = etudiant;
+		this.coEquipier2 = coEquipier2;
 		this.resultat = resultat;
 		this.vu = vu;
 		this.depotRapport = depotRapport;
 		this.dateSoutenance = dateSoutenance;
 		Jury = jury;
 	}
+	public AffProjProg() {
+		super();
+	}
+	
 	
 	
 }

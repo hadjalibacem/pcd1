@@ -1,6 +1,7 @@
 package dao;
 
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import model.AffPCD;
@@ -25,6 +26,14 @@ public class AffPcdDao {
 		
 		
 		
+	}
+	
+	public AffPCD getAffect(int id)
+	{
+		Session session=HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from AffPCD where coEquipier1="+id+" or coEquipier2="+id+" or coEquipier3="+id);
+		return (AffPCD) query.uniqueResult();
 	}
 
 	}

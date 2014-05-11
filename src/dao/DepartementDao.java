@@ -1,6 +1,8 @@
 package dao;
 
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -26,6 +28,14 @@ public class DepartementDao {
 		
 		
 		
+	}
+	@SuppressWarnings("unchecked")
+	public List<Departement> getListDepartement()
+	{
+		Session session=HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from Departement");
+		return query.list();
 	}
 	
 	public Departement getDepartement(int id)

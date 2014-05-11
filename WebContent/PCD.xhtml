@@ -8,10 +8,10 @@
 <body>
 
             <h1>Projet de Conception et Developpement</h1>
-            <c:if test="#{authBean.statut=='etudiant'}">
-            <c:if test="#{etudBean.adm.PCD_choix==true}">
+           
+            <c:if test="#{pcdBean.adm.PCD_choix==true}">
             <h:form>
-	<h:dataTable id="listPCD" value="#{etudBean.listPCD}" var="pcd"
+	<h:dataTable id="listPCD" value="#{pcdBean.listPCD}" var="pcd"
 		border="1">
     <f:facet name="header">
         <h:outputText value="Liste des sujets proposés" />
@@ -38,50 +38,45 @@
         <f:facet name="header">
             <h:outputText value="Encadrant" />
         </f:facet>
-        <h:outputText value="#{etudBean.AfficheEnseignant(pcd.encadrant)}" />
+        <h:outputText value="#{pcdBean.AfficheEnseignant(pcd.encadrant)}" />
     </h:column>
  <h:column>
         <f:facet name="header">
             <h:outputText value="Departement" />
         </f:facet>
-        <h:outputText value="#{etudBean.AfficheDepartement(pcd.departement)}" />
+        <h:outputText value="#{pcdBean.AfficheDepartement(pcd.departement)}" />
     </h:column>
     
 	</h:dataTable>
-	<c:if test="#{etudBean.date.before(etudBean.adm.getPCD_dateChoix())}">
+	<c:if test="#{pcdBean.date.before(pcdBean.adm.getPCD_dateChoix())}">
 	 <h2>Remplissez Votre Liste de choix</h2><div>
 	 <h:outputText value="Id du 1er co-équipier*"/>
-	 <h:inputText value="#{etudBean.coEquip1}" required="true" />
+	 <h:inputText value="#{pcdBean.coEquip2}" required="true" />
 	 </div><div>
 	  <h:outputText value="Id du 2eme co-équipier"/>
-	 <h:inputText value="#{etudBean.coEquip2}"/>
+	 <h:inputText value="#{pcdBean.coEquip3}"/>
 	 </div>
-  <h:dataTable value="#{etudBean.listChx}"  var="chx">
+  <h:dataTable value="#{pcdBean.listChx}"  var="chx">
     <h:column>
       <f:facet name="header">
       <h:outputText value="Choissez vos choix tout en respectant les rangs" />
       </f:facet>
       <h:selectOneMenu value="#{chx.pcd}">
-    <f:selectItems value="#{etudBean.listPCD}" var="pcd" itemValue="#{pcd.id}" itemLabel="#{pcd.sujet}"/>
+    <f:selectItems value="#{pcdBean.listPCD}" var="pcd" itemValue="#{pcd.id}" itemLabel="#{pcd.sujet}"/>
 							
 </h:selectOneMenu>
 
     </h:column>
     
   </h:dataTable>
-  <h:commandButton actionListener="#{etudBean.SaisirChoixPCD}" value="Go !"/></c:if>
+  <h:commandButton actionListener="#{pcdBean.SaisirChoixPCD}" value="Go !"/></c:if>
   </h:form>
   
 </c:if>
-</c:if>
+
 <h:form>
-<c:if test="#{authBean.statut=='chefdepart'}">
-<c:if test="#{chefDepartBean.adm==null}">
-<h:outputText> Regluez les dates</h:outputText>
-</c:if>
-</c:if>
-</h:form>
-<h:form>
+
+
 	<div>
 	<h:commandLink action="Acceuil"
 					value="Acceuil" styleClass="link" />

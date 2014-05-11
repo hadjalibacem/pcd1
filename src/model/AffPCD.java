@@ -11,101 +11,141 @@ import javax.persistence.Table;
 public class AffPCD {
 	@Id
 	private int id;
-	private int idgroupe;
+	private int coEquipier1;
 	private int PCD;
-	private int etudiant;
-	private Boolean vu;
+	private int coEquipier2;
 	private Boolean depotCCharge;
 	private Boolean depotRapport;
 	private Date dateSoutenance;
 	private String Jury;
 	private Boolean resultat;
-	private Boolean depotConvention;
+	private Integer coEquipier3;
+	
+
 	public int getId() {
 		return id;
 	}
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getEtudiant() {
-		return etudiant;
+
+
+	public int getCoEquipier1() {
+		return coEquipier1;
 	}
-	public void setEtudiant(int etudiant) {
-		this.etudiant = etudiant;
+
+
+	public void setCoEquipier1(int coEquipier1) {
+		this.coEquipier1 = coEquipier1;
 	}
+
+
 	public int getPCD() {
 		return PCD;
 	}
+
+
 	public void setPCD(int pCD) {
 		PCD = pCD;
 	}
-	public int getIdgroupe() {
-		return idgroupe;
+
+
+	public int getCoEquipier2() {
+		return coEquipier2;
 	}
-	public void setIdgroupe(int idgroupe) {
-		this.idgroupe = idgroupe;
+
+
+	public void setCoEquipier2(int coEquipier2) {
+		this.coEquipier2 = coEquipier2;
 	}
-	public Boolean getVu() {
-		return vu;
-	}
-	public void setVu(Boolean vu) {
-		this.vu = vu;
-	}
+
+
+	
+
+
 	public Boolean getDepotCCharge() {
 		return depotCCharge;
 	}
+
+
 	public void setDepotCCharge(Boolean depotCCharge) {
 		this.depotCCharge = depotCCharge;
 	}
+
+
 	public Boolean getDepotRapport() {
 		return depotRapport;
 	}
+
+
 	public void setDepotRapport(Boolean depotRapport) {
 		this.depotRapport = depotRapport;
 	}
+
+
 	public Date getDateSoutenance() {
 		return dateSoutenance;
 	}
+
+
 	public void setDateSoutenance(Date dateSoutenance) {
 		this.dateSoutenance = dateSoutenance;
 	}
+
+
 	public String getJury() {
 		return Jury;
 	}
+
+
 	public void setJury(String jury) {
 		Jury = jury;
 	}
+
+
 	public Boolean getResultat() {
 		return resultat;
 	}
+
+
 	public void setResultat(Boolean resultat) {
 		this.resultat = resultat;
 	}
-	public Boolean getDepotConvention() {
-		return depotConvention;
+
+
+	
+
+	public Integer getCoEquipier3() {
+		return coEquipier3;
 	}
-	public void setDepotConvention(Boolean depotConvention) {
-		this.depotConvention = depotConvention;
+
+
+	public void setCoEquipier3(Integer coEquipier3) {
+		this.coEquipier3 = coEquipier3;
 	}
-	public AffPCD(int id, int idgroupe, int pCD, int etudiant, Boolean vu,
-			Boolean depotCCharge, Boolean depotRapport, Date dateSoutenance,
-			String jury, Boolean resultat, Boolean depotConvention) {
-		super();
-		this.id = id;
-		this.idgroupe = idgroupe;
-		this.PCD = pCD;
-		this.etudiant = etudiant;
-		this.vu = vu;
-		this.depotCCharge = depotCCharge;
-		this.depotRapport = depotRapport;
-		this.dateSoutenance = dateSoutenance;
-		this.Jury = jury;
-		this.resultat = resultat;
-		this.depotConvention = depotConvention;
-	}
+
 
 	public AffPCD() {
 		super();
+	}
+
+
+	public AffPCD(int id, int coEquipier1, int pCD, int coEquipier2, Boolean depotCCharge, Boolean depotRapport,
+			Date dateSoutenance, String jury, Boolean resultat,
+			 Integer coEquipier3) {
+		super();
+		this.id = id;
+		this.coEquipier1 = coEquipier1;
+		PCD = pCD;
+		this.coEquipier2 = coEquipier2;
+		this.depotCCharge = depotCCharge;
+		this.depotRapport = depotRapport;
+		this.dateSoutenance = dateSoutenance;
+		Jury = jury;
+		this.resultat = resultat;
+		this.coEquipier3 = coEquipier3;
 	}
 	
 	

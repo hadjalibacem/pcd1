@@ -13,7 +13,7 @@ public class Administration {
 	private int annee;
 	
 	private Date PCD_dateChoix;
-	private Boolean PCD_choix_dep;
+	private boolean PCD_choix_dep;
 	private Date PCD_dateCCharge;
 	private Date PCD_dateRapport;
 	private Date PP_dateChoix;
@@ -48,10 +48,10 @@ public class Administration {
 	public void setPCD_dateChoix(Date pCD_dateChoix) {
 		PCD_dateChoix = pCD_dateChoix;
 	}
-	public Boolean getPCD_choix_dep() {
+	public boolean getPCD_choix_dep() {
 		return PCD_choix_dep;
 	}
-	public void setPCD_choix_dep(Boolean pCD_choix_dep) {
+	public void setPCD_choix_dep(boolean pCD_choix_dep) {
 		PCD_choix_dep = pCD_choix_dep;
 	}
 	public Date getPCD_dateCCharge() {
@@ -105,27 +105,29 @@ public class Administration {
 	public void setModOpt_dateChoix(Date modOpt_dateChoix) {
 		ModOpt_dateChoix = modOpt_dateChoix;
 	}
-	public Administration(int annee, Date pCD_dateChoix, Boolean pCD_choix_dep,
+	public Administration(int annee, Date pCD_dateChoix, boolean pCD_choix_dep,
 			Date pCD_dateCCharge, Date pCD_dateRapport, Date pP_dateChoix,
 			Date pP_dateRapport, Date pFE_dateCCharge, Date pFE_dateRapport,
-			Date filiere_dateChoix, Date modOpt_dateChoix) {
+			Date filiere_dateChoix, Date modOpt_dateChoix, boolean pCD_choix,
+			int pCD_nbChoix) {
 		super();
 		this.annee = annee;
-		this.PCD_dateChoix = pCD_dateChoix;
-		this.PCD_choix_dep = pCD_choix_dep;
-		this.PCD_dateCCharge = pCD_dateCCharge;
-		this.PCD_dateRapport = pCD_dateRapport;
-		this.PP_dateChoix = pP_dateChoix;
-		this.PP_dateRapport = pP_dateRapport;
-		this.PFE_dateCCharge = pFE_dateCCharge;
-		this.PFE_dateRapport = pFE_dateRapport;
+		PCD_dateChoix = pCD_dateChoix;
+		PCD_choix_dep = pCD_choix_dep;
+		PCD_dateCCharge = pCD_dateCCharge;
+		PCD_dateRapport = pCD_dateRapport;
+		PP_dateChoix = pP_dateChoix;
+		PP_dateRapport = pP_dateRapport;
+		PFE_dateCCharge = pFE_dateCCharge;
+		PFE_dateRapport = pFE_dateRapport;
 		this.filiere_dateChoix = filiere_dateChoix;
-		this.ModOpt_dateChoix = modOpt_dateChoix;
+		ModOpt_dateChoix = modOpt_dateChoix;
+		PCD_choix = pCD_choix;
+		PCD_nbChoix = pCD_nbChoix;
 	}
-	public Administration(int annee) {
-		super();
-		this.annee = annee;
-	}
+	
+	
+	
 	
 	
 }

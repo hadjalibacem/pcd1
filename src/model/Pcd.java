@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import dao.EnseignantDao;
 
 @Entity
 @Table(name="pcd")
@@ -13,9 +12,9 @@ public class Pcd {
 	private int id;
 	private String sujet;
 	private String description_PCD;
-	private int encadrant;
-	private int departement;
-	private Boolean affecte;
+	private int encadreur;
+	private Integer departement;
+	private int NbAaffecter;
 	
 	
 	public int getId() {
@@ -36,33 +35,35 @@ public class Pcd {
 	public void setDescription_PCD(String description_PCD) {
 		this.description_PCD = description_PCD;
 	}
-	public int getEncadrant() {
-		return encadrant;
+	
+	public int getEncadreur() {
+		return encadreur;
 	}
-	public void setEncadrant(int encadrant) {
-		this.encadrant = encadrant;
+	public void setEncadreur(int encadreur) {
+		this.encadreur = encadreur;
 	}
-	public int getDepartement() {
+	public Integer getDepartement() {
 		return departement;
 	}
-	public void setDepartement(int departement) {
+	public void setDepartement(Integer departement) {
 		this.departement = departement;
 	}
-	public Boolean getAffecte() {
-		return affecte;
+	public int getNbAaffecter() {
+		return NbAaffecter;
 	}
-	public void setAffecte(Boolean affecte) {
-		this.affecte = affecte;
+	public void setNbAaffecter(int nbAaffecter) {
+		NbAaffecter = nbAaffecter;
 	}
+	
 	public Pcd(int id, String sujet, String description_PCD, int encadrant,
-			int departement, Boolean affecte) {
+			Integer departement, int affecte) {
 		super();
 		this.id = id;
 		this.sujet = sujet;
 		this.description_PCD = description_PCD;
-		this.encadrant = encadrant;
+		this.encadreur = encadrant;
 		this.departement = departement;
-		this.affecte = affecte;
+		this.NbAaffecter = affecte;
 	}
 	public Pcd() {
 		super();

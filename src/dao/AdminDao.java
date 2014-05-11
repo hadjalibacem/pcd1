@@ -17,7 +17,7 @@ public class AdminDao {
 		Session session = HibernateUtils.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-            session.save(ad);
+            session.saveOrUpdate(ad);
             session.getTransaction().commit();
             session.close();
             System.out.print("bien ajouté");

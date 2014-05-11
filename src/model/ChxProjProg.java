@@ -9,21 +9,21 @@ import javax.persistence.Table;
 public class ChxProjProg {
 	@Id
 	private int id;
-	private int idgroupe;
+	private int coEquipier1;
 	private int proj_prog;
 	private int rang;
-	private int etudiant;
+	private int coEquipier2;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getEtudiant() {
-		return etudiant;
+	public int getCoEquipier1() {
+		return coEquipier1;
 	}
-	public void setEtudiant(int etudiant) {
-		this.etudiant = etudiant;
+	public void setCoEquipier1(int coEquipier1) {
+		this.coEquipier1 = coEquipier1;
 	}
 	public int getProj_prog() {
 		return proj_prog;
@@ -37,24 +37,23 @@ public class ChxProjProg {
 	public void setRang(int rang) {
 		this.rang = rang;
 	}
-	public int getIdgroupe() {
-		return idgroupe;
+	public int getCoEquipier2() {
+		return coEquipier2;
 	}
-	public void setIdgroupe(int idgroupe) {
-		this.idgroupe = idgroupe;
+	public void setCoEquipier2(int coEquipier2) {
+		this.coEquipier2 = coEquipier2;
 	}
-	
-	public ChxProjProg() {
-		super();
-	}
-	public ChxProjProg(int id, int idgroupe, int proj_prog, int rang,
-			int etudiant) {
+	public ChxProjProg(int id, int coEquipier1, int proj_prog, int rang,
+			int coEquipier2) {
 		super();
 		this.id = id;
-		this.idgroupe = idgroupe;
+		this.coEquipier1 = coEquipier1;
 		this.proj_prog = proj_prog;
 		this.rang = rang;
-		this.etudiant = etudiant;
+		this.coEquipier2 = coEquipier2;
+	}
+	public ChxProjProg() {
+		super();
 	}
 
 	
