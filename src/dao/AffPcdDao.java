@@ -13,7 +13,7 @@ import model.Pcd;
 
 public class AffPcdDao {
 
-	public void affect(AffPCD aff) {
+	public boolean affect(AffPCD aff) {
 		
 		// TODO Auto-generated method stub
 		Session session = HibernateUtils.getSessionFactory().openSession();
@@ -23,8 +23,10 @@ public class AffPcdDao {
             session.getTransaction().commit();
             session.close();
             System.out.print("bien ajouté");
+            return true;
         } catch (Exception e) {
             System.out.print("erreur insertion" + e.getMessage());
+            return false;
         }
 		
 		
@@ -73,12 +75,30 @@ public class AffPcdDao {
 
 	}
 	
-	public AffPCD getAffect(int id)
+	public AffPCD getAffect(Integer id)
 	{
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from AffPCD where coEquipier1="+id+" or coEquipier2="+id+" or coEquipier3="+id);
+		Query query;
+		if(id==null)
+			return null;
+		query=session.createQuery("from AffPCD where coEquipier1="+id+" or coEquipier2="+id+" or coEquipier3="+id);
 		return (AffPCD) query.uniqueResult();
+	}
+	public AffPCD getPcdAff(int id)
+	{
+		Session session=HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from AffPCD where id="+id);
+		return (AffPCD) query.uniqueResult();
+	}
+	@SuppressWarnings("unchecked")
+	public List<AffPCD> getList()
+	{
+		Session session=HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from AffPCD");
+		return query.list();
 	}
 
 	}

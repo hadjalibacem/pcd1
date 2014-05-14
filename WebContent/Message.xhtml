@@ -8,9 +8,9 @@
 <body>
 
             <h1>Messages</h1><h:form>
-            <c:if test="#{etudBean.listMsgNonVu.size()!=0}">
+            <c:if test="#{homeBean.listMsgNonVu.size()!=0}">
             
-	<h:dataTable id="listMSG" value="#{etudBean.listMsgNonVu}" var="msg"
+	<h:dataTable id="listMSG" value="#{homeBean.listMsgNonVu}" var="msg"
 		border="1">
     <f:facet name="header">
         <h:outputText value="Vos Messages non lus" />
@@ -43,12 +43,12 @@
     
 	</h:dataTable>
 </c:if>
-<c:if test="#{etudBean.listMsgNonVu.size()==0}">
-<c:if test="#{etudBean.listMsg.size()==0}">
+<c:if test="#{homeBean.listMsgNonVu.size()==0}">
+<c:if test="#{homeBean.listMsg.size()==0}">
 <h:outputText>Vous n'avez aucun message</h:outputText>
 </c:if>
-<c:if test="#{etudBean.listMsg.size()!=0}">
-<h:dataTable id="listMSGVu" value="#{etudBean.listMsg}" var="msg"
+<c:if test="#{homeBean.listMsg.size()!=0}">
+<h:dataTable id="listMSGVu" value="#{homeBean.listMsg}" var="msg"
 		border="1">
     <f:facet name="header">
         <h:outputText value="Vos Messages" />

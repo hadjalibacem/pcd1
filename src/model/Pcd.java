@@ -15,8 +15,14 @@ public class Pcd {
 	private int encadreur;
 	private Integer departement;
 	private int nbAaffecter;
+	private String MotsCles;
 	
-	
+	public String getMotsCles() {
+		return MotsCles;
+	}
+	public void setMotsCles(String motsCles) {
+		MotsCles = motsCles;
+	}
 	public int getId() {
 		return id;
 	}
@@ -55,15 +61,17 @@ public class Pcd {
 		this.nbAaffecter = nbAaffecter;
 	}
 	
-	public Pcd(int id, String sujet, String description_PCD, int encadrant,
-			Integer departement, int affecte) {
+	
+	public Pcd(int id, String sujet, String description_PCD, int encadreur,
+			Integer departement, int nbAaffecter, String motsCles) {
 		super();
 		this.id = id;
 		this.sujet = sujet;
 		this.description_PCD = description_PCD;
-		this.encadreur = encadrant;
+		this.encadreur = encadreur;
 		this.departement = departement;
-		this.nbAaffecter = affecte;
+		this.nbAaffecter = nbAaffecter;
+		MotsCles = motsCles;
 	}
 	public Pcd() {
 		super();

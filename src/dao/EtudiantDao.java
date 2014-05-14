@@ -1,6 +1,9 @@
 package dao;
 
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import model.Etudiant;
@@ -26,6 +29,21 @@ public class EtudiantDao {
 		
 		
 	}
+	@SuppressWarnings("unchecked")
+	public List<Etudiant> getListEtudiant2()
+	{
+		Session session=HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from Etudiant where niveau = 2 order by rang");
+		return query.list();
+	}
 
+	public Etudiant getEtudiant(int id)
+	{
+		Session session=HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from Etudiant where id="+id);
+		return (Etudiant) query.uniqueResult();
+	}
 	}
 

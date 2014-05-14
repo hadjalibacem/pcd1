@@ -58,6 +58,14 @@ public class PcdDao {
 			Query query=session.createQuery("from Pcd where id="+id);
 			return (Pcd) query.uniqueResult();
 		}
+		@SuppressWarnings("unchecked")
+		public List<Pcd> getListPcdToAffect()
+		{
+			Session session=HibernateUtils.getSessionFactory().openSession();
+			session.beginTransaction();
+			Query query=session.createQuery("from Pcd where nbAaffecter > 0");
+			return query.list();
+		}
 		
 		
 		

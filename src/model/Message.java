@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,16 +12,31 @@ public class Message {
 	@Id
 	private int id;
 	private int etudiant;
-	private int chefDepart;
+	private Integer chefDepart;
 	private Date date;
 	private Boolean vu;
 	private String sujet;
-	public int getChefDepart() {
+	private Integer destinataire;
+	public Integer getSender() {
+		return destinataire;
+	}
+	public void setSender(Integer sender) {
+		this.destinataire = sender;
+	}
+	
+	public Integer getChefDepart() {
 		return chefDepart;
 	}
-	public void setChefDepart(int chefDepart) {
+	public void setChefDepart(Integer chefDepart) {
 		this.chefDepart = chefDepart;
 	}
+	public Integer getDestinataire() {
+		return destinataire;
+	}
+	public void setDestinataire(Integer destinataire) {
+		this.destinataire = destinataire;
+	}
+
 	private String message;
 	public int getId() {
 		return id;
@@ -61,15 +76,18 @@ public class Message {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public Message(int id, int etudiant, int enseignant, Date date, Boolean vu,
-			String sujet, String message) {
+	
+	
+	public Message(int id, int etudiant, Integer chefDepart, Date date,
+			Boolean vu, String sujet, Integer destinataire, String message) {
 		super();
 		this.id = id;
 		this.etudiant = etudiant;
-		this.chefDepart = enseignant;
+		this.chefDepart = chefDepart;
 		this.date = date;
 		this.vu = vu;
 		this.sujet = sujet;
+		this.destinataire = destinataire;
 		this.message = message;
 	}
 	public Message() {

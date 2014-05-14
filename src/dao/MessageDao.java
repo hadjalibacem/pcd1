@@ -39,8 +39,8 @@ public class MessageDao {
 		Query query;
 		Etudiant et=new Etudiant();
 		if(user.getClass()==et.getClass())
-		{query=session.createQuery("from Message where etudiant="+((Etudiant) user).getId()+" and vu=0");}
-		else query=session.createQuery("from Message where chefDepart="+((ChefDepart) user).getId()+" and vu=0");
+		{query=session.createQuery("from Message where etudiant="+((Etudiant) user).getId()+" and destinataire="+((Etudiant) user).getId()+" and vu=0");}
+		else query=session.createQuery("from Message where chefDepart="+((ChefDepart) user).getId()+" and destinataire="+((ChefDepart) user).getId()+" and vu=0");
 		return query.list();
 	}
 	
@@ -52,8 +52,8 @@ public class MessageDao {
 		Query query;
 		Etudiant et=new Etudiant();
 		if(user.getClass()==et.getClass())
-		{query=session.createQuery("from Message where etudiant="+((Etudiant) user).getId());}
-		else query=session.createQuery("from Message where chefDepart="+((ChefDepart) user).getId());
+		{query=session.createQuery("from Message where etudiant="+((Etudiant) user).getId()+" and destinataire="+((Etudiant) user).getId());}
+		else query=session.createQuery("from Message where chefDepart="+((ChefDepart) user).getId()+" and destinataire="+((ChefDepart) user).getId());
 		return query.list();
 	}
 public int SetViewed(int id)

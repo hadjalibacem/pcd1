@@ -8,11 +8,11 @@
 <body>
 
 	<h1>Projet de Conception et Developpement</h1>
-	
-	
-<h:form>
-<h:dataTable id="listPCD" value="#{chPcdBean.listPCD}" var="pcd"
-		border="1">
+
+
+	<h:form>
+		<h:dataTable id="listPCD" value="#{chPcdBean.listPCD}" var="pcd"
+			border="1">
     <f:facet name="header">
         <h:outputText value="Liste des sujets proposés" />
     </f:facet>
@@ -22,13 +22,13 @@
         </f:facet>
         <h:outputText value="#{pcd.id}" />
     </h:column>
-<h:column>
+			<h:column>
         <f:facet name="header">
             <h:outputText value="Sujet" />
         </f:facet>
         <h:inputText value="#{pcd.sujet}" />
     </h:column>
-<h:column>
+			<h:column>
         <f:facet name="header">
             <h:outputText value="Description" />
         </f:facet>
@@ -38,9 +38,9 @@
         <f:facet name="header">
             <h:outputText value="Encadreur" />
         </f:facet>
-<h:inputText value="#{pcd.encadreur}"/>
+				<h:inputText value="#{pcd.encadreur}" />
     </h:column>
-<h:column>
+			<h:column>
         <f:facet name="header">
             <h:outputText value="Nombre A affecter" />
         </f:facet>
@@ -50,74 +50,113 @@
         <f:facet name="header">
             <h:outputText value="Departement" />
         </f:facet>
-        <h:outputText value="#{chPcdBean.AfficheDepartement(pcd.departement)}" />
+        <h:outputText
+					value="#{chPcdBean.AfficheDepartement(pcd.departement)}" />
+    </h:column>
+			<h:column>
+        <f:facet name="header">
+            <h:outputText value="Mots Clés" />
+        </f:facet>
+        <h:outputText value="#{pcd.motsCles}" />
     </h:column>
     
 	</h:dataTable>
-	<h:commandButton value="Mettre à jour" action="#{chPcdBean.updateListPcd}"
-				type="submit" />
+		<h:commandButton value="Mettre à jour"
+			action="#{chPcdBean.updateListPcd}" type="submit" />
 	</h:form>
-		<h:form>
-<h2>Affecter des sujets</h2>
+	<h:form>
+		<h:commandButton value="Affecter Les Sujets Selon les choix"
+			action="#{chPcdBean.affectAll}" type="submit" />
+			<h:commandButton value="Notifier les étudiants de leur affectations"
+			action="#{chPcdBean.notifyEtud}" type="submit" />
+	</h:form>
+	<h:form>
 
-			<h:panelGrid columns="2">
-				<h:outputLabel for="coEquip1" value="Id du 1er Co-Equipier" />
-				<h:inputText id="coEquip1" value="#{chPcdBean.coEquip1}"
-					required="true" />
-				<h:outputLabel for="coEquip2" value="Id du 2eme Co-Equipier" />
-				<h:inputText id="coEquip2" value="#{chPcdBean.coEquip2}"
-					required="true" />
-				<h:outputLabel for="coEquip3" value="Id du 3eme Co-Equipier" />
-				<h:inputText id="coEquip3" value="#{chPcdBean.coEquip3}" />
-				
-				 <h:selectOneMenu value="#{chPcdBean.idPcdAaffecter}">
-    <f:selectItems value="#{chPcdBean.listPCD}" var="pcd" itemValue="#{pcd.id}" itemLabel="#{pcd.sujet}( #{pcd.nbAaffecter} )"/>
-							
-</h:selectOneMenu>
-				
-			</h:panelGrid>
-			<h:commandButton value="Affecter" action="#{chPcdBean.affecter}"
-				type="submit" />
+		<h2>Affecter des sujets</h2>
 
-		</h:form>
-		
-		<h2>Ajouter un sujet PCD</h2>
-		<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel for="coEquip1" value="Id du 1er Co-Equipier" />
+			<h:inputText id="coEquip1" value="#{chPcdBean.coEquip1}"
+				required="true" />
+			<h:outputLabel for="coEquip2" value="Id du 2eme Co-Equipier" />
+			<h:inputText id="coEquip2" value="#{chPcdBean.coEquip2}"
+				required="true" />
+			<h:outputLabel for="coEquip3" value="Id du 3eme Co-Equipier" />
+			<h:inputText id="coEquip3" value="#{chPcdBean.coEquip3}" />
+
+			<h:selectOneMenu value="#{chPcdBean.idPcdAaffecter}">
+				<f:selectItems value="#{chPcdBean.listPCD}" var="pcd"
+					itemValue="#{pcd.id}"
+					itemLabel="#{pcd.sujet}( #{pcd.nbAaffecter} )" />
+
+			</h:selectOneMenu>
+
+		</h:panelGrid>
+		<h:commandButton value="Affecter" action="#{chPcdBean.affecter}"
+			type="submit" />
+
+	</h:form>
+
+	<h2>Ajouter un sujet PCD</h2>
+	<h:form>
 
 
-			<h:panelGrid columns="2">
-				<h:outputLabel for="sujet" value="Sujet" />
-				<h:inputText id="sujet" value="#{chPcdBean.sujet}"
-					required="true" />
-				<h:outputLabel for="desc" value="Description" />
-				<h:inputText id="desc" value="#{chPcdBean.description}"
-					 />
-				<h:outputLabel for="encad" value="Id de l'encadreur" />
-				<h:inputText id="encad" value="#{chPcdBean.encadreur}"
-				required="true"  />
-				<h:outputLabel for="dep" value="Departement" />
-				 <h:selectOneMenu id="dep" value="#{chPcdBean.departement}">
-				 <f:selectItem />
-    <f:selectItems value="#{chPcdBean.listDep}" var="dep" itemValue="#{dep.id}" itemLabel="#{dep.nom}"/>
-							
-</h:selectOneMenu>
-				<h:outputLabel for="nb" value="Nombre à affecter" />
-				<h:inputText id="nb" value="#{chPcdBean.nbAaffecter}"
-				required="true"  />
-			</h:panelGrid>
-			<h:commandButton value="Enregistrer" action="#{chPcdBean.AddPcd}"
-				type="submit" />
+		<h:panelGrid columns="2">
+			<h:outputLabel for="sujet" value="Sujet" />
+			<h:inputText id="sujet" value="#{chPcdBean.sujet}" required="true" />
+			<h:outputLabel for="desc" value="Description" />
+			<h:inputText id="desc" value="#{chPcdBean.description}" />
+			<h:outputLabel for="encad" value="Id de l'encadreur" />
+			<h:inputText id="encad" value="#{chPcdBean.encadreur}"
+				required="true" />
+			<h:outputLabel for="dep" value="Departement" />
+			<h:selectOneMenu id="dep" value="#{chPcdBean.departement}">
+				<f:selectItem />
+				<f:selectItems value="#{chPcdBean.listDep}" var="dep"
+					itemValue="#{dep.id}" itemLabel="#{dep.nom}" />
 
-		</h:form>
-		
-		<h:form>
+			</h:selectOneMenu>
+			<h:outputLabel for="nb" value="Nombre à affecter" />
+			<h:inputText id="nb" value="#{chPcdBean.nbAaffecter}" required="true" />
+			<h:outputLabel for="motcle" value="Mots Clés" />
+			<h:inputText id="motcle" value="#{chPcdBean.motsCles}" />
+		</h:panelGrid>
+		<h:commandButton value="Enregistrer" action="#{chPcdBean.AddPcd}"
+			type="submit" />
+
+	</h:form>
+	<h:form>
+		<h2>Valider la réception des rapports et cahiers des charges</h2>
+		<h:panelGrid columns="2">
+			<h:outputText value="Id de groupe" />
+			<h:inputText value="#{chPcdBean.idpcdaff}" />
+			<h:outputText for="ccharge" value="Dépôt de Cahier des charges" />
+			<h:selectOneMenu id="ccharge" value="#{chPcdBean.depotCcharge}">
+				<f:selectItem itemValue="true" itemLabel="Oui" />
+				<f:selectItem itemValue="false" itemLabel="Non" />
+			</h:selectOneMenu>
+			<h:outputText for="rapport" value="Dépôt du Rapport" />
+			<h:selectOneMenu id="rapport" value="#{chPcdBean.depotRapport}">
+				<f:selectItem itemValue="true" itemLabel="Oui" />
+				<f:selectItem itemValue="false" itemLabel="Non" />
+			</h:selectOneMenu>
+			<h:outputText for="valid" value="validation" />
+			<h:selectOneMenu id="valid" value="#{chPcdBean.validation}">
+				<f:selectItem itemValue="true" itemLabel="Oui" />
+				<f:selectItem itemValue="false" itemLabel="Non" />
+			</h:selectOneMenu>
+		</h:panelGrid>
+		<h:commandButton value="Enregistrer"
+			action="#{chPcdBean.updateAffpcd}" type="submit" />
+	</h:form>
+	<h:form>
 		<div>
-<h:commandLink action="Acceuil"
-					value="Acceuil" styleClass="link" />
-					</div>
-					<div>
-	<h:commandLink action="#{authBean.logout()}"
-					value="déconnexion" styleClass="link" /></div>
-</h:form>
+			<h:commandLink action="Acceuil" value="Acceuil" styleClass="link" />
+		</div>
+		<div>
+			<h:commandLink action="#{authBean.logout()}" value="déconnexion"
+				styleClass="link" />
+		</div>
+	</h:form>
 </body>
 </html>
