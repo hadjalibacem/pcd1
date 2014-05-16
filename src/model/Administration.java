@@ -24,6 +24,20 @@ public class Administration {
 	private Date ModOpt_dateChoix;
 	private boolean PCD_choix;
 	private int PCD_nbChoix;
+	private int PCD_nbJury;
+	private int PCD_nbSujetAjugerParProf;
+	public int getPCD_nbSujetAjugerParProf() {
+		return PCD_nbSujetAjugerParProf;
+	}
+	public void setPCD_nbSujetAjugerParProf(int pCD_nbSujetAjugerParProf) {
+		PCD_nbSujetAjugerParProf = pCD_nbSujetAjugerParProf;
+	}
+	public int getPCD_nbJury() {
+		return PCD_nbJury;
+	}
+	public void setPCD_nbJury(int pCD_nbJury) {
+		PCD_nbJury = pCD_nbJury;
+	}
 	public int getAnnee() {
 		return annee;
 	}
@@ -109,7 +123,7 @@ public class Administration {
 			Date pCD_dateCCharge, Date pCD_dateRapport, Date pP_dateChoix,
 			Date pP_dateRapport, Date pFE_dateCCharge, Date pFE_dateRapport,
 			Date filiere_dateChoix, Date modOpt_dateChoix, boolean pCD_choix,
-			int pCD_nbChoix) {
+			int pCD_nbChoix, int pCD_nbJury, int pCD_nbSujetAjugerParProf) {
 		super();
 		this.annee = annee;
 		PCD_dateChoix = pCD_dateChoix;
@@ -124,7 +138,11 @@ public class Administration {
 		ModOpt_dateChoix = modOpt_dateChoix;
 		PCD_choix = pCD_choix;
 		PCD_nbChoix = pCD_nbChoix;
+		PCD_nbJury = pCD_nbJury;
+		PCD_nbSujetAjugerParProf = pCD_nbSujetAjugerParProf;
 	}
+	
+	
 	
 	
 	

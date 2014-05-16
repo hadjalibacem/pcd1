@@ -167,7 +167,33 @@
 	</h:form>
 	</c:if>
 	</c:if>
-	
+	<h2>Choisir la jury</h2>
+	<h:form>
+	<h:panelGrid >
+	<h:column>
+			<h:outputLabel  value="Id groupe" />
+			
+			<h:selectOneMenu  value="#{chPcdBean.idGroupe}">
+				<f:selectItem />
+				<f:selectItems value="#{chPcdBean.listAff}" var="aff"
+					itemValue="#{aff.id}" itemLabel="#{aff.id}" />
+
+			</h:selectOneMenu>
+			<h:commandLink action="#{chPcdBean.getListEnseignantByKeyWords}" value="Verifier les jury correspondants " type="submit" styleClass="link" />
+			</h:column>
+			<h:column>
+			<h:outputLabel  value="Membre de jury 1" />
+			
+			<h:selectOneMenu  value="#{chPcdBean.jury1}">
+				<f:selectItem />
+				<f:selectItems value="#{chPcdBean.listEnseignants}" var="ens"
+					itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom}" />
+
+			</h:selectOneMenu>
+			</h:column>
+		</h:panelGrid>
+		
+	</h:form>
 	
 	<h:form>
 		<div>

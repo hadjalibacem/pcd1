@@ -64,10 +64,45 @@ public class ChPcdBean implements Serializable {
 	private boolean validation;
 	private AdminDao admD = new AdminDao();
 	private Administration adm = admD.getAdministration();
-
-	List<Integer> listRandomChoice = new ArrayList<Integer>();
+	private List<AffPCD> listAff=affpD.getList();
+	private List<Integer> listRandomChoice = new ArrayList<Integer>();
 	private List<Pcd> listPcdToAffect = pcdD.getListPcdToAffect();
 	private MessageDao msgD=new MessageDao();
+	private Integer idGroupe=null;
+	private EnseignantDao ensD=new EnseignantDao();
+	private List<Enseignant> listEnseignants=ensD.getList();
+	private Integer jury1;
+	public Integer getJury1() {
+		return jury1;
+	}
+
+	public void setJury1(Integer jury1) {
+		this.jury1 = jury1;
+	}
+
+	public List<Enseignant> getListEnseignants() {
+		return listEnseignants;
+	}
+
+	public void setListEnseignants(List<Enseignant> listEnseignants) {
+		this.listEnseignants = listEnseignants;
+	}
+
+	public List<AffPCD> getListAff() {
+		return listAff;
+	}
+
+	public void setListAff(List<AffPCD> listAff) {
+		this.listAff = listAff;
+	}
+
+	public Integer getIdGroupe() {
+		return idGroupe;
+	}
+
+	public void setIdGroupe(Integer idGroupe) {
+		this.idGroupe = idGroupe;
+	}
 
 	private Date date = Calendar.getInstance().getTime();
 	public Date getDate() {
@@ -329,7 +364,7 @@ public class ChPcdBean implements Serializable {
 
 		Date date = Calendar.getInstance().getTime();
 		String message;
-		EnseignantDao ensD=new EnseignantDao();
+		
 		for (AffPCD affpcd: listAff)
 		{
 			
@@ -451,5 +486,20 @@ public class ChPcdBean implements Serializable {
 		message = new FacesMessage("Erreur d'enregistrement !");
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		return "";
+	}
+	
+	public String getListEnseignantByKeyWords()
+	{
+		if(idGroupe==null) {
+			FacesMessage message = new FacesMessage("Selectionner un groupe valide !");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return null;
+		}
+		listEnseignants=ensD.getList();
+		Pcd pcd=pcdD.getPcd(affpD.getPcdAff(idGroupe).getPCD());
+		if(!pcd.getMotsCles().isEmpty())
+		listEnseignants=ensD.getListByKeyWords(pcd.getMotsCles().split(","));
+		return "";
+		
 	}
 }
