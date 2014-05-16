@@ -69,6 +69,15 @@ public class ChPcdBean implements Serializable {
 	private List<Pcd> listPcdToAffect = pcdD.getListPcdToAffect();
 	private MessageDao msgD=new MessageDao();
 
+	private Date date = Calendar.getInstance().getTime();
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
 	EtudiantDao etD = new EtudiantDao();
 	public boolean isValidation() {
 		return validation;
@@ -168,6 +177,14 @@ public class ChPcdBean implements Serializable {
 
 	public Integer getCoEquip1() {
 		return coEquip1;
+	}
+
+	public Administration getAdm() {
+		return adm;
+	}
+
+	public void setAdm(Administration adm) {
+		this.adm = adm;
 	}
 
 	public void setCoEquip1(Integer coEquip1) {
@@ -321,12 +338,14 @@ public class ChPcdBean implements Serializable {
 			else message="";
 			Message msg= new Message(0, affpcd.getCoEquipier1(), null,  date, false, "Résultat Affectation", affpcd.getCoEquipier1(), "Bonjour, \n"
 					+ "Vous êtes affectés avec "+message+etD.getEtudiant(affpcd.getCoEquipier2()).getNom()+" "+etD.getEtudiant(affpcd.getCoEquipier2()).getPrenom()
+					+"\n Id du groupe: "+affpcd.getId()
 					+"\nSujet: "+pcdD.getPcd(affpcd.getPCD()).getSujet()
 					+"\nDescription: "+pcdD.getPcd(affpcd.getPCD()).getDescription_PCD()
 					+"\nEncadré par "+ensD.getEnseignant(pcdD.getPcd(affpcd.getPCD()).getEncadreur()).getPrenom()+" "+ensD.getEnseignant(pcdD.getPcd(affpcd.getPCD()).getEncadreur()).getNom());
 			msgD.add(msg);
 			msg=new Message(0, affpcd.getCoEquipier2(), null,  date, false, "Résultat Affectation", affpcd.getCoEquipier2(), "Bonjour, \n"
 					+ "Vous êtes affectés avec "+message+etD.getEtudiant(affpcd.getCoEquipier1()).getNom()+" "+etD.getEtudiant(affpcd.getCoEquipier1()).getPrenom()
+					+"\n Id du groupe: "+affpcd.getId()
 					+"\nSujet: "+pcdD.getPcd(affpcd.getPCD()).getSujet()
 					+"\nDescription: "+pcdD.getPcd(affpcd.getPCD()).getDescription_PCD()
 					+"\nEncadré par "+ensD.getEnseignant(pcdD.getPcd(affpcd.getPCD()).getEncadreur()).getPrenom()+" "+ensD.getEnseignant(pcdD.getPcd(affpcd.getPCD()).getEncadreur()).getNom());
@@ -335,6 +354,7 @@ public class ChPcdBean implements Serializable {
 			{
 				msg=new Message(0, affpcd.getCoEquipier3(), null,  date, false, "Résultat Affectation", affpcd.getCoEquipier3(), "Bonjour, \n"
 						+ "Vous êtes affectés avec "+etD.getEtudiant(affpcd.getCoEquipier1()).getNom()+" "+etD.getEtudiant(affpcd.getCoEquipier1()).getPrenom()+" et "+etD.getEtudiant(affpcd.getCoEquipier2()).getNom()+" "+etD.getEtudiant(affpcd.getCoEquipier2()).getPrenom()+"\n"
+						+"\n Id du groupe: "+affpcd.getId()
 						+"Sujet: "+pcdD.getPcd(affpcd.getPCD()).getSujet()
 						+"\nDescription: "+pcdD.getPcd(affpcd.getPCD()).getDescription_PCD()
 						+"\n Encadré par "+ensD.getEnseignant(pcdD.getPcd(affpcd.getPCD()).getEncadreur()).getPrenom()+" "+ensD.getEnseignant(pcdD.getPcd(affpcd.getPCD()).getEncadreur()).getNom());
@@ -421,4 +441,15 @@ public class ChPcdBean implements Serializable {
 		}
 	}
 	
+	public String publishListPcd(boolean b)
+	{
+	adm.setPCD_choix(b);	
+	FacesMessage message;
+	if(admD.add(adm))
+		message = new FacesMessage("Liste Publié !");
+	else 
+		message = new FacesMessage("Erreur d'enregistrement !");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		return "";
+	}
 }

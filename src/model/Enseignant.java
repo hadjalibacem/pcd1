@@ -13,8 +13,14 @@ public class Enseignant {
 	private String prenom;
 	private String email;
 	private int bureau;
+	private String motsCles;
 	
-	
+	public String getMotsCles() {
+		return motsCles;
+	}
+	public void setMotsCles(String motsCles) {
+		this.motsCles = motsCles;
+	}
 	public int getId() {
 		return id;
 	}
@@ -46,14 +52,16 @@ public class Enseignant {
 		this.bureau = bureau;
 	}
 	
+	
 	public Enseignant(int id, String nom, String prenom, String email,
-			int bureau) {
+			int bureau, String motsCles) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.bureau = bureau;
+		this.motsCles = motsCles;
 	}
 	public Enseignant() {
 		super();

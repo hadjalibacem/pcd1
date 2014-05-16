@@ -8,9 +8,17 @@
 <body>
 
             <h1>Projet de Conception et Developpement</h1>
-           
+           <c:if test="#{pcdBean.adm.PCD_dateChoix!=null}">
             <c:if test="#{pcdBean.adm.PCD_choix==true}">
+            
             <h:form>
+            <div>
+            	
+            <h:outputText value="date limite choix PCD: #{pcdBean.adm.PCD_dateChoix}"/>
+            </div><div><c:if test="#{pcdBean.adm.PCD_dateCCharge!=null}">
+            <h:outputText value="date limite de depôt des cahiers de charges : #{pcdBean.adm.PCD_dateCCharge}"/></c:if>
+            </div><div><c:if test="#{pcdBean.adm.PCD_dateRapport!=null}">
+            <h:outputText value="date limite de depôt des rapports: #{pcdBean.adm.PCD_dateRapport}"/></c:if></div>
 	<h:dataTable id="listPCD" value="#{pcdBean.listPCD}" var="pcd"
 		border="1">
     <f:facet name="header">
@@ -73,7 +81,7 @@
   </h:form>
   
 </c:if>
-
+</c:if>
 <h:form>
 
 

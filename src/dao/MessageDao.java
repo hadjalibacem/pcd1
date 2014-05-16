@@ -52,8 +52,8 @@ public class MessageDao {
 		Query query;
 		Etudiant et=new Etudiant();
 		if(user.getClass()==et.getClass())
-		{query=session.createQuery("from Message where etudiant="+((Etudiant) user).getId()+" and destinataire="+((Etudiant) user).getId());}
-		else query=session.createQuery("from Message where chefDepart="+((ChefDepart) user).getId()+" and destinataire="+((ChefDepart) user).getId());
+		{query=session.createQuery("from Message where etudiant="+((Etudiant) user).getId()+" and destinataire="+((Etudiant) user).getId()+" order by date desc");}
+		else query=session.createQuery("from Message where chefDepart="+((ChefDepart) user).getId()+" and destinataire="+((ChefDepart) user).getId()+" order by date desc");
 		return query.list();
 	}
 public int SetViewed(int id)

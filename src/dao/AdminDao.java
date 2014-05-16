@@ -11,7 +11,7 @@ import model.HibernateUtils;
 
 public class AdminDao {
 
-	public void add(Administration ad) {
+	public boolean add(Administration ad) {
 		
 		// TODO Auto-generated method stub
 		Session session = HibernateUtils.getSessionFactory().openSession();
@@ -21,8 +21,10 @@ public class AdminDao {
             session.getTransaction().commit();
             session.close();
             System.out.print("bien ajouté");
+            return true;
         } catch (Exception e) {
             System.out.print("erreur insertion" + e.getMessage());
+            return false;
         }}
 		
         public Administration getAdministration(int annee)
