@@ -20,23 +20,44 @@ public class AdminBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	AdminDao admD=new AdminDao();
 	Administration admin=admD.getAdministration();
+public Administration getAdmin() {
+		return admin;
+	}
+	public void setAdmin(Administration admin) {
+		this.admin = admin;
+	}
 private int annee=admin.getAnnee();
-private String pcd_datechoix=admin.getPCD_dateChoix().toString();
-private boolean pcd_choix_dep=admin.getPCD_choix_dep();
-private String pcd_dateccharge=admin.getPCD_dateCCharge().toString();
-private String pcd_daterapport=admin.getPCD_dateRapport().toString();
-private String pp_datechoix=admin.getPP_dateChoix().toString();
-private String pp_daterapport=admin.getPP_dateRapport().toString();
-private String pfe_dateccharge=admin.getPFE_dateCCharge().toString();
-private String pfe_daterapport=admin.getPFE_dateRapport().toString();
-private String filiere_datechoix=admin.getFiliere_dateChoix().toString();
-private String modopt_datechoix=admin.getModOpt_dateChoix().toString();
+private String pcd_datechoix;
+private String pcd_dateccharge;
+private String pcd_daterapport;
+private String pp_datechoix;
+private String pp_daterapport;
+private String pfe_dateccharge;
+private String pfe_daterapport;
+private String filiere_datechoix;
+private String modopt_datechoix;
 private boolean pcd_choix=admin.isPCD_choix();
-private int pcd_nbchoix=admin.getPCD_nbChoix();
+private Integer pcd_nbchoix=admin.getPCD_nbChoix();
+private Integer nbaffjury =admin.getPCD_nbSujetAjugerParProf();
+private Integer nbjury=admin.getPCD_nbJury();
 
 
 
-
+public Integer getNbaffjury() {
+	return nbaffjury;
+}
+public void setNbaffjury(Integer nbaffjury) {
+	this.nbaffjury = nbaffjury;
+}
+public Integer getNbjury() {
+	return nbjury;
+}
+public void setNbjury(Integer nbjury) {
+	this.nbjury = nbjury;
+}
+public void setPcd_nbchoix(Integer pcd_nbchoix) {
+	this.pcd_nbchoix = pcd_nbchoix;
+}
 public int getAnnee() {
 	return annee;
 }
@@ -49,12 +70,8 @@ public String getPcd_datechoix() {
 public void setPcd_datechoix(String pcd_datechoix) {
 	this.pcd_datechoix = pcd_datechoix;
 }
-public boolean isPcd_choix_dep() {
-	return pcd_choix_dep;
-}
-public void setPcd_choix_dep(boolean pcd_choix_dep) {
-	this.pcd_choix_dep = pcd_choix_dep;
-}
+
+
 public String getPcd_dateccharge() {
 	return pcd_dateccharge;
 }
@@ -124,22 +141,52 @@ public void convertToDate(String dateS,Date date)
 }
 public String save()
 {
-	convertToDate(pcd_dateccharge,admin.getPCD_dateCCharge());
+	if(!pcd_dateccharge.isEmpty())
+		convertToDate(pcd_dateccharge,admin.getPCD_dateCCharge());
+	else admin.setPCD_dateCCharge(null);
+	if(!pcd_datechoix.isEmpty())
 	convertToDate(pcd_datechoix,admin.getPCD_dateChoix());
+	else admin.setPCD_dateChoix(null);
+	if(!pcd_daterapport.isEmpty())
 	convertToDate(pcd_daterapport,admin.getPCD_dateRapport());
+	else admin.setPCD_dateRapport(null);
+	if(!pfe_daterapport.isEmpty())
 	convertToDate(pfe_daterapport,admin.getPFE_dateRapport());
+	else admin.setPFE_dateRapport(null);
+	if(!pfe_dateccharge.isEmpty())
 	convertToDate(pfe_dateccharge,admin.getPFE_dateCCharge());
+	else admin.setPFE_dateCCharge(null);
+	if(!pp_datechoix.isEmpty())
 	convertToDate(pp_datechoix,admin.getPP_dateChoix());
+	else admin.setPP_dateChoix(null);
+	if(!pp_daterapport.isEmpty())
 	convertToDate(pp_daterapport,admin.getPP_dateRapport());
+	else admin.setPP_dateRapport(null);
+	if(!filiere_datechoix.isEmpty())
 	convertToDate(filiere_datechoix,admin.getFiliere_dateChoix());
+	else admin.setFiliere_dateChoix(null);
+	if(!modopt_datechoix.isEmpty())
 	convertToDate(modopt_datechoix,admin.getModOpt_dateChoix());
+	else admin.setModOpt_dateChoix(null);
 
 	admin.setAnnee(annee);
 	admin.setPCD_choix(pcd_choix);
-	admin.setPCD_choix_dep(pcd_choix_dep);
 	admin.setPCD_nbChoix(pcd_nbchoix);
 	admD.add(admin);
 	return "";
+}
+public AdminBean() {
+	super();
+	if(admin.getPCD_dateChoix()!=null) pcd_datechoix=admin.getPCD_dateChoix().toString();
+	if(admin.getPCD_dateCCharge()!=null)  pcd_dateccharge=admin.getPCD_dateCCharge().toString();
+	if(admin.getPCD_dateRapport()!=null)  pcd_daterapport=admin.getPCD_dateRapport().toString();
+	if(admin.getPP_dateChoix()!=null)  pp_datechoix=admin.getPP_dateChoix().toString();
+	if(admin.getPP_dateRapport()!=null)  pp_daterapport=admin.getPP_dateRapport().toString();
+	if(admin.getPFE_dateCCharge()!=null)  pfe_dateccharge=admin.getPFE_dateCCharge().toString();
+	if(admin.getPFE_dateRapport()!=null)  pfe_daterapport=admin.getPFE_dateRapport().toString();
+	if(admin.getFiliere_dateChoix()!=null)  filiere_datechoix=admin.getFiliere_dateChoix().toString();
+	if(admin.getModOpt_dateChoix()!=null)  modopt_datechoix=admin.getModOpt_dateChoix().toString();
+	
 }
 
 }

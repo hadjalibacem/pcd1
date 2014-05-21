@@ -13,7 +13,6 @@ public class Departement {
 
 	private String nom;
 	
-	private int chef_departement;
 	public int getId() {
 		return id;
 	}
@@ -29,19 +28,12 @@ public class Departement {
 		this.nom = nom;
 	}
 
-	public int getChef_departement() {
-		return chef_departement;
-	}
+	
 
-	public void setChef_departement(int chef_departement) {
-		this.chef_departement = chef_departement;
-	}
-
-	public Departement(int id, String nom, int chef_departement) {
+	public Departement(int id, String nom) {
 		super();
 		this.id = id;
 		this.nom = nom;
-		this.chef_departement = chef_departement;
 	}
 
 	public Departement() {

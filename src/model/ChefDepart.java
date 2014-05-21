@@ -14,8 +14,16 @@ public class ChefDepart {
 	private String nom;
 	
 	private String prenom;
-
+	private int departement;
 	
+	public int getDepartement() {
+		return departement;
+	}
+
+	public void setDepartement(int departement) {
+		this.departement = departement;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -40,14 +48,17 @@ public class ChefDepart {
 		this.prenom = prenom;
 	}
 
-	public ChefDepart(int id, String nom, String prenom) {
+	
+	
+	
+	public ChefDepart(int id, String nom, String prenom, int departement) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
+		this.departement = departement;
 	}
-	
-	
+
 	public ChefDepart() {
 		super();
 	}

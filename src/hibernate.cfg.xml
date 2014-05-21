@@ -40,5 +40,6 @@
      <mapping class="model.ConnexionEtud"/>
       <mapping class="model.ConnexionChfDp"/>
        <mapping class="model.ChefDepart"/>
+       <mapping class="model.JuryPcd" />
   </session-factory>
 </hibernate-configuration>

@@ -14,7 +14,21 @@ public class Enseignant {
 	private String email;
 	private int bureau;
 	private String motsCles;
+	private Integer departement;
+	private boolean jury;
+	public boolean isJury() {
+		return jury;
+	}
+	public void setJury(boolean jury) {
+		this.jury = jury;
+	}
 	
+	public Integer getDepartement() {
+		return departement;
+	}
+	public void setDepartement(Integer departement) {
+		this.departement = departement;
+	}
 	public String getMotsCles() {
 		return motsCles;
 	}
@@ -53,8 +67,13 @@ public class Enseignant {
 	}
 	
 	
+
+
+	
 	public Enseignant(int id, String nom, String prenom, String email,
-			int bureau, String motsCles) {
+			int bureau, String motsCles, Integer departement,
+			int pCD_nbGrpAjuger, int pP_nbGrpAjuger, int sE_nbGrpAjuger,
+			int pFE_nbGrpAjuger, boolean jury) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -62,6 +81,8 @@ public class Enseignant {
 		this.email = email;
 		this.bureau = bureau;
 		this.motsCles = motsCles;
+		this.departement = departement;
+		this.jury = jury;
 	}
 	public Enseignant() {
 		super();

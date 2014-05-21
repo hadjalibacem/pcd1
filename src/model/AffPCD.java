@@ -17,7 +17,7 @@ public class AffPCD {
 	private Boolean depotCCharge;
 	private Boolean depotRapport;
 	private Date dateSoutenance;
-	private String Jury;
+	private Integer Jury;
 	private Boolean resultat;
 	private Integer coEquipier3;
 	
@@ -95,12 +95,12 @@ public class AffPCD {
 	}
 
 
-	public String getJury() {
+	public Integer getJury() {
 		return Jury;
 	}
 
 
-	public void setJury(String jury) {
+	public void setJury(Integer jury) {
 		Jury = jury;
 	}
 
@@ -133,7 +133,7 @@ public class AffPCD {
 
 
 	public AffPCD(int id, int coEquipier1, int pCD, int coEquipier2, Boolean depotCCharge, Boolean depotRapport,
-			Date dateSoutenance, String jury, Boolean resultat,
+			Date dateSoutenance, Integer jury, Boolean resultat,
 			 Integer coEquipier3) {
 		super();
 		this.id = id;

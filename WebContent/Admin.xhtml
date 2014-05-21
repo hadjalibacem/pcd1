@@ -20,13 +20,7 @@
 				<h:outputLabel for="pcddatechoix"
 					value="Date limite de choix des sujets PCD" />
 				<h:inputText id="pcddatechoix" value="#{adminBean.pcd_datechoix}" />
-				<h:outputLabel for="pcdchoixdep"
-					value="Choix des sujets PCD selon departement" />
-
-				<h:selectOneMenu id="pcdchoixdep" value="#{adminBean.pcd_choix_dep}">
-					<f:selectItem itemValue="true" itemLabel="Oui" />
-					<f:selectItem itemValue="false" itemLabel="Non" />
-				</h:selectOneMenu>
+				
 				<h:outputLabel for="pcddatecc" value="Date limite de depôt de cahier des charges des sujets PCD" />
 				<h:inputText id="pcddatecc" value="#{adminBean.pcd_dateccharge}" />
 				<h:outputLabel for="pcddaterapport" value="Date limite de depôt des Rapport PCD" />
@@ -65,8 +59,12 @@
 				
 				<h:outputLabel for="pcdnbchoix" value="Nombre Maximum des choix des sujets PCD" />
 				<h:inputText id="pcdnbchoix" value="#{adminBean.pcd_nbchoix}" />
-
+				<h:outputLabel value="Nombre d'enseignants par jury" />
+				<h:inputText  value="#{adminBean.nbjury}" />
+				<h:outputLabel value="Nombre limite d'affectation en jury par enseignant" />
+				<h:inputText  value="#{adminBean.nbaffjury}" />
 			</h:panelGrid>
+			
 		<h:commandButton value="Enregistrer" action="#{adminBean.save()}"
 				type="submit" />
 

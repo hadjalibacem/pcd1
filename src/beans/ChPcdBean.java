@@ -23,6 +23,7 @@ import model.ChxPCD;
 import model.Departement;
 import model.Enseignant;
 import model.Etudiant;
+import model.JuryPcd;
 import model.Message;
 import model.Pcd;
 import dao.AdminDao;
@@ -31,6 +32,7 @@ import dao.ChxPcdDao;
 import dao.DepartementDao;
 import dao.EnseignantDao;
 import dao.EtudiantDao;
+import dao.JuryPcdDao;
 import dao.MessageDao;
 import dao.PcdDao;
 
@@ -46,14 +48,38 @@ public class ChPcdBean implements Serializable {
 	private Integer coEquip2 = null;
 	private Integer coEquip3 = null;
 	private int idPcdAaffecter;
+	private JuryPcdDao jurD=new JuryPcdDao();
+	//private int idPcd=0;
+	public ChefDepart getUser() {
+		return user;
+	}
+
+	public void setUser(ChefDepart user) {
+		this.user = user;
+	}
+
+	/*public int getIdPcd() {
+		return idPcd;
+	}
+
+	public void setIdPcd(int idPcd) {
+		this.idPcd = idPcd;
+	}*/
 
 	private PcdDao pcdD = new PcdDao();
+	HttpServletRequest request = (HttpServletRequest) FacesContext
+			.getCurrentInstance().getExternalContext().getRequest();
+	HttpSession session = request.getSession();
+	private ChefDepart user =  (ChefDepart) session.getAttribute("user");
 	private List<Pcd> listPCD = pcdD.getList();
-	private String sujet;
+	private List<Pcd> listPCDbyDep=pcdD.getListPCDbyDep(user.getDepartement());
+	
+
+	/*private String sujet;
 	private String description;
 	private int encadreur;
 	private Integer departement;
-	private int NbAaffecter;
+	private int NbAaffecter;*/
 	private DepartementDao depD = new DepartementDao();
 	private List<Departement> listDep = depD.getListDepartement();
 	private AffPcdDao affpD = new AffPcdDao();
@@ -68,10 +94,21 @@ public class ChPcdBean implements Serializable {
 	private List<Integer> listRandomChoice = new ArrayList<Integer>();
 	private List<Pcd> listPcdToAffect = pcdD.getListPcdToAffect();
 	private MessageDao msgD=new MessageDao();
-	private Integer idGroupe=null;
+	private Integer idPcd=null;
 	private EnseignantDao ensD=new EnseignantDao();
 	private List<Enseignant> listEnseignants=ensD.getList();
 	private Integer jury1;
+	private Pcd pcdAajouter=new Pcd(0, "", null, 0, null, 0, null);
+
+	private Integer limit=adm.getPCD_nbSujetAjugerParProf();
+	public Pcd getPcdAajouter() {
+		return pcdAajouter;
+	}
+
+	public void setPcdAajouter(Pcd pcdAajouter) {
+		this.pcdAajouter = pcdAajouter;
+	}
+
 	public Integer getJury1() {
 		return jury1;
 	}
@@ -96,13 +133,7 @@ public class ChPcdBean implements Serializable {
 		this.listAff = listAff;
 	}
 
-	public Integer getIdGroupe() {
-		return idGroupe;
-	}
-
-	public void setIdGroupe(Integer idGroupe) {
-		this.idGroupe = idGroupe;
-	}
+	
 
 	private Date date = Calendar.getInstance().getTime();
 	public Date getDate() {
@@ -154,7 +185,7 @@ public class ChPcdBean implements Serializable {
 		this.listDep = listDep;
 	}
 
-	public String getSujet() {
+	/*public String getSujet() {
 		return sujet;
 	}
 
@@ -192,7 +223,7 @@ public class ChPcdBean implements Serializable {
 
 	public void setNbAaffecter(int nbAaffecter) {
 		NbAaffecter = nbAaffecter;
-	}
+	}*/
 
 	public int getIdPcdAaffecter() {
 		return idPcdAaffecter;
@@ -297,18 +328,19 @@ public class ChPcdBean implements Serializable {
 	}
 
 	public String AddPcd() {
-		PcdDao pcdD = new PcdDao();
-		if (pcdD.getPcd(sujet) != null) {
+		
+		if (pcdD.getPcd(pcdAajouter.getSujet()) != null) {
 			FacesMessage message = new FacesMessage(
 					"Ce sujet est déjà enregistré !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 			return null;
 		}
-		if (departement == 0)
-			departement = null;
-		Pcd pcd = new Pcd(0, sujet, description, encadreur, departement,
-				NbAaffecter, motsCles);
-		if (pcdD.add(pcd)) {
+		if (pcdAajouter.getDepartement() == 0)
+			pcdAajouter.setDepartement(null);
+		
+		
+		
+		if (pcdD.add(pcdAajouter)) {
 			FacesMessage message = new FacesMessage("Sujet ajouté !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		} else {
@@ -488,18 +520,270 @@ public class ChPcdBean implements Serializable {
 		return "";
 	}
 	
-	public String getListEnseignantByKeyWords()
+	/*public String getListEnseignantByKeyWords()
 	{
-		if(idGroupe==null) {
+		if(idPcd==null) {
 			FacesMessage message = new FacesMessage("Selectionner un groupe valide !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 			return null;
 		}
 		listEnseignants=ensD.getList();
-		Pcd pcd=pcdD.getPcd(affpD.getPcdAff(idGroupe).getPCD());
+		Pcd pcd=pcdD.getPcd(affpD.getPcdAff(idPcd).getPCD());
 		if(!pcd.getMotsCles().isEmpty())
 		listEnseignants=ensD.getListByKeyWords(pcd.getMotsCles().split(","));
 		return "";
 		
+	}*/
+	
+	
+	public String affectJury()
+	{
+		List<Integer> listIdPcdAff=affpD.getIdPcdAffected();
+		List<Integer> listRandom=new ArrayList<Integer>();
+		
+		Pcd pcd;
+		for(AffPCD pcdaff:listAff)
+		{
+			
+			int idpcd=pcdaff.getId();
+			pcd=pcdD.getPcd(pcdaff.getPCD());
+			if(pcd.getMotsCles()==null)
+				{listRandom.add(idpcd);
+				listRandom.add(0);
+				listRandom.add(0);
+				listRandom.add(0);
+				}
+			else{
+		List<Enseignant> listEns=ensD.getListByKeyWords(pcd.getMotsCles().split(","));
+		if(listEns.isEmpty())
+		{listRandom.add(idpcd);
+		listRandom.add(0);
+		listRandom.add(0);
+		listRandom.add(0);}
+		else{
+			JuryPcd jury=null;int i=0;
+			while(i<listEns.size()&&jury==null)
+			{
+				jury=jurD.getJury(listEns.get(i).getId());
+				if(jury!=null && jurD.getNbAffJury(jury.getId()).equals(limit))
+					
+					{listEns.remove(i);
+					jury=null;
+					i--;
+					}
+					
+				i++;
+			}
+			if(jury==null)
+			{
+				if(listEns.size()==2)
+				{
+					listRandom.add(idpcd);
+					listRandom.add(listEns.get(0).getId());
+					listRandom.add(listEns.get(1).getId());
+					listRandom.add(0);
+				}
+				else if(listEns.size()==1)
+				{
+					listRandom.add(idpcd);
+					listRandom.add(listEns.get(0).getId());
+					listRandom.add(0);
+					listRandom.add(0);
+				}
+				else
+				{
+					JuryPcd juryA=new JuryPcd(0, listEns.get(0).getId(), listEns.get(1).getId(), listEns.get(2).getId());
+					jurD.add(juryA);
+					pcdaff.setJury(jurD.getJury(juryA.getMembre1()).getId());
+					affpD.affect(pcdaff);
+					
+				}
+			}
+			else
+			{
+				pcdaff.setJury(jury.getId());
+				affpD.affect(pcdaff);
+			}
+			
+		}
+			}
+		
+		
+		}
+		RandomAffectJury(listRandom);
+		return "";
+		
+	}
+	
+	public String RandomAffectJury(List<Integer> listRand)
+	{
+		for(int i=0;i<listRand.size();i+=4)
+		{
+			AffPCD pcdaff=affpD.getPcdAff(listRand.get(i));
+			List<Enseignant> listNotAffToJury=jurD.getListNotAffToJury();
+			if(listRand.get(i+1).equals(0))
+			{
+				if(listNotAffToJury.size()>=3)
+				{JuryPcd jury=new JuryPcd(0, listNotAffToJury.get(0).getId(), listNotAffToJury.get(1).getId(), listNotAffToJury.get(2).getId());
+				jurD.add(jury);
+				pcdaff.setJury(jurD.getJury(jury.getMembre1()).getId());
+				affpD.affect(pcdaff);
+				}
+				else
+				{
+					int j=0;
+					List<JuryPcd> list=jurD.getList();
+					while(jurD.getNbAffJury(list.get(j).getId()).equals(limit))
+					
+						j++;
+					pcdaff.setJury(list.get(j).getId());
+					affpD.affect(pcdaff);
+					
+				}
+			}
+			else
+			{
+				JuryPcd jury=jurD.getJury(listRand.get(i+1));
+				if(jury==null)
+					{if(listRand.get(i+2).equals(0))
+					{
+						listNotAffToJury=jurD.getListNotAffToJury();
+						if(listNotAffToJury.size()>=2)
+						{
+							JuryPcd juryN=new JuryPcd(0, listRand.get(i+1), listNotAffToJury.get(0).getId(), listNotAffToJury.get(1).getId());
+							jurD.add(juryN);
+							pcdaff.setJury(jurD.getJury(juryN.getMembre1()).getId());
+							affpD.affect(pcdaff);
+						}
+						else
+						{
+							int j=0;
+							List<JuryPcd> list=jurD.getList();
+							while(jurD.getNbAffJury(list.get(j).getId()).equals(limit))
+							
+								j++;
+							pcdaff.setJury(list.get(j).getId());
+							affpD.affect(pcdaff);
+						}
+					}
+					else
+					{
+						JuryPcd jury2=jurD.getJury(listRand.get(i+2));
+						if(jury2==null)
+							{if(listRand.get(i+2).equals(0))
+							{
+								listNotAffToJury=jurD.getListNotAffToJury();
+								if(listNotAffToJury.size()>=1)
+								{
+									JuryPcd juryN=new JuryPcd(0, listRand.get(i+1), listRand.get(i+2), listNotAffToJury.get(0).getId());
+									jurD.add(juryN);
+									pcdaff.setJury(jurD.getJury(juryN.getMembre1()).getId());
+									affpD.affect(pcdaff);
+								}
+								else
+								{
+									int j=0;
+									List<JuryPcd> list=jurD.getList();
+									while(jurD.getNbAffJury(list.get(j).getId()).equals(limit))
+									
+										j++;
+									pcdaff.setJury(list.get(j).getId());
+									affpD.affect(pcdaff);
+								}
+							}
+							else{
+								JuryPcd jury3=jurD.getJury(listRand.get(i+3));
+								if(jury3==null)
+									{if(listRand.get(i+3).equals(0))
+									{
+										listNotAffToJury=jurD.getListNotAffToJury();
+										if(listNotAffToJury.size()>=1)
+										{
+											JuryPcd juryN=new JuryPcd(0, listRand.get(i+1), listRand.get(i+2), listNotAffToJury.get(0).getId());
+											jurD.add(juryN);
+											pcdaff.setJury(jurD.getJury(juryN.getMembre1()).getId());
+											affpD.affect(pcdaff);
+										}
+										else
+										{
+											int j=0;
+											List<JuryPcd> list=jurD.getList();
+											while(jurD.getNbAffJury(list.get(j).getId()).equals(limit))
+											
+												j++;
+											pcdaff.setJury(list.get(j).getId());
+											affpD.affect(pcdaff);
+										}
+									}
+									else 
+									{
+										JuryPcd juryNN= new JuryPcd(0, listRand.get(i+1), listRand.get(i+2), listRand.get(i+3));
+										jurD.add(juryNN);
+										pcdaff.setJury(jurD.getJury(juryNN.getMembre1()).getId());
+										affpD.affect(pcdaff);
+									}}
+								{
+									if(jurD.getNbAffJury(jury3.getId()).equals(limit))
+									{listRand.add(listRand.get(i));
+								listRand.add(listRand.get(i+1));
+								listRand.add(listRand.get(i+2));
+								listRand.add(0);}
+								else{
+									pcdaff.setJury(jury3.getId());
+									affpD.affect(pcdaff);
+								}
+								}
+							}}
+						else{
+							if(jurD.getNbAffJury(jury2.getId()).equals(limit))
+							{listRand.add(listRand.get(i));
+						listRand.add(listRand.get(i+1));
+						listRand.add(listRand.get(i+3));
+						listRand.add(0);}
+						else{
+							pcdaff.setJury(jury2.getId());
+							affpD.affect(pcdaff);}
+						}
+					}}
+				else {
+					if(jurD.getNbAffJury(jury.getId()).equals(limit))
+						{listRand.add(listRand.get(i));
+					listRand.add(listRand.get(i+2));
+					listRand.add(listRand.get(i+3));
+					listRand.add(0);}
+					else{
+						pcdaff.setJury(jury.getId());
+						affpD.affect(pcdaff);}
+								
+							}
+					}
+			}
+		return "";}
+	
+	public String AfficheEnseignant(int id) {
+
+		return ensD.getEnseignant(id).getNom() + " "
+				+ ensD.getEnseignant(id).getPrenom();
+	}
+
+	public List<Pcd> getListPCDbyDep() {
+		return listPCDbyDep;
+	}
+
+	public void setListPCDbyDep(List<Pcd> listPCDbyDep) {
+		this.listPCDbyDep = listPCDbyDep;
+	}
+	public String getPcd()
+	{
+		pcdAajouter=pcdD.getPcd(pcdAajouter.getId());
+		return "";
+	}
+
+	public Integer getIdPcd() {
+		return idPcd;
+	}
+
+	public void setIdPcd(Integer idPcd) {
+		this.idPcd = idPcd;
 	}
 }

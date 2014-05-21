@@ -13,7 +13,6 @@ public class Administration {
 	private int annee;
 	
 	private Date PCD_dateChoix;
-	private boolean PCD_choix_dep;
 	private Date PCD_dateCCharge;
 	private Date PCD_dateRapport;
 	private Date PP_dateChoix;
@@ -62,12 +61,7 @@ public class Administration {
 	public void setPCD_dateChoix(Date pCD_dateChoix) {
 		PCD_dateChoix = pCD_dateChoix;
 	}
-	public boolean getPCD_choix_dep() {
-		return PCD_choix_dep;
-	}
-	public void setPCD_choix_dep(boolean pCD_choix_dep) {
-		PCD_choix_dep = pCD_choix_dep;
-	}
+	
 	public Date getPCD_dateCCharge() {
 		return PCD_dateCCharge;
 	}
@@ -119,7 +113,7 @@ public class Administration {
 	public void setModOpt_dateChoix(Date modOpt_dateChoix) {
 		ModOpt_dateChoix = modOpt_dateChoix;
 	}
-	public Administration(int annee, Date pCD_dateChoix, boolean pCD_choix_dep,
+	public Administration(int annee, Date pCD_dateChoix, 
 			Date pCD_dateCCharge, Date pCD_dateRapport, Date pP_dateChoix,
 			Date pP_dateRapport, Date pFE_dateCCharge, Date pFE_dateRapport,
 			Date filiere_dateChoix, Date modOpt_dateChoix, boolean pCD_choix,
@@ -127,7 +121,6 @@ public class Administration {
 		super();
 		this.annee = annee;
 		PCD_dateChoix = pCD_dateChoix;
-		PCD_choix_dep = pCD_choix_dep;
 		PCD_dateCCharge = pCD_dateCCharge;
 		PCD_dateRapport = pCD_dateRapport;
 		PP_dateChoix = pP_dateChoix;
