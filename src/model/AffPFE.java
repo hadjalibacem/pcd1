@@ -17,7 +17,6 @@ public class AffPFE {
 	private Boolean vu;
 	private Boolean depotCCharge;
 	private Boolean depotRapport;
-	private Date dateSoutenance;
 	private String Jury;
 	private String CRenduSuperviseur;
 	private Boolean Convention;
@@ -63,12 +62,6 @@ public class AffPFE {
 	public void setDepotRapport(Boolean depotRapport) {
 		this.depotRapport = depotRapport;
 	}
-	public Date getDateSoutenance() {
-		return dateSoutenance;
-	}
-	public void setDateSoutenance(Date dateSoutenance) {
-		this.dateSoutenance = dateSoutenance;
-	}
 	public String getJury() {
 		return Jury;
 	}
@@ -98,7 +91,6 @@ public class AffPFE {
 		this.vu = vu;
 		this.depotCCharge = depotCCharge;
 		this.depotRapport = depotRapport;
-		this.dateSoutenance = dateSoutenance;
 		Jury = jury;
 		CRenduSuperviseur = cRenduSuperviseur;
 		Convention = convention;

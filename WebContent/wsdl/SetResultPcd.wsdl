@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://webservices" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://webservices" xmlns:intf="http://webservices" xmlns:tns1="http://model" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://webservices" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model"/>
+   <element name="SetResult">
+    <complexType/>
+   </element>
+   <element name="SetResultResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="SetResultReturn" type="tns1:AffPCD"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://model" xmlns="http://www.w3.org/2001/XMLSchema">
+   <complexType name="AffPCD">
+    <sequence>
+     <element name="PCD" type="xsd:int"/>
+     <element name="coEquipier1" type="xsd:int"/>
+     <element name="coEquipier2" type="xsd:int"/>
+     <element name="coEquipier3" nillable="true" type="xsd:int"/>
+     <element name="depotCCharge" nillable="true" type="xsd:boolean"/>
+     <element name="depotRapport" nillable="true" type="xsd:boolean"/>
+     <element name="id" type="xsd:int"/>
+     <element name="jury" nillable="true" type="xsd:int"/>
+     <element name="resultat" nillable="true" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="SetResultRequest">
+
+      <wsdl:part element="impl:SetResult" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="SetResultResponse">
+
+      <wsdl:part element="impl:SetResultResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="SetResultPcd">
+
+      <wsdl:operation name="SetResult">
+
+         <wsdl:input message="impl:SetResultRequest" name="SetResultRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:SetResultResponse" name="SetResultResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="SetResultPcdSoapBinding" type="impl:SetResultPcd">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="SetResult">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="SetResultRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="SetResultResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="SetResultPcdService">
+
+      <wsdl:port binding="impl:SetResultPcdSoapBinding" name="SetResultPcd">
+
+         <wsdlsoap:address location="http://localhost:8080/pcd1/services/SetResultPcd"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

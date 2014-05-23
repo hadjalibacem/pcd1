@@ -14,7 +14,6 @@ public class AffFiliere {
 	private int filiere;
 	
 	private int etudiant;
-	private Boolean vu;
 	public int getId() {
 		return id;
 	}
@@ -33,18 +32,11 @@ public class AffFiliere {
 	public void setEtudiant(int etudiant) {
 		this.etudiant = etudiant;
 	}
-	public Boolean getVu() {
-		return vu;
-	}
-	public void setVu(Boolean vu) {
-		this.vu = vu;
-	}
 	public AffFiliere(int id, int filiere, int etudiant, Boolean vu) {
 		super();
 		this.id = id;
 		this.filiere = filiere;
 		this.etudiant = etudiant;
-		this.vu = vu;
 	}
 	public AffFiliere() {
 		super();

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://webservices" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://webservices" xmlns:intf="http://webservices" xmlns:tns1="http://model" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://webservices" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model"/>
+   <element name="SetEtud">
+    <complexType>
+     <sequence>
+      <element name="IdOption" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="SetEtudResponse">
+    <complexType>
+     <sequence>
+      <element name="SetEtudReturn" type="tns1:Etudiant"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://model" xmlns="http://www.w3.org/2001/XMLSchema">
+   <complexType name="Etudiant">
+    <sequence>
+     <element name="adresse" nillable="true" type="xsd:string"/>
+     <element name="departement" type="xsd:int"/>
+     <element name="email" nillable="true" type="xsd:string"/>
+     <element name="groupe" nillable="true" type="xsd:string"/>
+     <element name="id" type="xsd:int"/>
+     <element name="niveau" type="xsd:int"/>
+     <element name="nom" nillable="true" type="xsd:string"/>
+     <element name="prenom" nillable="true" type="xsd:string"/>
+     <element name="rang" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="SetEtudResponse">
+
+      <wsdl:part element="impl:SetEtudResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="SetEtudRequest">
+
+      <wsdl:part element="impl:SetEtud" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="SetEtudiantbyOption">
+
+      <wsdl:operation name="SetEtud">
+
+         <wsdl:input message="impl:SetEtudRequest" name="SetEtudRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:SetEtudResponse" name="SetEtudResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="SetEtudiantbyOptionSoapBinding" type="impl:SetEtudiantbyOption">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="SetEtud">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="SetEtudRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="SetEtudResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="SetEtudiantbyOptionService">
+
+      <wsdl:port binding="impl:SetEtudiantbyOptionSoapBinding" name="SetEtudiantbyOption">
+
+         <wsdlsoap:address location="http://localhost:8080/pcd1/services/SetEtudiantbyOption"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

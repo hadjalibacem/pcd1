@@ -20,68 +20,79 @@
 				<h:outputLabel for="pcddatechoix"
 					value="Date limite de choix des sujets PCD" />
 				<h:inputText id="pcddatechoix" value="#{adminBean.pcd_datechoix}" />
-				
-				<h:outputLabel for="pcddatecc" value="Date limite de depôt de cahier des charges des sujets PCD" />
+
+				<h:outputLabel for="pcddatecc"
+					value="Date limite de depôt de cahier des charges des sujets PCD" />
 				<h:inputText id="pcddatecc" value="#{adminBean.pcd_dateccharge}" />
-				<h:outputLabel for="pcddaterapport" value="Date limite de depôt des Rapport PCD" />
-				<h:inputText id="pcddaterapport" value="#{adminBean.pcd_daterapport}" />
-				
+				<h:outputLabel for="pcddaterapport"
+					value="Date limite de depôt des Rapport PCD" />
+				<h:inputText id="pcddaterapport"
+					value="#{adminBean.pcd_daterapport}" />
+
 				<h:outputLabel for="ppdatechoix"
 					value="Date limite de choix des sujets PP" />
 				<h:inputText id="ppdatechoix" value="#{adminBean.pp_datechoix}" />
-				
 
-				
-				
-				<h:outputLabel for="ppdaterapport" value="Date limite de depôt des Rapport PP" />
+
+
+
+				<h:outputLabel for="ppdaterapport"
+					value="Date limite de depôt des Rapport PP" />
 				<h:inputText id="ppdaterapport" value="#{adminBean.pp_daterapport}" />
-				
-				<h:outputLabel for="pfedaterapport" value="Date limite de depôt des Rapport PFE" />
-				<h:inputText id="pfedaterapport" value="#{adminBean.pfe_daterapport}" />
-				
-				<h:outputLabel for="pfedatecc" value="Date limite de depôt des chahiers ded charges PFE" />
+
+				<h:outputLabel for="pfedaterapport"
+					value="Date limite de depôt des Rapport PFE" />
+				<h:inputText id="pfedaterapport"
+					value="#{adminBean.pfe_daterapport}" />
+
+				<h:outputLabel for="pfedatecc"
+					value="Date limite de depôt des chahiers ded charges PFE" />
 				<h:inputText id="pfedatecc" value="#{adminBean.pfe_dateccharge}" />
-				
-				<h:outputLabel for="fildatechoix" value="Date limite de choix des filières" />
-				<h:inputText id="fildatechoix" value="#{adminBean.filiere_datechoix}" />
-				
-				<h:outputLabel for="modoptdatechoix" value="Date limite de choix des modules optionnels" />
-				<h:inputText id="modoptdatechoix" value="#{adminBean.modopt_datechoix}" />
-				
-				<h:outputLabel for="pcdchoix"
-					value="Publier les sujets PCD" />
+
+				<h:outputLabel for="fildatechoix"
+					value="Date limite de choix des filières" />
+				<h:inputText id="fildatechoix"
+					value="#{adminBean.filiere_datechoix}" />
+
+				<h:outputLabel for="modoptdatechoix"
+					value="Date limite de choix des modules optionnels" />
+				<h:inputText id="modoptdatechoix"
+					value="#{adminBean.modopt_datechoix}" />
+
+				<h:outputLabel for="pcdchoix" value="Publier les sujets PCD" />
 
 
 				<h:selectOneMenu id="pcdchoix" value="#{adminBean.pcd_choix}">
 					<f:selectItem itemValue="true" itemLabel="Oui" />
 					<f:selectItem itemValue="false" itemLabel="Non" />
 				</h:selectOneMenu>
-				
-				<h:outputLabel for="pcdnbchoix" value="Nombre Maximum des choix des sujets PCD" />
+
+				<h:outputLabel for="pcdnbchoix"
+					value="Nombre Maximum des choix des sujets PCD" />
 				<h:inputText id="pcdnbchoix" value="#{adminBean.pcd_nbchoix}" />
 				<h:outputLabel value="Nombre d'enseignants par jury" />
-				<h:inputText  value="#{adminBean.nbjury}" />
-				<h:outputLabel value="Nombre limite d'affectation en jury par enseignant" />
-				<h:inputText  value="#{adminBean.nbaffjury}" />
+				<h:inputText value="#{adminBean.nbjury}" />
+				<h:outputLabel
+					value="Nombre limite d'affectation en jury par enseignant" />
+				<h:inputText value="#{adminBean.nbaffjury}" />
 			</h:panelGrid>
-			
-		<h:commandButton value="Enregistrer" action="#{adminBean.save()}"
+
+			<h:commandButton value="Enregistrer" action="#{adminBean.save()}"
 				type="submit" />
 
 		</h:form>
 
 	</f:view>
-<h:form>
+	<h:form>
 
 
-	<div>
-	<h:commandLink action="Acceuil"
-					value="Acceuil" styleClass="link" />
-					</div>
-					<div>
-	<h:commandLink action="#{authBean.logout()}"
-					value="déconnexion" styleClass="link" />
-					</div>
-					</h:form>
+		<div>
+			<h:commandLink action="Acceuil" value="Acceuil" styleClass="link" />
+		</div>
+		<div>
+			<h:commandLink action="#{authBean.logout()}" value="déconnexion"
+				styleClass="link" />
+		</div>
+	</h:form>
 </body>
 </html>

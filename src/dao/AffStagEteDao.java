@@ -27,5 +27,10 @@ public class AffStagEteDao {
 		
 	}
 
+	public AffStagEte[] getArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	}
 

@@ -7,11 +7,12 @@
 <h:head />
 <body>
 
-            <h1>Messages</h1><h:form>
-            <c:if test="#{homeBean.listMsgNonVu.size()!=0}">
-            
-	<h:dataTable id="listMSG" value="#{homeBean.listMsgNonVu}" var="msg"
-		border="1">
+	<h1>Messages</h1>
+	<h:form>
+		<c:if test="#{homeBean.listMsgNonVu.size()!=0}">
+
+			<h:dataTable id="listMSG" value="#{homeBean.listMsgNonVu}" var="msg"
+				border="1">
     <f:facet name="header">
         <h:outputText value="Vos Messages non lus" />
     </f:facet>
@@ -21,13 +22,13 @@
         </f:facet>
         <h:outputText value="Departement" />
     </h:column>
-<h:column>
+				<h:column>
         <f:facet name="header">
             <h:outputText value="Sujet" />
         </f:facet>
         <h:outputText value="#{msg.sujet}" />
     </h:column>
-<h:column>
+				<h:column>
         <f:facet name="header">
             <h:outputText value="Message" />
         </f:facet>
@@ -42,14 +43,14 @@
  
     
 	</h:dataTable>
-</c:if>
-<c:if test="#{homeBean.listMsgNonVu.size()==0}">
-<c:if test="#{homeBean.listMsg.size()==0}">
-<h:outputText>Vous n'avez aucun message</h:outputText>
-</c:if>
-<c:if test="#{homeBean.listMsg.size()!=0}">
-<h:dataTable id="listMSGVu" value="#{homeBean.listMsg}" var="msg"
-		border="1">
+		</c:if>
+		<c:if test="#{homeBean.listMsgNonVu.size()==0}">
+			<c:if test="#{homeBean.listMsg.size()==0}">
+				<h:outputText>Vous n'avez aucun message</h:outputText>
+			</c:if>
+			<c:if test="#{homeBean.listMsg.size()!=0}">
+				<h:dataTable id="listMSGVu" value="#{homeBean.listMsg}" var="msg"
+					border="1">
     <f:facet name="header">
         <h:outputText value="Vos Messages" />
     </f:facet>
@@ -59,13 +60,13 @@
         </f:facet>
         <h:outputText value="Departement" />
     </h:column>
-<h:column>
+					<h:column>
         <f:facet name="header">
             <h:outputText value="Sujet" />
         </f:facet>
         <h:outputText value="#{msg.sujet}" />
     </h:column>
-<h:column>
+					<h:column>
         <f:facet name="header">
             <h:outputText value="Message" />
         </f:facet>
@@ -80,20 +81,19 @@
  
     
 	</h:dataTable>
-</c:if>
-</c:if>
-</h:form>
-<h:form>
-	<div>
-	<h:commandLink action="Acceuil"
-					value="Acceuil" styleClass="link" />
-					</div>
-					<div>
-	<h:commandLink action="#{authBean.logout()}"
-					value="déconnexion" styleClass="link" />
-					</div>
-					</h:form>
-					
-    
+			</c:if>
+		</c:if>
+	</h:form>
+	<h:form>
+		<div>
+			<h:commandLink action="Acceuil" value="Acceuil" styleClass="link" />
+		</div>
+		<div>
+			<h:commandLink action="#{authBean.logout()}" value="déconnexion"
+				styleClass="link" />
+		</div>
+	</h:form>
+
+
 </body>
 </html>

@@ -11,6 +11,12 @@ import javax.persistence.Table;
 public class AffProjProg {
 	@Id
 	private int id;
+	public int getJury() {
+		return Jury;
+	}
+	public void setJury(int jury) {
+		Jury = jury;
+	}
 	private int coEquipier1;
 	private int proj_prog;
 
@@ -18,8 +24,7 @@ public class AffProjProg {
 	private Boolean resultat;
 	private Boolean vu;
 	private Boolean depotRapport;
-	private Date dateSoutenance;
-	private String Jury;
+	private int Jury;
 	public int getId() {
 		return id;
 	}
@@ -62,21 +67,9 @@ public class AffProjProg {
 	public void setDepotRapport(Boolean depotRapport) {
 		this.depotRapport = depotRapport;
 	}
-	public Date getDateSoutenance() {
-		return dateSoutenance;
-	}
-	public void setDateSoutenance(Date dateSoutenance) {
-		this.dateSoutenance = dateSoutenance;
-	}
-	public String getJury() {
-		return Jury;
-	}
-	public void setJury(String jury) {
-		Jury = jury;
-	}
 	public AffProjProg(int id, int coEquipier1, int proj_prog, int coEquipier2,
 			Boolean resultat, Boolean vu, Boolean depotRapport,
-			Date dateSoutenance, String jury) {
+			Date dateSoutenance, int jury) {
 		super();
 		this.id = id;
 		this.coEquipier1 = coEquipier1;
@@ -85,7 +78,6 @@ public class AffProjProg {
 		this.resultat = resultat;
 		this.vu = vu;
 		this.depotRapport = depotRapport;
-		this.dateSoutenance = dateSoutenance;
 		Jury = jury;
 	}
 	public AffProjProg() {

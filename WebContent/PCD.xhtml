@@ -7,20 +7,30 @@
 <h:head />
 <body>
 
-            <h1>Projet de Conception et Developpement</h1>
-           <c:if test="#{pcdBean.adm.PCD_dateChoix!=null}">
-            <c:if test="#{pcdBean.adm.PCD_choix==true}">
-            
-            <h:form>
-            <div>
-            	
-            <h:outputText value="date limite choix PCD: #{pcdBean.adm.PCD_dateChoix}"/>
-            </div><div><c:if test="#{pcdBean.adm.PCD_dateCCharge!=null}">
-            <h:outputText value="date limite de depôt des cahiers de charges : #{pcdBean.adm.PCD_dateCCharge}"/></c:if>
-            </div><div><c:if test="#{pcdBean.adm.PCD_dateRapport!=null}">
-            <h:outputText value="date limite de depôt des rapports: #{pcdBean.adm.PCD_dateRapport}"/></c:if></div>
-	<h:dataTable id="listPCD" value="#{pcdBean.listPCD}" var="pcd"
-		border="1">
+	<h1>Projet de Conception et Developpement</h1>
+	<c:if test="#{pcdBean.adm.PCD_dateChoix!=null}">
+		<c:if test="#{pcdBean.adm.PCD_choix==true}">
+
+			<h:form>
+				<div>
+
+					<h:outputText
+						value="date limite choix PCD: #{pcdBean.adm.PCD_dateChoix}" />
+				</div>
+				<div>
+					<c:if test="#{pcdBean.adm.PCD_dateCCharge!=null}">
+						<h:outputText
+							value="date limite de depôt des cahiers de charges : #{pcdBean.adm.PCD_dateCCharge}" />
+					</c:if>
+				</div>
+				<div>
+					<c:if test="#{pcdBean.adm.PCD_dateRapport!=null}">
+						<h:outputText
+							value="date limite de depôt des rapports: #{pcdBean.adm.PCD_dateRapport}" />
+					</c:if>
+				</div>
+				<h:dataTable id="listPCD" value="#{pcdBean.listPCD}" var="pcd"
+					border="1">
     <f:facet name="header">
         <h:outputText value="Liste des sujets proposés" />
     </f:facet>
@@ -30,13 +40,13 @@
         </f:facet>
         <h:outputText value="#{pcd.id}" />
     </h:column>
-<h:column>
+					<h:column>
         <f:facet name="header">
             <h:outputText value="Sujet" />
         </f:facet>
         <h:outputText value="#{pcd.sujet}" />
     </h:column>
-<h:column>
+					<h:column>
         <f:facet name="header">
             <h:outputText value="Description" />
         </f:facet>
@@ -46,55 +56,62 @@
         <f:facet name="header">
             <h:outputText value="Encadreur" />
         </f:facet>
-        <h:outputText value="#{pcdBean.AfficheEnseignant(pcd.encadreur)}" />
+        <h:outputText
+							value="#{pcdBean.AfficheEnseignant(pcd.encadreur)}" />
     </h:column>
  <h:column>
         <f:facet name="header">
             <h:outputText value="Departement" />
         </f:facet>
-        <h:outputText value="#{pcdBean.AfficheDepartement(pcd.departement)}" />
+        <h:outputText
+							value="#{pcdBean.AfficheDepartement(pcd.departement)}" />
     </h:column>
     
 	</h:dataTable>
-	<c:if test="#{pcdBean.date.before(pcdBean.adm.getPCD_dateChoix())}">
-	 <h2>Remplissez Votre Liste de choix</h2><div>
-	 <h:outputText value="Id du 1er co-équipier*"/>
-	 <h:inputText value="#{pcdBean.coEquip2}" required="true" />
-	 </div><div>
-	  <h:outputText value="Id du 2eme co-équipier"/>
-	 <h:inputText value="#{pcdBean.coEquip3}"/>
-	 </div>
-  <h:dataTable value="#{pcdBean.listChx}"  var="chx">
-    <h:column>
-      <f:facet name="header">
-      <h:outputText value="Choissez vos choix tout en respectant les rangs" />
-      </f:facet>
-      <h:selectOneMenu value="#{chx.pcd}">
-    <f:selectItems value="#{pcdBean.listPCD}" var="pcd" itemValue="#{pcd.id}" itemLabel="#{pcd.sujet}"/>
-							
-</h:selectOneMenu>
-
-    </h:column>
-    
-  </h:dataTable>
-  <h:commandButton actionListener="#{pcdBean.SaisirChoixPCD}" value="Go !"/></c:if>
-  </h:form>
-  
-</c:if>
-</c:if>
-<h:form>
-
-
-	<div>
-	<h:commandLink action="Acceuil"
-					value="Acceuil" styleClass="link" />
+				<c:if test="#{pcdBean.date.before(pcdBean.adm.getPCD_dateChoix())}">
+					<h2>Remplissez Votre Liste de choix</h2>
+					<div>
+						<h:outputText value="Id du 1er co-équipier*" />
+						<h:inputText value="#{pcdBean.coEquip2}" required="true" />
 					</div>
 					<div>
-	<h:commandLink action="#{authBean.logout()}"
-					value="déconnexion" styleClass="link" />
+						<h:outputText value="Id du 2eme co-équipier" />
+						<h:inputText value="#{pcdBean.coEquip3}" />
 					</div>
-					</h:form>
-					
-    
+					<h:dataTable value="#{pcdBean.listChx}" var="chx">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText
+									value="Choissez vos choix tout en respectant les rangs" />
+							</f:facet>
+							<h:selectOneMenu value="#{chx.pcd}">
+								<f:selectItems value="#{pcdBean.listPCD}" var="pcd"
+									itemValue="#{pcd.id}" itemLabel="#{pcd.sujet}" />
+
+							</h:selectOneMenu>
+
+						</h:column>
+
+					</h:dataTable>
+					<h:commandButton actionListener="#{pcdBean.SaisirChoixPCD}"
+						value="Go !" />
+				</c:if>
+			</h:form>
+
+		</c:if>
+	</c:if>
+	<h:form>
+
+
+		<div>
+			<h:commandLink action="Acceuil" value="Acceuil" styleClass="link" />
+		</div>
+		<div>
+			<h:commandLink action="#{authBean.logout()}" value="déconnexion"
+				styleClass="link" />
+		</div>
+	</h:form>
+
+
 </body>
 </html>

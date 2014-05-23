@@ -16,7 +16,6 @@ public class AffPCD {
 	private int coEquipier2;
 	private Boolean depotCCharge;
 	private Boolean depotRapport;
-	private Date dateSoutenance;
 	private Integer Jury;
 	private Boolean resultat;
 	private Integer coEquipier3;
@@ -85,14 +84,7 @@ public class AffPCD {
 	}
 
 
-	public Date getDateSoutenance() {
-		return dateSoutenance;
-	}
-
-
-	public void setDateSoutenance(Date dateSoutenance) {
-		this.dateSoutenance = dateSoutenance;
-	}
+	
 
 
 	public Integer getJury() {
@@ -142,7 +134,6 @@ public class AffPCD {
 		this.coEquipier2 = coEquipier2;
 		this.depotCCharge = depotCCharge;
 		this.depotRapport = depotRapport;
-		this.dateSoutenance = dateSoutenance;
 		Jury = jury;
 		this.resultat = resultat;
 		this.coEquipier3 = coEquipier3;

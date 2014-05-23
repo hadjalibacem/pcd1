@@ -1,51 +1,92 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains 
+	and services --><!-- Two ways to do this: --><!-- java org.apache.axis.client.AdminClient 
+	deploy.wsdd --><!-- after the axis server is running --><!-- or --><!-- java org.apache.axis.utils.Admin 
+	client|server deploy.wsdd --><!-- from the same directory that the 
+	Axis engine runs -->
+<deployment xmlns="http://xml.apache.org/axis/wsdd/"
+	xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
 
-  <!-- Services from PcdService WSDL service -->
+	<!-- Services from PcdService WSDL service -->
 
-  <service name="Pcd" provider="java:RPC" style="wrapped" use="literal">
-      <parameter name="wsdlTargetNamespace" value="http://model"/>
-      <parameter name="wsdlServiceElement" value="PcdService"/>
-      <parameter name="schemaQualified" value="http://model"/>
-      <parameter name="wsdlServicePort" value="Pcd"/>
-      <parameter name="className" value="model.Pcd"/>
-      <parameter name="wsdlPortType" value="Pcd"/>
-      <parameter name="typeMappingVersion" value="1.2"/>
-      <operation xmlns:operNS="http://model" name="setId" qname="operNS:setId" soapAction="">
-        <parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
-      </operation>
-      <operation xmlns:operNS="http://model" xmlns:retNS="http://model" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getId" qname="operNS:getId" returnQName="retNS:getIdReturn" returnType="rtns:int" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://model" xmlns:retNS="http://model" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getSujet" qname="operNS:getSujet" returnQName="retNS:getSujetReturn" returnType="rtns:string" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://model" xmlns:retNS="http://model" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getEncadreur" qname="operNS:getEncadreur" returnQName="retNS:getEncadreurReturn" returnType="rtns:int" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://model" name="setEncadreur" qname="operNS:setEncadreur" soapAction="">
-        <parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:encadreur" type="tns:int"/>
-      </operation>
-      <operation xmlns:operNS="http://model" name="setSujet" qname="operNS:setSujet" soapAction="">
-        <parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:sujet" type="tns:string"/>
-      </operation>
-      <operation xmlns:operNS="http://model" name="setNbAaffecter" qname="operNS:setNbAaffecter" soapAction="">
-        <parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nbAaffecter" type="tns:int"/>
-      </operation>
-      <operation xmlns:operNS="http://model" xmlns:retNS="http://model" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getNbAaffecter" qname="operNS:getNbAaffecter" returnQName="retNS:getNbAaffecterReturn" returnType="rtns:int" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://model" name="setDescription_PCD" qname="operNS:setDescription_PCD" soapAction="">
-        <parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:description_PCD" type="tns:string"/>
-      </operation>
-      <operation xmlns:operNS="http://model" xmlns:retNS="http://model" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getDepartement" qname="operNS:getDepartement" returnQName="retNS:getDepartementReturn" returnType="rtns:int" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://model" xmlns:retNS="http://model" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getDescription_PCD" qname="operNS:getDescription_PCD" returnQName="retNS:getDescription_PCDReturn" returnType="rtns:string" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://model" name="setDepartement" qname="operNS:setDepartement" soapAction="">
-        <parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:departement" type="tns:int"/>
-      </operation>
-      <operation xmlns:operNS="http://model" xmlns:retNS="http://model" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getMotsCles" qname="operNS:getMotsCles" returnQName="retNS:getMotsClesReturn" returnType="rtns:string" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://model" name="setMotsCles" qname="operNS:setMotsCles" soapAction="">
-        <parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:motsCles" type="tns:string"/>
-      </operation>
-      <parameter name="allowedMethods" value="getSujet getNbAaffecter getDescription_PCD setDescription_PCD setDepartement getMotsCles setSujet setMotsCles getEncadreur getDepartement setEncadreur setNbAaffecter setId getId"/>
+	<service name="Pcd" provider="java:RPC" style="wrapped" use="literal">
+		<parameter name="wsdlTargetNamespace" value="http://model" />
+		<parameter name="wsdlServiceElement" value="PcdService" />
+		<parameter name="schemaQualified" value="http://model" />
+		<parameter name="wsdlServicePort" value="Pcd" />
+		<parameter name="className" value="model.Pcd" />
+		<parameter name="wsdlPortType" value="Pcd" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<operation xmlns:operNS="http://model" name="setId" qname="operNS:setId"
+			soapAction="">
+			<parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema"
+				qname="pns:id" type="tns:int" />
+		</operation>
+		<operation xmlns:operNS="http://model" xmlns:retNS="http://model"
+			xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getId" qname="operNS:getId"
+			returnQName="retNS:getIdReturn" returnType="rtns:int" soapAction="">
+		</operation>
+		<operation xmlns:operNS="http://model" xmlns:retNS="http://model"
+			xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getSujet" qname="operNS:getSujet"
+			returnQName="retNS:getSujetReturn" returnType="rtns:string"
+			soapAction="">
+		</operation>
+		<operation xmlns:operNS="http://model" xmlns:retNS="http://model"
+			xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getEncadreur"
+			qname="operNS:getEncadreur" returnQName="retNS:getEncadreurReturn"
+			returnType="rtns:int" soapAction="">
+		</operation>
+		<operation xmlns:operNS="http://model" name="setEncadreur"
+			qname="operNS:setEncadreur" soapAction="">
+			<parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema"
+				qname="pns:encadreur" type="tns:int" />
+		</operation>
+		<operation xmlns:operNS="http://model" name="setSujet"
+			qname="operNS:setSujet" soapAction="">
+			<parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema"
+				qname="pns:sujet" type="tns:string" />
+		</operation>
+		<operation xmlns:operNS="http://model" name="setNbAaffecter"
+			qname="operNS:setNbAaffecter" soapAction="">
+			<parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema"
+				qname="pns:nbAaffecter" type="tns:int" />
+		</operation>
+		<operation xmlns:operNS="http://model" xmlns:retNS="http://model"
+			xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getNbAaffecter"
+			qname="operNS:getNbAaffecter" returnQName="retNS:getNbAaffecterReturn"
+			returnType="rtns:int" soapAction="">
+		</operation>
+		<operation xmlns:operNS="http://model" name="setDescription_PCD"
+			qname="operNS:setDescription_PCD" soapAction="">
+			<parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema"
+				qname="pns:description_PCD" type="tns:string" />
+		</operation>
+		<operation xmlns:operNS="http://model" xmlns:retNS="http://model"
+			xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getDepartement"
+			qname="operNS:getDepartement" returnQName="retNS:getDepartementReturn"
+			returnType="rtns:int" soapAction="">
+		</operation>
+		<operation xmlns:operNS="http://model" xmlns:retNS="http://model"
+			xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getDescription_PCD"
+			qname="operNS:getDescription_PCD" returnQName="retNS:getDescription_PCDReturn"
+			returnType="rtns:string" soapAction="">
+		</operation>
+		<operation xmlns:operNS="http://model" name="setDepartement"
+			qname="operNS:setDepartement" soapAction="">
+			<parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema"
+				qname="pns:departement" type="tns:int" />
+		</operation>
+		<operation xmlns:operNS="http://model" xmlns:retNS="http://model"
+			xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getMotsCles"
+			qname="operNS:getMotsCles" returnQName="retNS:getMotsClesReturn"
+			returnType="rtns:string" soapAction="">
+		</operation>
+		<operation xmlns:operNS="http://model" name="setMotsCles"
+			qname="operNS:setMotsCles" soapAction="">
+			<parameter xmlns:pns="http://model" xmlns:tns="http://www.w3.org/2001/XMLSchema"
+				qname="pns:motsCles" type="tns:string" />
+		</operation>
+		<parameter name="allowedMethods"
+			value="getSujet getNbAaffecter getDescription_PCD setDescription_PCD setDepartement getMotsCles setSujet setMotsCles getEncadreur getDepartement setEncadreur setNbAaffecter setId getId" />
 
-  </service>
+	</service>
 </deployment>

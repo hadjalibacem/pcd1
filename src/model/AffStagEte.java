@@ -16,7 +16,6 @@ public class AffStagEte {
 	private Boolean resultat;
 	private Boolean vu;
 	private Boolean depotRapport;
-	private Date dateSoutenance;
 	private String Jury;
 	private Boolean Convention;
 	public int getId() {
@@ -55,12 +54,6 @@ public class AffStagEte {
 	public void setDepotRapport(Boolean depotRapport) {
 		this.depotRapport = depotRapport;
 	}
-	public Date getDateSoutenance() {
-		return dateSoutenance;
-	}
-	public void setDateSoutenance(Date dateSoutenance) {
-		this.dateSoutenance = dateSoutenance;
-	}
 	public String getJury() {
 		return Jury;
 	}
@@ -83,7 +76,6 @@ public class AffStagEte {
 		this.resultat = resultat;
 		this.vu = vu;
 		this.depotRapport = depotRapport;
-		this.dateSoutenance = dateSoutenance;
 		this.Jury = jury;
 		this.Convention = convention;
 	}

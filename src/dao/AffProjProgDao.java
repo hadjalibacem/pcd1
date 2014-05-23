@@ -27,5 +27,12 @@ public class AffProjProgDao {
 		
 	}
 
+	public AffProjProg[] getArray() {
+		// TODO Auto-generated method stub
+		return null;
 	}
+	
+
+	}
+
 

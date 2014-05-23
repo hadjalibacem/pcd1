@@ -115,4 +115,9 @@ public class AffPcdDao {
 		return query.list();
 	}
 
+	public AffPCD[] getArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

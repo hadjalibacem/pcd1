@@ -4,7 +4,9 @@ package dao;
 import org.hibernate.Session;
 
 import model.AffModOpt;
+import model.Etudiant;
 import model.HibernateUtils;
+import model.Mod_opt;
 
 public class AffModOptDao {
 
@@ -25,6 +27,26 @@ public class AffModOptDao {
 		
 		
 		
+	}
+
+	public boolean isAllAffected() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public AffModOptDao[] getArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Etudiant getEtud(int idOption) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Mod_opt[] getOptOfEtud(int idEtud) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	}

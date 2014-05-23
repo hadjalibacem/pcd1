@@ -27,5 +27,10 @@ public class AffPfeDao {
 		
 	}
 
+	public AffPFE[] getArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	}
 

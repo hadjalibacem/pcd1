@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from SetAffectationFilièreService WSDL service -->
+
+  <service name="SetAffectationFilière" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://webservices"/>
+      <parameter name="wsdlServiceElement" value="SetAffectationFilièreService"/>
+      <parameter name="schemaQualified" value="http://model,http://webservices"/>
+      <parameter name="wsdlServicePort" value="SetAffectationFilière"/>
+      <parameter name="className" value="webservices.SetAffectationFilière"/>
+      <parameter name="wsdlPortType" value="SetAffectationFilière"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://webservices" xmlns:retNS="http://webservices" xmlns:rtns="http://model" name="setAffectation" qname="operNS:SetAffectation" returnQName="retNS:SetAffectationReturn" returnType="rtns:AffFiliere" soapAction="">
+      </operation>
+      <parameter name="allowedMethods" value="setAffectation"/>
+
+      <typeMapping xmlns:ns="http://model" qname="ns:AffFiliere" type="java:model.AffFiliere" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
