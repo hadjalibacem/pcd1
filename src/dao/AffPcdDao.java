@@ -105,7 +105,14 @@ public class AffPcdDao {
 		Query query=session.createQuery("from AffPCD where pcd="+pcd);
 		return query.list();
 	}
-	
+	@SuppressWarnings("unchecked")
+	public List<AffPCD> getAffof2Et()
+	{
+		Session session=HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from AffPCD where coEquipier3=null");
+		return  query.list();
+	}
 	@SuppressWarnings("unchecked")
 	public List<Integer> getIdPcdAffected()
 	{
@@ -119,5 +126,15 @@ public class AffPcdDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@SuppressWarnings("unchecked")
+	public List<AffPCD> getListPcdOfJury(Integer id)
+	{
+		Session session=HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from AffPCD where jury="+id);
+		return query.list();
+	}
+
+	
 
 }

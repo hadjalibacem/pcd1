@@ -42,7 +42,7 @@ public class JuryPcdDao {
 	{
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery(" select count(*) from JuryPcd where id="+id);
+		Query query=session.createQuery(" select count(*) from AffPCD where jury="+id);
 		return (Long) query.uniqueResult();
 	}
 

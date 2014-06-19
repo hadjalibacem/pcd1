@@ -3,13 +3,22 @@ package dao;
 
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import model.ChefDepart;
 import model.Etudiant;
 import model.HibernateUtils;
 
 public class EtudiantDao {
+	HttpServletRequest request = (HttpServletRequest) FacesContext
+			.getCurrentInstance().getExternalContext().getRequest();
+	HttpSession session = request.getSession();
+	private ChefDepart user = (ChefDepart) session.getAttribute("user");
 
 	public void add(Etudiant et) {
 		
@@ -34,7 +43,7 @@ public class EtudiantDao {
 	{
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from Etudiant where niveau = 2 order by rang");
+		Query query=session.createQuery("from Etudiant where niveau = 2 and departement="+user.getDepartement()+" order by rang");
 		return query.list();
 	}
 

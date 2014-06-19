@@ -11,7 +11,6 @@ public class AffModOpt {
 	private int id;
 	private int etudiant;
 	private int mod_opt;
-	private Boolean vu;
 	
 	
 	public int getId() {
@@ -44,22 +43,14 @@ public class AffModOpt {
 	}
 
 
-	public Boolean getVu() {
-		return vu;
-	}
+	
 
 
-	public void setVu(Boolean vu) {
-		this.vu = vu;
-	}
-
-
-	public AffModOpt(int id, int etudiant, int mod_opt, Boolean vu) {
+	public AffModOpt(int id, int etudiant, int mod_opt) {
 		super();
 		this.id = id;
 		this.etudiant = etudiant;
 		this.mod_opt = mod_opt;
-		this.vu = vu;
 	}
 
 

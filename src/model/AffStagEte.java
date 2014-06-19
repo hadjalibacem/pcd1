@@ -14,9 +14,9 @@ public class AffStagEte {
 	private int etudiant;
 	private int stage_ete;
 	private Boolean resultat;
-	private Boolean vu;
 	private Boolean depotRapport;
-	private String Jury;
+	private String dateSoutenance;
+	private Integer Jury;
 	private Boolean Convention;
 	public int getId() {
 		return id;
@@ -42,22 +42,17 @@ public class AffStagEte {
 	public void setResultat(Boolean resultat) {
 		this.resultat = resultat;
 	}
-	public Boolean getVu() {
-		return vu;
-	}
-	public void setVu(Boolean vu) {
-		this.vu = vu;
-	}
+	
 	public Boolean getDepotRapport() {
 		return depotRapport;
 	}
 	public void setDepotRapport(Boolean depotRapport) {
 		this.depotRapport = depotRapport;
 	}
-	public String getJury() {
+	public Integer getJury() {
 		return Jury;
 	}
-	public void setJury(String jury) {
+	public void setJury(Integer jury) {
 		Jury = jury;
 	}
 	public Boolean getConvention() {
@@ -66,18 +61,19 @@ public class AffStagEte {
 	public void setConvention(Boolean convention) {
 		Convention = convention;
 	}
+	
 	public AffStagEte(int id, int etudiant, int stage_ete, Boolean resultat,
-			Boolean vu, Boolean depotRapport, Date dateSoutenance, String jury,
+			Boolean depotRapport, String dateSoutenance, Integer jury,
 			Boolean convention) {
 		super();
 		this.id = id;
 		this.etudiant = etudiant;
 		this.stage_ete = stage_ete;
 		this.resultat = resultat;
-		this.vu = vu;
 		this.depotRapport = depotRapport;
-		this.Jury = jury;
-		this.Convention = convention;
+		this.dateSoutenance = dateSoutenance;
+		Jury = jury;
+		Convention = convention;
 	}
 	public AffStagEte() {
 		super();

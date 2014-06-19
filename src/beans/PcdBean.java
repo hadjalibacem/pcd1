@@ -26,6 +26,7 @@ import dao.AffPcdDao;
 import dao.ChxPcdDao;
 import dao.DepartementDao;
 import dao.EnseignantDao;
+import dao.EtudiantDao;
 import dao.PcdDao;
 
 @ManagedBean
@@ -51,7 +52,7 @@ public class PcdBean implements Serializable {
 	private Date date = Calendar.getInstance().getTime();
 	private AdminDao admD = new AdminDao();
 	private Administration adm = admD.getAdministration();
-
+	private EtudiantDao etD=new EtudiantDao();
 	private Integer coEquip2 = null;
 	private Integer coEquip3 = null;
 
@@ -219,7 +220,8 @@ public class PcdBean implements Serializable {
 				}
 
 			}
-
+			if((user.getDepartement()==etD.getEtudiant(coEquip2).getDepartement()) && (user.getDepartement()==etD.getEtudiant(coEquip3).getDepartement()))
+			{
 			for (ChxPCD chx : listChx) {
 				chx.setCoEquipier1(user.getId());
 				chx.setCoEquipier2(coEquip2);
@@ -232,7 +234,12 @@ public class PcdBean implements Serializable {
 			}
 
 			FacesMessage message = new FacesMessage(" Enregistré !");
-			FacesContext.getCurrentInstance().addMessage(null, message);
+			FacesContext.getCurrentInstance().addMessage(null, message);}
+			else 
+			{
+				FacesMessage message = new FacesMessage(" Vous n'êtes pas de même départements !");
+				FacesContext.getCurrentInstance().addMessage(null, message);	
+			}
 			return "";
 		} else
 			return null;

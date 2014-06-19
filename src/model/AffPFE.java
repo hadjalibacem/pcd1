@@ -17,6 +17,13 @@ public class AffPFE {
 	private Boolean vu;
 	private Boolean depotCCharge;
 	private Boolean depotRapport;
+	private String dateSoutenance;
+	public String getDateSoutenance() {
+		return dateSoutenance;
+	}
+	public void setDateSoutenance(String dateSoutenance) {
+		this.dateSoutenance = dateSoutenance;
+	}
 	private String Jury;
 	private String CRenduSuperviseur;
 	private Boolean Convention;
@@ -80,8 +87,9 @@ public class AffPFE {
 	public void setConvention(Boolean convention) {
 		Convention = convention;
 	}
+	
 	public AffPFE(int id, int etudiant, int pFE, Boolean resultat, Boolean vu,
-			Boolean depotCCharge, Boolean depotRapport, Date dateSoutenance,
+			Boolean depotCCharge, Boolean depotRapport, String dateSoutenance,
 			String jury, String cRenduSuperviseur, Boolean convention) {
 		super();
 		this.id = id;
@@ -91,6 +99,7 @@ public class AffPFE {
 		this.vu = vu;
 		this.depotCCharge = depotCCharge;
 		this.depotRapport = depotRapport;
+		this.dateSoutenance = dateSoutenance;
 		Jury = jury;
 		CRenduSuperviseur = cRenduSuperviseur;
 		Convention = convention;

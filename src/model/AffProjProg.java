@@ -22,8 +22,14 @@ public class AffProjProg {
 
 	private int coEquipier2;
 	private Boolean resultat;
-	private Boolean vu;
 	private Boolean depotRapport;
+	private String dateSoutenance;
+	public String getDateSoutenance() {
+		return dateSoutenance;
+	}
+	public void setDateSoutenance(String dateSoutenance) {
+		this.dateSoutenance = dateSoutenance;
+	}
 	private int Jury;
 	public int getId() {
 		return id;
@@ -55,29 +61,25 @@ public class AffProjProg {
 	public void setResultat(Boolean resultat) {
 		this.resultat = resultat;
 	}
-	public Boolean getVu() {
-		return vu;
-	}
-	public void setVu(Boolean vu) {
-		this.vu = vu;
-	}
+	
 	public Boolean getDepotRapport() {
 		return depotRapport;
 	}
 	public void setDepotRapport(Boolean depotRapport) {
 		this.depotRapport = depotRapport;
 	}
+
 	public AffProjProg(int id, int coEquipier1, int proj_prog, int coEquipier2,
-			Boolean resultat, Boolean vu, Boolean depotRapport,
-			Date dateSoutenance, int jury) {
+			Boolean resultat, Boolean depotRapport, String dateSoutenance,
+			int jury) {
 		super();
 		this.id = id;
 		this.coEquipier1 = coEquipier1;
 		this.proj_prog = proj_prog;
 		this.coEquipier2 = coEquipier2;
 		this.resultat = resultat;
-		this.vu = vu;
 		this.depotRapport = depotRapport;
+		this.dateSoutenance = dateSoutenance;
 		Jury = jury;
 	}
 	public AffProjProg() {

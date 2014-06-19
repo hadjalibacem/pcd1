@@ -1,6 +1,5 @@
 package model;
 
-import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,6 +15,17 @@ public class AffPCD {
 	private int coEquipier2;
 	private Boolean depotCCharge;
 	private Boolean depotRapport;
+	private String dateSoutenance;
+	public String getDateSoutenance() {
+		return dateSoutenance;
+	}
+
+
+	public void setDateSoutenance(String dateSoutenance) {
+		this.dateSoutenance = dateSoutenance;
+	}
+
+
 	private Integer Jury;
 	private Boolean resultat;
 	private Integer coEquipier3;
@@ -124,9 +134,9 @@ public class AffPCD {
 	}
 
 
-	public AffPCD(int id, int coEquipier1, int pCD, int coEquipier2, Boolean depotCCharge, Boolean depotRapport,
-			Date dateSoutenance, Integer jury, Boolean resultat,
-			 Integer coEquipier3) {
+	public AffPCD(int id, int coEquipier1, int pCD, int coEquipier2,
+			Boolean depotCCharge, Boolean depotRapport, String dateSoutenance,
+			Integer jury, Boolean resultat, Integer coEquipier3) {
 		super();
 		this.id = id;
 		this.coEquipier1 = coEquipier1;
@@ -134,10 +144,14 @@ public class AffPCD {
 		this.coEquipier2 = coEquipier2;
 		this.depotCCharge = depotCCharge;
 		this.depotRapport = depotRapport;
+		this.dateSoutenance = dateSoutenance;
 		Jury = jury;
 		this.resultat = resultat;
 		this.coEquipier3 = coEquipier3;
 	}
+
+
+	
 	
 	
 
