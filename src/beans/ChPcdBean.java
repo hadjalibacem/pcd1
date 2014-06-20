@@ -50,6 +50,14 @@ public class ChPcdBean implements Serializable {
 	private int idPcdAaffecter;
 	private JuryPcdDao jurD = new JuryPcdDao();
 
+	public JuryPcdDao getJurD() {
+		return jurD;
+	}
+
+	public void setJurD(JuryPcdDao jurD) {
+		this.jurD = jurD;
+	}
+
 	// private int idPcd=0;
 	public ChefDepart getUser() {
 		return user;
@@ -68,6 +76,8 @@ public class ChPcdBean implements Serializable {
 	private PcdDao pcdD = new PcdDao();
 	HttpServletRequest request = (HttpServletRequest) FacesContext
 			.getCurrentInstance().getExternalContext().getRequest();
+	
+
 	HttpSession session = request.getSession();
 	private ChefDepart user = (ChefDepart) session.getAttribute("user");
 	private List<Pcd> listPCD = pcdD.getList();
@@ -270,7 +280,9 @@ public class ChPcdBean implements Serializable {
 	/* Forcer l'affectation des etudiants même s'il sont affectés */
 
 	public String affecter() {
-
+		
+		if((user.getDepartement()==etD.getEtudiant(coEquip2).getDepartement()) && (user.getDepartement()==etD.getEtudiant(coEquip3).getDepartement())&&(user.getDepartement()==etD.getEtudiant(coEquip1).getDepartement()))
+		{
 		if (coEquip3 == 0)
 			coEquip3 = null;
 
@@ -286,7 +298,13 @@ public class ChPcdBean implements Serializable {
 					"Ce sujet a atteint le nombre limite d'affectation !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 			return null;
-
+		}}
+		else
+		{
+			FacesMessage message = new FacesMessage(
+					"Les étudiants ne sont pas de votre département !");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		return null;
 		}
 
 		/*
@@ -323,7 +341,7 @@ public class ChPcdBean implements Serializable {
 
 	public String AddPcd() {
 
-		if (pcdD.getPcd(pcdAajouter.getSujet()) != null) {
+		if (pcdD.getPcd(pcdAajouter.getSujet()) != null && pcdAajouter.getId()==0) {
 			FacesMessage message = new FacesMessage(
 					"Ce sujet est déjà enregistré !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
@@ -369,6 +387,8 @@ public class ChPcdBean implements Serializable {
 	public String updateAffpcd() {
 
 		AffPCD affpcd = affpD.getPcdAff(idpcdaff);
+		if(affpcd!=null&&(user.getDepartement()==pcdD.getPcd(affpcd.getPCD()).getDepartement()))
+				{
 		affpcd.setDepotCCharge(depotCcharge);
 		affpcd.setDepotRapport(depotRapport);
 		affpcd.setResultat(validation);
@@ -379,7 +399,13 @@ public class ChPcdBean implements Serializable {
 			FacesMessage message = new FacesMessage("Erreur d'enregistrement !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
-
+				}
+		else
+			
+		{
+			FacesMessage message = new FacesMessage("Le groupe n'appartient pas à votre département !");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
 		return null;
 	}
 
@@ -390,100 +416,33 @@ public class ChPcdBean implements Serializable {
 		String message;
 
 		for (AffPCD affpcd : listAff) {
-			if(pcdD.getPcd(affpcd.getPCD()).getDepartement()==user.getDepartement())
-			{
-			if (affpcd.getCoEquipier3() != null)
-				message = etD.getEtudiant(affpcd.getCoEquipier3()).getNom()
-						+ " "
-						+ etD.getEtudiant(affpcd.getCoEquipier3()).getPrenom()
-						+ " et ";
-			else
-				message = "";
-			Message msg = new Message(
-					0,
-					affpcd.getCoEquipier1(),
-					null,
-					date,
-					false,
-					"Résultat Affectation",
-					affpcd.getCoEquipier1(),
-					"Bonjour, \n"
-							+ "Vous êtes affectés avec "
-							+ message
-							+ etD.getEtudiant(affpcd.getCoEquipier2()).getNom()
+			if (pcdD.getPcd(affpcd.getPCD()).getDepartement() == user
+					.getDepartement()) {
+				if (affpcd.getCoEquipier3() != null)
+					message = etD.getEtudiant(affpcd.getCoEquipier3()).getNom()
 							+ " "
-							+ etD.getEtudiant(affpcd.getCoEquipier2())
-									.getPrenom()
-							+ "\n Id du groupe: "
-							+ affpcd.getId()
-							+ "\nSujet: "
-							+ pcdD.getPcd(affpcd.getPCD()).getSujet()
-							+ "\nDescription: "
-							+ pcdD.getPcd(affpcd.getPCD()).getDescription_PCD()
-							+ "\nEncadré par "
-							+ ensD.getEnseignant(
-									pcdD.getPcd(affpcd.getPCD()).getEncadreur())
-									.getPrenom()
-							+ " "
-							+ ensD.getEnseignant(
-									pcdD.getPcd(affpcd.getPCD()).getEncadreur())
-									.getNom());
-			msgD.add(msg);
-			msg = new Message(
-					0,
-					affpcd.getCoEquipier2(),
-					null,
-					date,
-					false,
-					"Résultat Affectation",
-					affpcd.getCoEquipier2(),
-					"Bonjour, \n"
-							+ "Vous êtes affectés avec "
-							+ message
-							+ etD.getEtudiant(affpcd.getCoEquipier1()).getNom()
-							+ " "
-							+ etD.getEtudiant(affpcd.getCoEquipier1())
-									.getPrenom()
-							+ "\n Id du groupe: "
-							+ affpcd.getId()
-							+ "\nSujet: "
-							+ pcdD.getPcd(affpcd.getPCD()).getSujet()
-							+ "\nDescription: "
-							+ pcdD.getPcd(affpcd.getPCD()).getDescription_PCD()
-							+ "\nEncadré par "
-							+ ensD.getEnseignant(
-									pcdD.getPcd(affpcd.getPCD()).getEncadreur())
-									.getPrenom()
-							+ " "
-							+ ensD.getEnseignant(
-									pcdD.getPcd(affpcd.getPCD()).getEncadreur())
-									.getNom());
-			msgD.add(msg);
-			if (affpcd.getCoEquipier3() != null) {
-				msg = new Message(0, affpcd.getCoEquipier3(), null, date,
-						false, "Résultat Affectation", affpcd.getCoEquipier3(),
-						"Bonjour, \n"
+							+ etD.getEtudiant(affpcd.getCoEquipier3())
+									.getPrenom() + " et ";
+				else
+					message = "";
+				Message msg = new Message(0, affpcd.getCoEquipier1(), null,
+						date, false, "Résultat Affectation",
+						affpcd.getCoEquipier1(), "Bonjour, \n"
 								+ "Vous êtes affectés avec "
-								+ etD.getEtudiant(affpcd.getCoEquipier1())
-										.getNom()
-								+ " "
-								+ etD.getEtudiant(affpcd.getCoEquipier1())
-										.getPrenom()
-								+ " et "
+								+ message
 								+ etD.getEtudiant(affpcd.getCoEquipier2())
 										.getNom()
 								+ " "
 								+ etD.getEtudiant(affpcd.getCoEquipier2())
 										.getPrenom()
-								+ "\n"
 								+ "\n Id du groupe: "
 								+ affpcd.getId()
-								+ "Sujet: "
+								+ "\nSujet: "
 								+ pcdD.getPcd(affpcd.getPCD()).getSujet()
 								+ "\nDescription: "
 								+ pcdD.getPcd(affpcd.getPCD())
 										.getDescription_PCD()
-								+ "\n Encadré par "
+								+ "\nEncadré par "
 								+ ensD.getEnseignant(
 										pcdD.getPcd(affpcd.getPCD())
 												.getEncadreur()).getPrenom()
@@ -492,9 +451,70 @@ public class ChPcdBean implements Serializable {
 										pcdD.getPcd(affpcd.getPCD())
 												.getEncadreur()).getNom());
 				msgD.add(msg);
-			}
+				msg = new Message(0, affpcd.getCoEquipier2(), null, date,
+						false, "Résultat Affectation", affpcd.getCoEquipier2(),
+						"Bonjour, \n"
+								+ "Vous êtes affectés avec "
+								+ message
+								+ etD.getEtudiant(affpcd.getCoEquipier1())
+										.getNom()
+								+ " "
+								+ etD.getEtudiant(affpcd.getCoEquipier1())
+										.getPrenom()
+								+ "\n Id du groupe: "
+								+ affpcd.getId()
+								+ "\nSujet: "
+								+ pcdD.getPcd(affpcd.getPCD()).getSujet()
+								+ "\nDescription: "
+								+ pcdD.getPcd(affpcd.getPCD())
+										.getDescription_PCD()
+								+ "\nEncadré par "
+								+ ensD.getEnseignant(
+										pcdD.getPcd(affpcd.getPCD())
+												.getEncadreur()).getPrenom()
+								+ " "
+								+ ensD.getEnseignant(
+										pcdD.getPcd(affpcd.getPCD())
+												.getEncadreur()).getNom());
+				msgD.add(msg);
+				if (affpcd.getCoEquipier3() != null) {
+					msg = new Message(0, affpcd.getCoEquipier3(), null, date,
+							false, "Résultat Affectation",
+							affpcd.getCoEquipier3(), "Bonjour, \n"
+									+ "Vous êtes affectés avec "
+									+ etD.getEtudiant(affpcd.getCoEquipier1())
+											.getNom()
+									+ " "
+									+ etD.getEtudiant(affpcd.getCoEquipier1())
+											.getPrenom()
+									+ " et "
+									+ etD.getEtudiant(affpcd.getCoEquipier2())
+											.getNom()
+									+ " "
+									+ etD.getEtudiant(affpcd.getCoEquipier2())
+											.getPrenom()
+									+ "\n"
+									+ "\n Id du groupe: "
+									+ affpcd.getId()
+									+ "Sujet: "
+									+ pcdD.getPcd(affpcd.getPCD()).getSujet()
+									+ "\nDescription: "
+									+ pcdD.getPcd(affpcd.getPCD())
+											.getDescription_PCD()
+									+ "\n Encadré par "
+									+ ensD.getEnseignant(
+											pcdD.getPcd(affpcd.getPCD())
+													.getEncadreur())
+											.getPrenom()
+									+ " "
+									+ ensD.getEnseignant(
+											pcdD.getPcd(affpcd.getPCD())
+													.getEncadreur()).getNom());
+					msgD.add(msg);
+				}
 
-		}}
+			}
+		}
 	}
 
 	public void affectAll() {
@@ -552,7 +572,8 @@ public class ChPcdBean implements Serializable {
 		if (i < listEt.size()) {
 			FacesMessage message = new FacesMessage(
 					"Il ne reste plus des sujets à affecter, Il reste "
-							+ (listEt.size() - i-j) + " étudiants non affectés");
+							+ (listEt.size() - i - j)
+							+ " étudiants non affectés");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		} else {
 			FacesMessage message = new FacesMessage(
@@ -622,15 +643,16 @@ public class ChPcdBean implements Serializable {
 			removeJury(jury);
 
 		for (AffPCD pcdaff : listAffp) {
-			if(jurD.getNbAffJury(jury)<limit)
-			{pcdaff.setJury(jury);
-			affpD.affect(pcdaff);}
+			if (jurD.getNbAffJury(jury) < limit) {
+				pcdaff.setJury(jury);
+				affpD.affect(pcdaff);
+			}
 		}
-		
-		if (!jurD.getListNotAffToJury().isEmpty()) {
-			FacesMessage message = new FacesMessage(
-					" Il reste "
-							+ jurD.getListNotAffToJury().size() + " groupes non affectés aux jurys");
+
+		if (!affpD.getListPcdOfJury(null).isEmpty()) {
+			FacesMessage message = new FacesMessage(" Il reste "
+					+ affpD.getListPcdOfJury(null).size()
+					+ " groupes non affectés aux jurys");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		} else {
 			FacesMessage message = new FacesMessage(
@@ -638,17 +660,19 @@ public class ChPcdBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		return null;
-		
+
 	}
 
 	public String affectJury4All() {
 		List<Integer> listRandom = new ArrayList<Integer>();
-		List<AffPCD> listNotAffectedJury=affpD.getListPcdOfJury(null);
+		List<AffPCD> listNotAffectedJury = affpD.getListPcdOfJury(null);
 		Pcd pcd;
 		for (AffPCD pcdaff : listNotAffectedJury) {
-
+			
 			int idpcd = pcdaff.getId();
 			pcd = pcdD.getPcd(pcdaff.getPCD());
+			if(user.getDepartement()==pcd.getDepartement())
+			{
 			if (pcd.getMotsCles() == null) {
 				listRandom.add(idpcd);
 				listRandom.add(0);
@@ -693,7 +717,7 @@ public class ChPcdBean implements Serializable {
 						} else {
 							JuryPcd juryA = new JuryPcd(0, listEns.get(0)
 									.getId(), listEns.get(1).getId(), listEns
-									.get(2).getId());
+									.get(2).getId(),user.getDepartement());
 							jurD.add(juryA);
 							pcdaff.setJury(jurD.getJury(juryA.getMembre1())
 									.getId());
@@ -709,11 +733,12 @@ public class ChPcdBean implements Serializable {
 			}
 
 		}
+		}
 		RandomAffectJury(listRandom);
-		if (!jurD.getListNotAffToJury().isEmpty()) {
-			FacesMessage message = new FacesMessage(
-					" Il reste "
-							+ jurD.getListNotAffToJury().size() + " groupes non affectés aux jurys");
+		if (!affpD.getListPcdOfJury(null).isEmpty()) {
+			FacesMessage message = new FacesMessage(" Il reste "
+					+ affpD.getListPcdOfJury(null).size()
+					+ " groupes non affectés aux jurys");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		} else {
 			FacesMessage message = new FacesMessage(
@@ -732,15 +757,16 @@ public class ChPcdBean implements Serializable {
 				if (listNotAffToJury.size() >= 3) {
 					JuryPcd jury = new JuryPcd(0, listNotAffToJury.get(0)
 							.getId(), listNotAffToJury.get(1).getId(),
-							listNotAffToJury.get(2).getId());
+							listNotAffToJury.get(2).getId(),user.getDepartement());
 					jurD.add(jury);
 					pcdaff.setJury(jurD.getJury(jury.getMembre1()).getId());
 					affpD.affect(pcdaff);
 				} else {
 					int j = 0;
 					List<JuryPcd> list = jurD.getList();
-					
-					while (jurD.getNbAffJury(list.get(j).getId()).toString().equals(limit.toString()))
+
+					while (jurD.getNbAffJury(list.get(j).getId()).toString()
+							.equals(limit.toString()))
 						j++;
 					pcdaff.setJury(list.get(j).getId());
 					affpD.affect(pcdaff);
@@ -754,7 +780,7 @@ public class ChPcdBean implements Serializable {
 						if (listNotAffToJury.size() >= 2) {
 							JuryPcd juryN = new JuryPcd(0, listRand.get(i + 1),
 									listNotAffToJury.get(0).getId(),
-									listNotAffToJury.get(1).getId());
+									listNotAffToJury.get(1).getId(),user.getDepartement());
 							jurD.add(juryN);
 							pcdaff.setJury(jurD.getJury(juryN.getMembre1())
 									.getId());
@@ -778,7 +804,7 @@ public class ChPcdBean implements Serializable {
 									JuryPcd juryN = new JuryPcd(0,
 											listRand.get(i + 1),
 											listRand.get(i + 2),
-											listNotAffToJury.get(0).getId());
+											listNotAffToJury.get(0).getId(),user.getDepartement());
 									jurD.add(juryN);
 									pcdaff.setJury(jurD.getJury(
 											juryN.getMembre1()).getId());
@@ -805,7 +831,7 @@ public class ChPcdBean implements Serializable {
 													listRand.get(i + 1),
 													listRand.get(i + 2),
 													listNotAffToJury.get(0)
-															.getId());
+															.getId(),user.getDepartement());
 											jurD.add(juryN);
 											pcdaff.setJury(jurD.getJury(
 													juryN.getMembre1()).getId());
@@ -825,7 +851,7 @@ public class ChPcdBean implements Serializable {
 										JuryPcd juryNN = new JuryPcd(0,
 												listRand.get(i + 1),
 												listRand.get(i + 2),
-												listRand.get(i + 3));
+												listRand.get(i + 3),user.getDepartement());
 										jurD.add(juryNN);
 										pcdaff.setJury(jurD.getJury(
 												juryNN.getMembre1()).getId());
@@ -879,6 +905,10 @@ public class ChPcdBean implements Serializable {
 		return ensD.getEnseignant(id).getNom() + " "
 				+ ensD.getEnseignant(id).getPrenom();
 	}
+	public String AfficheEtudiant(int id)
+	{
+		return etD.getEtudiant(id).getNom()+" "+etD.getEtudiant(id).getPrenom();
+	}
 
 	public List<Pcd> getListPCDbyDep() {
 		return listPCDbyDep;
@@ -899,5 +929,26 @@ public class ChPcdBean implements Serializable {
 
 	public void setIdPcd(Integer idPcd) {
 		this.idPcd = idPcd;
+	}
+
+	public PcdDao getPcdD() {
+		return pcdD;
+	}
+
+	public void setPcdD(PcdDao pcdD) {
+		this.pcdD = pcdD;
+	}
+	public String AfficheEncadrant(int pcdaff)
+	{
+		Pcd pcd=pcdD.getPcd(pcdaff);
+	return AfficheEnseignant(pcd.getEncadreur());
+	
+	}
+	public String AfficheJury(Integer jury)
+	{
+		if (jury==0 ||jury==null)
+			return null;
+		JuryPcd jur=jurD.getJuryById(jury);
+		return AfficheEnseignant(jur.getMembre1())+", "+AfficheEnseignant(jur.getMembre2())+" et "+AfficheEnseignant(jur.getMembre3());
 	}
 }

@@ -140,7 +140,7 @@
 				<h:inputText id="coEquip3" value="#{chPcdBean.coEquip3}" />
 
 				<h:selectOneMenu value="#{chPcdBean.idPcdAaffecter}">
-					<f:selectItems value="#{chPcdBean.listPCD}" var="pcd"
+					<f:selectItems value="#{chPcdBean.listPCDbyDep}" var="pcd"
 						itemValue="#{pcd.id}"
 						itemLabel="#{pcd.sujet}( #{pcd.nbAaffecter} )" />
 
@@ -211,7 +211,85 @@
 		</h:panelGrid>
 <h:commandButton action="#{chPcdBean.affectJury4All}" value="Affecter les jury"/>
 	</h:form>
+	<h:form>
+		<h:dataTable id="listAff" value="#{chPcdBean.listAff}" var="affpcd"
+			border="1">
+    <f:facet name="header">
+        <h:outputText value="Liste des groupes affectés" />
+    </f:facet>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Id" />
+        </f:facet>
+        <h:outputText value="#{affpcd.id}" />
+    </h:column>
+			<h:column>
+        <f:facet name="header">
+            <h:outputText value="Equipe" />
+        </f:facet>
+<c:if test="#{affpcd.coEquip3==0}">
+        <h:outputText value="#{chPcdBean.AfficheEtudiant(affpcd.coEquip1) et chPcdBean.AfficheEtudiant(affpcd.coEquip2)}" />
+</c:if>
+<c:if test="#{affpcd.coEquip3!=0}">
+          <h:outputText value="#{chPcdBean.AfficheEtudiant(affpcd.coEquipier1)} ,#{chPcdBean.AfficheEtudiant(affpcd.coEquipier2)} et #{chPcdBean.AfficheEtudiant(affpcd.coEquipier3)}" />
 
+</c:if>
+    </h:column>
+			<h:column>
+        <f:facet name="header">
+            <h:outputText value="Encadrant" />
+        </f:facet>
+        <h:outputText value="#{chPcdBean.AfficheEncadrant(affpcd.PCD)}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Sujet" />
+        </f:facet>
+        <h:outputText
+					value="#{chPcdBean.pcdD.getPcd(affpcd.PCD).sujet}" />
+    </h:column>
+ <h:column>
+        <f:facet name="header">
+            <h:outputText value="Dépôt de cahier des charges" />
+        </f:facet>
+        <h:outputText
+					value="#{affpcd.depotCCharge}" />
+    </h:column>
+<h:column>
+        <f:facet name="header">
+            <h:outputText value="Dépôt du rapport" />
+        </f:facet>
+        <h:outputText
+					value="#{affpcd.depotRapport}" />
+    </h:column>
+<h:column>
+        <f:facet name="header">
+            <h:outputText value="Date de Soutenance" />
+        </f:facet>
+        <h:outputText
+					value="#{affpcd.dateSoutenance}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Membres de Jury" />
+        </f:facet>
+        <h:outputText
+					value="#{chPcdBean.AfficheJury(affpcd.jury)}"/> 
+					
+    </h:column>
+<h:column>
+        <f:facet name="header">
+            <h:outputText value="Résultat" />
+        </f:facet>
+        <h:outputText
+					value="#{affpcd.resultat}" />
+    </h:column>
+	</h:dataTable>
+
+	</h:form>
+<!-- >
+		</c:if>
+	</!-->
 	<h:form>
 		
 		<div>

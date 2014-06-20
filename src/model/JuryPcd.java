@@ -13,6 +13,7 @@ private int id;
 private int membre1;
 private int membre2;
 private Integer membre3;
+private Integer departement;
 public int getId() {
 	return id;
 }
@@ -36,15 +37,24 @@ public Integer getMembre3() {
 }
 public void setMembre3(Integer membre3) {
 	this.membre3 = membre3;}
-public JuryPcd(int id, int membre1, int membre2, Integer membre3) {
+
+public JuryPcd(int id, int membre1, int membre2, Integer membre3,
+		Integer departement) {
 	super();
 	this.id = id;
 	this.membre1 = membre1;
 	this.membre2 = membre2;
 	this.membre3 = membre3;
+	this.departement = departement;
 }
 public JuryPcd() {
 	super();
+}
+public Integer getDepartement() {
+	return departement;
+}
+public void setDepartement(Integer departement) {
+	this.departement = departement;
 }
 
 }

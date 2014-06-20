@@ -2,15 +2,25 @@ package dao;
 
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import model.AffPCD;
+import model.ChefDepart;
 import model.ChxPCD;
 import model.HibernateUtils;
 import model.Pcd;
 
 public class AffPcdDao {
+	
+	HttpServletRequest request = (HttpServletRequest) FacesContext
+			.getCurrentInstance().getExternalContext().getRequest();
+	HttpSession session = request.getSession();
+	private ChefDepart user = (ChefDepart) session.getAttribute("user");
 
 	public boolean affect(AffPCD aff) {
 
@@ -93,7 +103,7 @@ public class AffPcdDao {
 	public List<AffPCD> getList() {
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from AffPCD order by pcd");
+		Query query = session.createQuery("from AffPCD where pcd in(select id from Pcd where departement is null or departement="+user.getDepartement()+") order by pcd");
 		return query.list();
 	}
 	
@@ -131,7 +141,7 @@ public class AffPcdDao {
 	{
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from AffPCD where jury="+id);
+		Query query=session.createQuery("from AffPCD where jury="+id+" and pcd in (select id from Pcd where departement is null or departement="+user.getDepartement()+")");
 		return query.list();
 	}
 
