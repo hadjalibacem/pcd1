@@ -10,9 +10,10 @@ public class ChxProjProg {
 	@Id
 	private int id;
 	private int coEquipier1;
+	
 	private int proj_prog;
 	private int rang;
-	private int coEquipier2;
+	private Integer coEquipier2;
 	public int getId() {
 		return id;
 	}
@@ -37,14 +38,15 @@ public class ChxProjProg {
 	public void setRang(int rang) {
 		this.rang = rang;
 	}
-	public int getCoEquipier2() {
+	public Integer getCoEquipier2() {
 		return coEquipier2;
 	}
-	public void setCoEquipier2(int coEquipier2) {
+	public void setCoEquipier2(Integer coEquipier2) {
 		this.coEquipier2 = coEquipier2;
 	}
+	
 	public ChxProjProg(int id, int coEquipier1, int proj_prog, int rang,
-			int coEquipier2) {
+			Integer coEquipier2) {
 		super();
 		this.id = id;
 		this.coEquipier1 = coEquipier1;
@@ -55,6 +57,5 @@ public class ChxProjProg {
 	public ChxProjProg() {
 		super();
 	}
-
 	
 }

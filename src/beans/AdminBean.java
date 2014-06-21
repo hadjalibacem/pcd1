@@ -37,9 +37,15 @@ private String pfe_daterapport;
 private String filiere_datechoix;
 private String modopt_datechoix;
 private boolean pcd_choix=admin.isPCD_choix();
+private boolean pp_choix=admin.isPP_choix();
+public boolean isPp_choix() {
+	return pp_choix;
+}
+public void setPp_choix(boolean pp_choix) {
+	this.pp_choix = pp_choix;
+}
 private Integer pcd_nbchoix=admin.getPCD_nbChoix();
 private Integer nbaffjury =admin.getPCD_nbSujetAjugerParProf();
-private Integer nbjury=admin.getPCD_nbJury();
 
 
 
@@ -49,12 +55,7 @@ public Integer getNbaffjury() {
 public void setNbaffjury(Integer nbaffjury) {
 	this.nbaffjury = nbaffjury;
 }
-public Integer getNbjury() {
-	return nbjury;
-}
-public void setNbjury(Integer nbjury) {
-	this.nbjury = nbjury;
-}
+
 public void setPcd_nbchoix(Integer pcd_nbchoix) {
 	this.pcd_nbchoix = pcd_nbchoix;
 }
@@ -171,6 +172,7 @@ public String save()
 
 	admin.setAnnee(annee);
 	admin.setPCD_choix(pcd_choix);
+	admin.setPP_choix(pp_choix);
 	admin.setPCD_nbChoix(pcd_nbchoix);
 	admD.add(admin);
 	return "";

@@ -644,6 +644,8 @@ public class ChPcdBean implements Serializable {
 
 		for (AffPCD pcdaff : listAffp) {
 			if (jurD.getNbAffJury(jury) < limit) {
+
+				if(jury==0) jury=null;
 				pcdaff.setJury(jury);
 				affpD.affect(pcdaff);
 			}
@@ -905,8 +907,9 @@ public class ChPcdBean implements Serializable {
 		return ensD.getEnseignant(id).getNom() + " "
 				+ ensD.getEnseignant(id).getPrenom();
 	}
-	public String AfficheEtudiant(int id)
+	public String AfficheEtudiant(Integer id)
 	{
+		if(id==0||id==null) return null;
 		return etD.getEtudiant(id).getNom()+" "+etD.getEtudiant(id).getPrenom();
 	}
 

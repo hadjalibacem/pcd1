@@ -11,26 +11,16 @@ import javax.persistence.Table;
 public class AffProjProg {
 	@Id
 	private int id;
-	public int getJury() {
-		return Jury;
-	}
-	public void setJury(int jury) {
-		Jury = jury;
-	}
 	private int coEquipier1;
 	private int proj_prog;
-
-	private int coEquipier2;
-	private Boolean resultat;
+	private Integer coEquipier2;
 	private Boolean depotRapport;
 	private String dateSoutenance;
-	public String getDateSoutenance() {
-		return dateSoutenance;
-	}
-	public void setDateSoutenance(String dateSoutenance) {
-		this.dateSoutenance = dateSoutenance;
-	}
-	private int Jury;
+	
+
+
+	private Integer Jury;
+	private Boolean resultat;
 	public int getId() {
 		return id;
 	}
@@ -43,17 +33,36 @@ public class AffProjProg {
 	public void setCoEquipier1(int coEquipier1) {
 		this.coEquipier1 = coEquipier1;
 	}
+	
 	public int getProj_prog() {
 		return proj_prog;
 	}
 	public void setProj_prog(int proj_prog) {
 		this.proj_prog = proj_prog;
 	}
-	public int getCoEquipier2() {
+	public Integer getCoEquipier2() {
 		return coEquipier2;
 	}
-	public void setCoEquipier2(int coEquipier2) {
+	public void setCoEquipier2(Integer coEquipier2) {
 		this.coEquipier2 = coEquipier2;
+	}
+	public Boolean getDepotRapport() {
+		return depotRapport;
+	}
+	public void setDepotRapport(Boolean depotRapport) {
+		this.depotRapport = depotRapport;
+	}
+	public String getDateSoutenance() {
+		return dateSoutenance;
+	}
+	public void setDateSoutenance(String dateSoutenance) {
+		this.dateSoutenance = dateSoutenance;
+	}
+	public Integer getJury() {
+		return Jury;
+	}
+	public void setJury(Integer jury) {
+		Jury = jury;
 	}
 	public Boolean getResultat() {
 		return resultat;
@@ -61,31 +70,21 @@ public class AffProjProg {
 	public void setResultat(Boolean resultat) {
 		this.resultat = resultat;
 	}
-	
-	public Boolean getDepotRapport() {
-		return depotRapport;
-	}
-	public void setDepotRapport(Boolean depotRapport) {
-		this.depotRapport = depotRapport;
-	}
-
-	public AffProjProg(int id, int coEquipier1, int proj_prog, int coEquipier2,
-			Boolean resultat, Boolean depotRapport, String dateSoutenance,
-			int jury) {
+	public AffProjProg(int id, int coEquipier1, int pP, Integer coEquipier2,
+			Boolean depotRapport, String dateSoutenance, Integer jury,
+			Boolean resultat) {
 		super();
 		this.id = id;
 		this.coEquipier1 = coEquipier1;
-		this.proj_prog = proj_prog;
+		proj_prog = pP;
 		this.coEquipier2 = coEquipier2;
-		this.resultat = resultat;
 		this.depotRapport = depotRapport;
 		this.dateSoutenance = dateSoutenance;
 		Jury = jury;
+		this.resultat = resultat;
 	}
 	public AffProjProg() {
 		super();
 	}
-	
-	
 	
 }

@@ -22,21 +22,38 @@ public class Administration {
 	private Date filiere_dateChoix;
 	private Date ModOpt_dateChoix;
 	private boolean PCD_choix;
+	private boolean PP_choix;
 	private int PCD_nbChoix;
-	private int PCD_nbJury;
 	private int PCD_nbSujetAjugerParProf;
+	private int PP_nbChoix;
+	private int PP_nbSujetAjugerParProf;
+	
+	
+	public int getPP_nbChoix() {
+		return PP_nbChoix;
+	}
+	public void setPP_nbChoix(int pP_nbChoix) {
+		PP_nbChoix = pP_nbChoix;
+	}
+	public int getPP_nbSujetAjugerParProf() {
+		return PP_nbSujetAjugerParProf;
+	}
+	public void setPP_nbSujetAjugerParProf(int pP_nbSujetAjugerParProf) {
+		PP_nbSujetAjugerParProf = pP_nbSujetAjugerParProf;
+	}
 	public int getPCD_nbSujetAjugerParProf() {
 		return PCD_nbSujetAjugerParProf;
+	}
+	public boolean isPP_choix() {
+		return PP_choix;
+	}
+	public void setPP_choix(boolean pP_choix) {
+		PP_choix = pP_choix;
 	}
 	public void setPCD_nbSujetAjugerParProf(int pCD_nbSujetAjugerParProf) {
 		PCD_nbSujetAjugerParProf = pCD_nbSujetAjugerParProf;
 	}
-	public int getPCD_nbJury() {
-		return PCD_nbJury;
-	}
-	public void setPCD_nbJury(int pCD_nbJury) {
-		PCD_nbJury = pCD_nbJury;
-	}
+	
 	public int getAnnee() {
 		return annee;
 	}
@@ -113,11 +130,12 @@ public class Administration {
 	public void setModOpt_dateChoix(Date modOpt_dateChoix) {
 		ModOpt_dateChoix = modOpt_dateChoix;
 	}
-	public Administration(int annee, Date pCD_dateChoix, 
-			Date pCD_dateCCharge, Date pCD_dateRapport, Date pP_dateChoix,
-			Date pP_dateRapport, Date pFE_dateCCharge, Date pFE_dateRapport,
-			Date filiere_dateChoix, Date modOpt_dateChoix, boolean pCD_choix,
-			int pCD_nbChoix, int pCD_nbJury, int pCD_nbSujetAjugerParProf) {
+	public Administration(int annee, Date pCD_dateChoix, Date pCD_dateCCharge,
+			Date pCD_dateRapport, Date pP_dateChoix, Date pP_dateRapport,
+			Date pFE_dateCCharge, Date pFE_dateRapport, Date filiere_dateChoix,
+			Date modOpt_dateChoix, boolean pCD_choix, boolean pP_choix,
+			int pCD_nbChoix, int pCD_nbSujetAjugerParProf, int pP_nbChoix,
+			int pP_nbSujetAjugerParProf) {
 		super();
 		this.annee = annee;
 		PCD_dateChoix = pCD_dateChoix;
@@ -130,10 +148,15 @@ public class Administration {
 		this.filiere_dateChoix = filiere_dateChoix;
 		ModOpt_dateChoix = modOpt_dateChoix;
 		PCD_choix = pCD_choix;
+		PP_choix = pP_choix;
 		PCD_nbChoix = pCD_nbChoix;
-		PCD_nbJury = pCD_nbJury;
 		PCD_nbSujetAjugerParProf = pCD_nbSujetAjugerParProf;
+		PP_nbChoix = pP_nbChoix;
+		PP_nbSujetAjugerParProf = pP_nbSujetAjugerParProf;
 	}
+
+	
+	
 	
 	
 	

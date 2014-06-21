@@ -41,5 +41,6 @@
 		<mapping class="model.ConnexionChfDp" />
 		<mapping class="model.ChefDepart" />
 		<mapping class="model.JuryPcd" />
+		<mapping class="model.JuryPp" />
 	</session-factory>
 </hibernate-configuration>

@@ -58,7 +58,7 @@ public class AffPcdDao {
 				if (aff.getCoEquipier3().equals(id)) {
 
 					aff.setCoEquipier3(null);
-				} else if (aff.getCoEquipier3().equals(id)) {
+				} else if (aff.getCoEquipier2()==id) {
 
 					aff.setCoEquipier2(aff.getCoEquipier3());
 					aff.setCoEquipier3(null);

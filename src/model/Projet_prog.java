@@ -10,9 +10,10 @@ public class Projet_prog {
 	@Id
 	private int id;
 	private String sujet;
-	private String description;
+	private String description_PP;
 	private int encadreur;
-	private Boolean affecte;
+	private int nbAaffecter;
+	private String MotsCles;
 	public int getId() {
 		return id;
 	}
@@ -25,36 +26,45 @@ public class Projet_prog {
 	public void setSujet(String sujet) {
 		this.sujet = sujet;
 	}
-	public String getDescription() {
-		return description;
+	
+	public String getDescription_PP() {
+		return description_PP;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription_PP(String description_PP) {
+		this.description_PP = description_PP;
 	}
-	public int getEncadrant() {
+	public int getEncadreur() {
 		return encadreur;
 	}
-	public void setEncadrant(int encadrant) {
-		this.encadreur = encadrant;
+	public void setEncadreur(int encadreur) {
+		this.encadreur = encadreur;
 	}
-	public Boolean getAffecte() {
-		return affecte;
+	
+	public int getNbAaffecter() {
+		return nbAaffecter;
 	}
-	public void setAffecte(Boolean affecte) {
-		this.affecte = affecte;
+	public void setNbAaffecter(int nbAaffecter) {
+		this.nbAaffecter = nbAaffecter;
 	}
-	public Projet_prog(int id, String sujet, String description, int encadrant,
-			Boolean affecte) {
+	public String getMotsCles() {
+		return MotsCles;
+	}
+	public void setMotsCles(String motsCles) {
+		MotsCles = motsCles;
+	}
+	public Projet_prog(int id, String sujet, String description_PCD,
+			int encadreur, int nbAaffecter, String motsCles) {
 		super();
 		this.id = id;
 		this.sujet = sujet;
-		this.description = description;
-		this.encadreur = encadrant;
-		this.affecte = affecte;
+		this.description_PP = description_PCD;
+		this.encadreur = encadreur;
+		this.nbAaffecter = nbAaffecter;
+		MotsCles = motsCles;
 	}
 	public Projet_prog() {
 		super();
 	}
 	
-	
+
 }

@@ -18,7 +18,7 @@ public class EnseignantDao {
 	HttpServletRequest request = (HttpServletRequest) FacesContext
 			.getCurrentInstance().getExternalContext().getRequest();
 	HttpSession session = request.getSession();
-	private ChefDepart user = (ChefDepart) session.getAttribute("user");
+	private Object user = session.getAttribute("user");
 
 	public void add(Enseignant enseignant) {
 
@@ -72,8 +72,9 @@ public class EnseignantDao {
 	public List<Enseignant> getList() {
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from Enseignant where departement is null or departement="+user.getDepartement());
-		return query.list();
+		
+		Query query = session.createQuery("from Enseignant where departement is null or departement="+((ChefDepart) user).getDepartement());
+	return query.list();
 	}
 
 }

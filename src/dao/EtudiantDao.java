@@ -18,7 +18,7 @@ public class EtudiantDao {
 	HttpServletRequest request = (HttpServletRequest) FacesContext
 			.getCurrentInstance().getExternalContext().getRequest();
 	HttpSession session = request.getSession();
-	private ChefDepart user = (ChefDepart) session.getAttribute("user");
+	private Object user =  session.getAttribute("user");
 
 	public void add(Etudiant et) {
 		
@@ -43,7 +43,7 @@ public class EtudiantDao {
 	{
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from Etudiant where niveau = 2 and departement="+user.getDepartement()+" order by rang");
+		Query query=session.createQuery("from Etudiant where niveau = 2 and departement="+((ChefDepart)user).getDepartement()+" order by rang");
 		return query.list();
 	}
 

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head />
+<body>
+
+	<h1>Projet d'été</h1>
+	<c:if test="#{ppBean.adm.PP_dateChoix!=null}">
+		<c:if test="#{ppBean.adm.PP_choix==true}">
+
+			<h:form>
+				<div>
+
+					<h:outputText
+						value="date limite choix PP: #{ppBean.adm.PP_dateChoix}" />
+				</div>
+				
+				<div>
+					<c:if test="#{ppBean.adm.PP_dateRapport!=null}">
+						<h:outputText
+							value="date limite de depôt des rapports: #{ppBean.adm.PP_dateRapport}" />
+					</c:if>
+				</div>
+				<h:dataTable id="listPP" value="#{ppBean.listPP}" var="pp"
+					border="1">
+    <f:facet name="header">
+        <h:outputText value="Liste des sujets proposés" />
+    </f:facet>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Id" />
+        </f:facet>
+        <h:outputText value="#{pp.id}" />
+    </h:column>
+					<h:column>
+        <f:facet name="header">
+            <h:outputText value="Sujet" />
+        </f:facet>
+        <h:outputText value="#{pp.sujet}" />
+    </h:column>
+					<h:column>
+        <f:facet name="header">
+            <h:outputText value="Description" />
+        </f:facet>
+        <h:outputText value="#{pp.description_PP}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="Encadreur" />
+        </f:facet>
+        <h:outputText
+							value="#{ppBean.AfficheEnseignant(pp.encadreur)}" />
+    </h:column>
+ 
+    
+	</h:dataTable>
+				<c:if test="#{ppBean.date.before(ppBean.adm.getPP_dateChoix())}">
+					<h2>Remplissez Votre Liste de choix</h2>
+					<div>
+						<h:outputText value="Id du votre co-équipier" />
+						<h:inputText value="#{ppBean.coEquip2}"  />
+					</div>
+					
+					<h:dataTable value="#{ppBean.listChx}" var="chx">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText
+									value="Choissez vos choix tout en respectant les rangs" />
+							</f:facet>
+							<h:selectOneMenu value="#{chx.proj_prog}">
+								<f:selectItems value="#{ppBean.listPP}" var="pp"
+									itemValue="#{pp.id}" itemLabel="#{pp.sujet}" />
+
+							</h:selectOneMenu>
+
+						</h:column>
+
+					</h:dataTable>
+					<h:commandButton actionListener="#{ppBean.SaisirChoixPP}"
+						value="Go !" />
+				</c:if>
+			</h:form>
+
+		</c:if>
+	</c:if>
+	<h:form>
+
+
+		<div>
+			<h:commandLink action="Acceuil" value="Acceuil" styleClass="link" />
+		</div>
+		<div>
+			<h:commandLink action="#{authBean.logout()}" value="déconnexion"
+				styleClass="link" />
+		</div>
+	</h:form>
+
+
+</body>
+</html>
