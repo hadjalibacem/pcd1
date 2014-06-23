@@ -17,7 +17,7 @@ public class Etudiant {
 	private String email;
 	
 	private int rang;
-	private int departement;
+	private Integer departement;
 	
 	
 	public int getId() {

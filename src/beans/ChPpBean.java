@@ -365,7 +365,7 @@ public class ChPpBean implements Serializable {
 
 	public String AddPp() {
 
-		if (ppD.getPp(ppAajouter.getSujet()) != null && ppAajouter.getId()==0) {
+		if (ppD.getPpbySujet(ppAajouter.getSujet()) != null && ppAajouter.getId()==0) {
 			FacesMessage message = new FacesMessage(
 					"Ce sujet est déjà enregistré !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
@@ -498,7 +498,7 @@ public class ChPpBean implements Serializable {
 	}
 
 	public void affectAll() {
-		List<Etudiant> listEt = etD.getListEtudiant2();
+		List<Etudiant> listEt = etD.getListEtudiant1();
 		ChxProjProgDao chxppD = new ChxProjProgDao();
 		List<ChxProjProg> listChx;
 		for (Etudiant etudiant : listEt) {
@@ -510,13 +510,8 @@ public class ChPpBean implements Serializable {
 					listRandomChoice.add(etudiant.getId());
 			}
 		}
-		if (listRandomChoice.size() != 1)
 			affectRandomChoice(listRandomChoice);
-		else {
-			AffProjProg randPp = affpD.getAffof1Et().get(0);
-			randPp.setCoEquipier2(listRandomChoice.get(0));
-			affpD.affect(randPp);
-		}
+		
 	}
 
 	public String affectRandomChoice(List<Integer> listEt) {
@@ -524,23 +519,27 @@ public class ChPpBean implements Serializable {
 			return null;
 		int i = 0;
 		int j = 0;
+
+		listPpToAffect = ppD.getListPpToAffect();
 		if (listEt.size() % 2 == 1) {
-			int alea = (int) (Math.random() * (listPpToAffect.size()));
+			
+			int alea = (int) (Math.random() * (listPpToAffect.size()-1));
 			affect(listPpToAffect.get(alea), listEt.get(listEt.size() - 1), null);
 			j += 1;
 			listPpToAffect = ppD.getListPpToAffect();
 		} 
-		for (i = 0; i < listEt.size() && !listPpToAffect.isEmpty(); i += 2) {
+		
+		for (i = 0; i +j< listEt.size() && !listPpToAffect.isEmpty(); i += 2) {
 
-			int alea = (int) (Math.random() * (listPpToAffect.size()));
-			affect(listPpToAffect.get(alea), listEt.get(i), listEt.get(i + 1));
+			int alea = (int) (Math.random() * (listPpToAffect.size()-1));
+			affect(listPpToAffect.get(alea), listEt.get(i), listEt.get(i  + 1));
 
 			listPpToAffect = ppD.getListPpToAffect();
 		}
-		if (i < listEt.size()) {
+		if (i +j< listEt.size()) {
 			FacesMessage message = new FacesMessage(
 					"Il ne reste plus des sujets à affecter, Il reste "
-							+ (listEt.size() - i - j)
+							+ (listEt.size() - i-j)
 							+ " étudiants non affectés");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		} else {
@@ -593,15 +592,17 @@ public class ChPpBean implements Serializable {
 	}
 
 	public String affectJury() {
+
 		Long nbaffJ = jurD.getNbAffJury(jury);
+
 		List<AffProjProg> listAffp = affpD.getAffOfPp(idPp);
 		if ((limit - nbaffJ) < listAffp.size())
 			removeJury(jury);
 
 		for (AffProjProg ppaff : listAffp) {
-			if(jury==0) jury=null;
 			if (jurD.getNbAffJury(jury) < limit) {
 
+				if(jury==0) jury=null;
 				ppaff.setJury(jury);
 				affpD.affect(ppaff);
 			}
@@ -647,8 +648,8 @@ public class ChPpBean implements Serializable {
 					while (i < listEns.size() && jury == null) {
 						jury = jurD.getJury(listEns.get(i).getId());
 						if (jury != null
-								&& jurD.getNbAffJury(jury.getId())
-										.equals(limit))
+								&& jurD.getNbAffJury(jury.getId()).toString()
+										.equals(limit.toString()))
 
 						{
 							listEns.remove(i);
@@ -658,6 +659,12 @@ public class ChPpBean implements Serializable {
 
 						i++;
 					}
+					if (listEns.isEmpty()) {
+						listRandom.add(idpp);
+						listRandom.add(0);
+						listRandom.add(0);
+					}
+					else{
 					if (jury == null) {
 						if (listEns.size() == 1) {
 							listRandom.add(idpp);
@@ -676,7 +683,7 @@ public class ChPpBean implements Serializable {
 					} else {
 						ppaff.setJury(jury.getId());
 						affpD.affect(ppaff);
-					}
+					}}
 
 				}
 			}
@@ -703,7 +710,7 @@ public class ChPpBean implements Serializable {
 			AffProjProg ppaff = affpD.getPpAff(listRand.get(i));
 			List<Enseignant> listNotAffToJury = jurD.getListNotAffToJury();
 			if (listRand.get(i + 1).equals(0)) {
-				if (listNotAffToJury.size() >= 2) {
+				if (listNotAffToJury.size() >= 3) {
 					JuryPp jury = new JuryPp(0, listNotAffToJury.get(0)
 							.getId(), listNotAffToJury.get(1).getId());
 					jurD.add(jury);
@@ -713,44 +720,25 @@ public class ChPpBean implements Serializable {
 					int j = 0;
 					List<JuryPp> list = jurD.getList();
 
-					while (jurD.getNbAffJury(list.get(j).getId()).toString()
+					while (j<list.size()&&jurD.getNbAffJury(list.get(j).getId()).toString()
 							.equals(limit.toString()))
+
 						j++;
-					ppaff.setJury(list.get(j).getId());
-					affpD.affect(ppaff);
+					if(j<list.size())
+					{ppaff.setJury(list.get(j).getId());
+					affpD.affect(ppaff);}
 
 				}
 			} else {
 				JuryPp jury = jurD.getJury(listRand.get(i + 1));
 				if (jury == null) {
-					if (listRand.get(i + 2).equals(0)) {
-						listNotAffToJury = jurD.getListNotAffToJury();
-						if (listNotAffToJury.size() >= 1) {
-							JuryPp juryN = new JuryPp(0, listRand.get(i + 1),
-									listNotAffToJury.get(0).getId());
-							jurD.add(juryN);
-							ppaff.setJury(jurD.getJury(juryN.getMembre1())
-									.getId());
-							affpD.affect(ppaff);
-						} else {
-							int j = 0;
-							List<JuryPp> list = jurD.getList();
-							while (jurD.getNbAffJury(list.get(j).getId())
-									.equals(limit))
-
-								j++;
-							ppaff.setJury(list.get(j).getId());
-							affpD.affect(ppaff);
-						}
-					} else {
-						JuryPp jury2 = jurD.getJury(listRand.get(i + 2));
-						if (jury2 == null) {
+					
 							if (listRand.get(i + 2).equals(0)) {
 								listNotAffToJury = jurD.getListNotAffToJury();
-								if (listNotAffToJury.size() >= 0) {
+								if (listNotAffToJury.size() >= 1) {
 									JuryPp juryN = new JuryPp(0,
 											listRand.get(i + 1),
-											listRand.get(i + 2));
+											listNotAffToJury.get(0).getId());
 									jurD.add(juryN);
 									ppaff.setJury(jurD.getJury(
 											juryN.getMembre1()).getId());
@@ -758,24 +746,26 @@ public class ChPpBean implements Serializable {
 								} else {
 									int j = 0;
 									List<JuryPp> list = jurD.getList();
-									while (jurD.getNbAffJury(
-											list.get(j).getId()).equals(limit))
+									while (j<list.size()&&jurD.getNbAffJury(list.get(j).getId()).toString()
+											.equals(limit.toString()))
 
 										j++;
-									ppaff.setJury(list.get(j).getId());
-									affpD.affect(ppaff);
+									if(j<list.size())
+									{ppaff.setJury(list.get(j).getId());
+									affpD.affect(ppaff);}
 								}
 							} else {
-								JuryPp jury3 = jurD.getJury(listRand
-										.get(i + 3));
-								if (jury3 == null) {
-									if (listRand.get(i + 3).equals(0)) {
+								JuryPp jury2 = jurD.getJury(listRand
+										.get(i + 2));
+								if (jury2 == null) {
+									if (listRand.get(i + 2).equals(0)) {
 										listNotAffToJury = jurD
 												.getListNotAffToJury();
 										if (listNotAffToJury.size() >= 1) {
 											JuryPp juryN = new JuryPp(0,
 													listRand.get(i + 1),
-													listRand.get(i + 2));
+													listNotAffToJury.get(0)
+															.getId());
 											jurD.add(juryN);
 											ppaff.setJury(jurD.getJury(
 													juryN.getMembre1()).getId());
@@ -783,13 +773,13 @@ public class ChPpBean implements Serializable {
 										} else {
 											int j = 0;
 											List<JuryPp> list = jurD.getList();
-											while (jurD.getNbAffJury(
-													list.get(j).getId())
-													.equals(limit))
+											while (j<list.size()&&jurD.getNbAffJury(list.get(j).getId()).toString()
+													.equals(limit.toString()))
 
 												j++;
-											ppaff.setJury(list.get(j).getId());
-											affpD.affect(ppaff);
+											if(j<list.size())
+											{ppaff.setJury(list.get(j).getId());
+											affpD.affect(ppaff);}
 										}
 									} else {
 										JuryPp juryNN = new JuryPp(0,
@@ -802,35 +792,23 @@ public class ChPpBean implements Serializable {
 									}
 								}
 								{
-									if (jurD.getNbAffJury(jury3.getId())
-											.equals(limit)) {
+									if (jurD.getNbAffJury(jury2.getId()).toString()
+											.equals(limit.toString())) {
 										listRand.add(listRand.get(i));
 										listRand.add(listRand.get(i + 1));
-										listRand.add(listRand.get(i + 2));
 										listRand.add(0);
 									} else {
-										ppaff.setJury(jury3.getId());
+										ppaff.setJury(jury2.getId());
 										affpD.affect(ppaff);
 									}
 								}
 							}
-						} else {
-							if (jurD.getNbAffJury(jury2.getId()).equals(limit)) {
-								listRand.add(listRand.get(i));
-								listRand.add(listRand.get(i + 1));
-								listRand.add(listRand.get(i + 3));
-								listRand.add(0);
-							} else {
-								ppaff.setJury(jury2.getId());
-								affpD.affect(ppaff);
-							}
-						}
-					}
-				} else {
-					if (jurD.getNbAffJury(jury.getId()).equals(limit)) {
+				}
+					
+				 else {
+					if (jurD.getNbAffJury(jury.getId()).toString().equals(limit.toString())) {
 						listRand.add(listRand.get(i));
 						listRand.add(listRand.get(i + 2));
-						listRand.add(listRand.get(i + 3));
 						listRand.add(0);
 					} else {
 						ppaff.setJury(jury.getId());
@@ -842,6 +820,7 @@ public class ChPpBean implements Serializable {
 		}
 		return "";
 	}
+
 
 	public String AfficheEnseignant(int id) {
 
@@ -874,6 +853,6 @@ public class ChPpBean implements Serializable {
 		if (jury==0 ||jury==null)
 			return null;
 		JuryPp jur=jurD.getJuryById(jury);
-		return AfficheEnseignant(jur.getMembre1())+", "+AfficheEnseignant(jur.getMembre2())+" et "+AfficheEnseignant(jur.getMembre3());
+		return AfficheEnseignant(jur.getMembre1())+" et "+AfficheEnseignant(jur.getMembre2());
 	}
 }

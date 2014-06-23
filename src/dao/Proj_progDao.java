@@ -27,7 +27,7 @@ public class Proj_progDao {
 		}
 	}
 
-	public Projet_prog getPp(String sujet) {
+	public Projet_prog getPpbySujet(String sujet) {
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query = session.createQuery("from Projet_prog where sujet='" + sujet

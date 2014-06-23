@@ -2,13 +2,24 @@ package dao;
 
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import model.ChefDepart;
 import model.Pcd;
 import model.HibernateUtils;
 
 public class PcdDao {
+	HttpServletRequest request = (HttpServletRequest) FacesContext
+			.getCurrentInstance().getExternalContext().getRequest();
+	
+
+	HttpSession session = request.getSession();
+	private Object user =  session.getAttribute("user");
 
 	public boolean add(Pcd pcd) {
 
@@ -27,7 +38,7 @@ public class PcdDao {
 		}
 	}
 
-	public Pcd getPcd(String sujet) {
+	public Pcd getPcdbysujet(String sujet) {
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query = session.createQuery("from Pcd where sujet='" + sujet
@@ -65,7 +76,7 @@ public class PcdDao {
 	public List<Pcd> getListPcdToAffect() {
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from Pcd where nbAaffecter > 0");
+		Query query = session.createQuery("from Pcd where nbAaffecter > 0 and (departement is null or departement="+((ChefDepart)user).getDepartement()+")");
 		return query.list();
 	}
 

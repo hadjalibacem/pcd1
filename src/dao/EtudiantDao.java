@@ -43,7 +43,16 @@ public class EtudiantDao {
 	{
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from Etudiant where niveau = 2 and departement="+((ChefDepart)user).getDepartement()+" order by rang");
+		Query query=session.createQuery("from Etudiant where niveau = 2 and (departement is null or departement="+((ChefDepart)user).getDepartement()+") order by rang");
+		return query.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Etudiant> getListEtudiant1()
+	{
+		Session session=HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from Etudiant where niveau = 1 order by rang");
 		return query.list();
 	}
 

@@ -109,7 +109,7 @@ public class ChPcdBean implements Serializable {
 	private AdminDao admD = new AdminDao();
 	private Administration adm = admD.getAdministration();
 	private List<AffPCD> listAff = affpD.getList();
-	private List<Integer> listRandomChoice = new ArrayList<Integer>();
+	private List<Integer> listRandomChoice ;
 	private List<Pcd> listPcdToAffect = pcdD.getListPcdToAffect();
 	private MessageDao msgD = new MessageDao();
 	private Integer idPcd = null;
@@ -341,7 +341,7 @@ public class ChPcdBean implements Serializable {
 
 	public String AddPcd() {
 
-		if (pcdD.getPcd(pcdAajouter.getSujet()) != null && pcdAajouter.getId()==0) {
+		if (pcdD.getPcdbysujet(pcdAajouter.getSujet()) != null && pcdAajouter.getId()==0) {
 			FacesMessage message = new FacesMessage(
 					"Ce sujet est déjà enregistré !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
@@ -521,6 +521,7 @@ public class ChPcdBean implements Serializable {
 		List<Etudiant> listEt = etD.getListEtudiant2();
 		ChxPcdDao chxpcdD = new ChxPcdDao();
 		List<ChxPCD> listChx;
+		listRandomChoice = new ArrayList<Integer>();
 		for (Etudiant etudiant : listEt) {
 			if (!isAffected(etudiant.getId())) {
 				listChx = chxpcdD.getListChoix(etudiant.getId());
@@ -544,35 +545,40 @@ public class ChPcdBean implements Serializable {
 			return null;
 		int i = 0;
 		int j = 0;
+
+		listPcdToAffect = pcdD.getListPcdToAffect();
+		if(!listPcdToAffect.isEmpty())
+		{
 		if (listEt.size() % 3 == 2) {
-			int alea = (int) (Math.random() * (listPcdToAffect.size()));
+			int alea = (int) (Math.random() * (listPcdToAffect.size()-1));
 			affect(listPcdToAffect.get(alea), listEt.get(listEt.size() - 1),
 					listEt.get(listEt.size() - 2), null);
 			j += 2;
 			listPcdToAffect = pcdD.getListPcdToAffect();
 		} else if (listEt.size() % 3 == 1) {
-			int alea = (int) (Math.random() * (listPcdToAffect.size()));
+			int alea = (int) (Math.random() * (listPcdToAffect.size()-1));
 			affect(listPcdToAffect.get(alea), listEt.get(listEt.size() - 1),
 					listEt.get(listEt.size() - 2), null);
 			listPcdToAffect = pcdD.getListPcdToAffect();
-			alea = (int) (Math.random() * (listPcdToAffect.size()));
+			alea = (int) (Math.random() * (listPcdToAffect.size()-1));
 			affect(listPcdToAffect.get(alea), listEt.get(listEt.size() - 3),
 					listEt.get(listEt.size() - 4), null);
 			j += 4;
 			listPcdToAffect = pcdD.getListPcdToAffect();
 		}
-		for (i = 0; i < listEt.size() && !listPcdToAffect.isEmpty(); i += 3) {
+		for (i = 0; i +j< listEt.size() && !listPcdToAffect.isEmpty(); i += 3) {
 
-			int alea = (int) (Math.random() * (listPcdToAffect.size()));
+			int alea = (int) (Math.random() * (listPcdToAffect.size()-1));
 			affect(listPcdToAffect.get(alea), listEt.get(i), listEt.get(i + 1),
 					listEt.get(i + 2));
 
 			listPcdToAffect = pcdD.getListPcdToAffect();
 		}
-		if (i < listEt.size()) {
+		}
+		if (i+j < listEt.size()) {
 			FacesMessage message = new FacesMessage(
 					"Il ne reste plus des sujets à affecter, Il reste "
-							+ (listEt.size() - i - j)
+							+ (listEt.size() - i-j )
 							+ " étudiants non affectés");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		} else {
@@ -637,15 +643,17 @@ public class ChPcdBean implements Serializable {
 	}
 
 	public String affectJury() {
+
+		if(jury==0) jury=null;
 		Long nbaffJ = jurD.getNbAffJury(jury);
 		List<AffPCD> listAffp = affpD.getAffOfPcd(idPcd);
 		if ((limit - nbaffJ) < listAffp.size())
 			removeJury(jury);
 
 		for (AffPCD pcdaff : listAffp) {
+			
 			if (jurD.getNbAffJury(jury) < limit) {
 
-				if(jury==0) jury=null;
 				pcdaff.setJury(jury);
 				affpD.affect(pcdaff);
 			}
@@ -673,7 +681,7 @@ public class ChPcdBean implements Serializable {
 			
 			int idpcd = pcdaff.getId();
 			pcd = pcdD.getPcd(pcdaff.getPCD());
-			if(user.getDepartement()==pcd.getDepartement())
+			if(pcd.getDepartement()==null||user.getDepartement()==pcd.getDepartement())
 			{
 			if (pcd.getMotsCles() == null) {
 				listRandom.add(idpcd);
@@ -694,8 +702,8 @@ public class ChPcdBean implements Serializable {
 					while (i < listEns.size() && jury == null) {
 						jury = jurD.getJury(listEns.get(i).getId());
 						if (jury != null
-								&& jurD.getNbAffJury(jury.getId())
-										.equals(limit))
+								&& jurD.getNbAffJury(jury.getId()).toString()
+										.equals(limit.toString()))
 
 						{
 							listEns.remove(i);
@@ -705,6 +713,13 @@ public class ChPcdBean implements Serializable {
 
 						i++;
 					}
+					if (listEns.isEmpty()) {
+						listRandom.add(idpcd);
+						listRandom.add(0);
+						listRandom.add(0);
+						listRandom.add(0);
+					}
+					else{
 					if (jury == null) {
 						if (listEns.size() == 2) {
 							listRandom.add(idpcd);
@@ -729,7 +744,7 @@ public class ChPcdBean implements Serializable {
 					} else {
 						pcdaff.setJury(jury.getId());
 						affpD.affect(pcdaff);
-					}
+					}}
 
 				}
 			}
@@ -767,11 +782,13 @@ public class ChPcdBean implements Serializable {
 					int j = 0;
 					List<JuryPcd> list = jurD.getList();
 
-					while (jurD.getNbAffJury(list.get(j).getId()).toString()
+					while (j<list.size()&&jurD.getNbAffJury(list.get(j).getId()).toString()
 							.equals(limit.toString()))
+
 						j++;
-					pcdaff.setJury(list.get(j).getId());
-					affpD.affect(pcdaff);
+					if(j<list.size())
+					{pcdaff.setJury(list.get(j).getId());
+					affpD.affect(pcdaff);}
 
 				}
 			} else {
@@ -790,17 +807,18 @@ public class ChPcdBean implements Serializable {
 						} else {
 							int j = 0;
 							List<JuryPcd> list = jurD.getList();
-							while (jurD.getNbAffJury(list.get(j).getId())
-									.equals(limit))
+							while (j<list.size()&&jurD.getNbAffJury(list.get(j).getId()).toString()
+									.equals(limit.toString()))
 
 								j++;
-							pcdaff.setJury(list.get(j).getId());
-							affpD.affect(pcdaff);
+							if(j<list.size())
+							{pcdaff.setJury(list.get(j).getId());
+							affpD.affect(pcdaff);}
 						}
 					} else {
 						JuryPcd jury2 = jurD.getJury(listRand.get(i + 2));
 						if (jury2 == null) {
-							if (listRand.get(i + 2).equals(0)) {
+							if (listRand.get(i + 3).equals(0)) {
 								listNotAffToJury = jurD.getListNotAffToJury();
 								if (listNotAffToJury.size() >= 1) {
 									JuryPcd juryN = new JuryPcd(0,
@@ -814,12 +832,13 @@ public class ChPcdBean implements Serializable {
 								} else {
 									int j = 0;
 									List<JuryPcd> list = jurD.getList();
-									while (jurD.getNbAffJury(
-											list.get(j).getId()).equals(limit))
+									while (j<list.size()&&jurD.getNbAffJury(list.get(j).getId()).toString()
+											.equals(limit.toString()))
 
 										j++;
-									pcdaff.setJury(list.get(j).getId());
-									affpD.affect(pcdaff);
+									if(j<list.size())
+									{pcdaff.setJury(list.get(j).getId());
+									affpD.affect(pcdaff);}
 								}
 							} else {
 								JuryPcd jury3 = jurD.getJury(listRand
@@ -841,13 +860,13 @@ public class ChPcdBean implements Serializable {
 										} else {
 											int j = 0;
 											List<JuryPcd> list = jurD.getList();
-											while (jurD.getNbAffJury(
-													list.get(j).getId())
-													.equals(limit))
+											while (j<list.size()&&jurD.getNbAffJury(list.get(j).getId()).toString()
+													.equals(limit.toString()))
 
 												j++;
-											pcdaff.setJury(list.get(j).getId());
-											affpD.affect(pcdaff);
+											if(j<list.size())
+											{pcdaff.setJury(list.get(j).getId());
+											affpD.affect(pcdaff);}
 										}
 									} else {
 										JuryPcd juryNN = new JuryPcd(0,
@@ -861,8 +880,8 @@ public class ChPcdBean implements Serializable {
 									}
 								}
 								{
-									if (jurD.getNbAffJury(jury3.getId())
-											.equals(limit)) {
+									if (jurD.getNbAffJury(jury3.getId()).toString()
+											.equals(limit.toString())) {
 										listRand.add(listRand.get(i));
 										listRand.add(listRand.get(i + 1));
 										listRand.add(listRand.get(i + 2));
@@ -874,7 +893,7 @@ public class ChPcdBean implements Serializable {
 								}
 							}
 						} else {
-							if (jurD.getNbAffJury(jury2.getId()).equals(limit)) {
+							if (jurD.getNbAffJury(jury2.getId()).toString().equals(limit.toString())) {
 								listRand.add(listRand.get(i));
 								listRand.add(listRand.get(i + 1));
 								listRand.add(listRand.get(i + 3));
@@ -886,7 +905,7 @@ public class ChPcdBean implements Serializable {
 						}
 					}
 				} else {
-					if (jurD.getNbAffJury(jury.getId()).equals(limit)) {
+					if (jurD.getNbAffJury(jury.getId()).toString().equals(limit.toString())) {
 						listRand.add(listRand.get(i));
 						listRand.add(listRand.get(i + 2));
 						listRand.add(listRand.get(i + 3));
@@ -904,6 +923,7 @@ public class ChPcdBean implements Serializable {
 
 	public String AfficheEnseignant(int id) {
 
+		if(id==0) return null;
 		return ensD.getEnseignant(id).getNom() + " "
 				+ ensD.getEnseignant(id).getPrenom();
 	}

@@ -87,15 +87,15 @@ public class AffPcdDao {
 		Query query;
 		if (id == null)
 			return null;
-		query = session.createQuery("from AffPCD where coEquipier1=" + id
-				+ " or coEquipier2=" + id + " or coEquipier3=" + id);
+		query = session.createQuery("from AffPCD where pcd in(select id from Pcd where departement is null or departement="+user.getDepartement()+") and (coEquipier1=" + id
+				+ " or coEquipier2=" + id + " or coEquipier3=" + id+")");
 		return (AffPCD) query.uniqueResult();
 	}
 
 	public AffPCD getPcdAff(int id) {
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from AffPCD where id=" + id);
+		Query query = session.createQuery("from AffPCD where pcd in(select id from Pcd where departement is null or departement="+user.getDepartement()+") and id=" + id);
 		return (AffPCD) query.uniqueResult();
 	}
 
@@ -112,7 +112,7 @@ public class AffPcdDao {
 	{
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from AffPCD where pcd="+pcd);
+		Query query=session.createQuery("from AffPCD where pcd in(select id from Pcd where departement is null or departement="+user.getDepartement()+") and pcd="+pcd);
 		return query.list();
 	}
 	@SuppressWarnings("unchecked")
@@ -120,7 +120,7 @@ public class AffPcdDao {
 	{
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from AffPCD where coEquipier3=null");
+		Query query=session.createQuery("from AffPCD where pcd in(select id from Pcd where departement is null or departement="+user.getDepartement()+") and coEquipier3=null");
 		return  query.list();
 	}
 	@SuppressWarnings("unchecked")
@@ -128,7 +128,7 @@ public class AffPcdDao {
 	{
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query =session.createQuery("select distinct(PCD) from AffPCD ");
+		Query query =session.createQuery("select distinct(PCD) from AffPCD where pcd in(select id from Pcd where departement is null or departement="+user.getDepartement()+") ");
 		return query.list();
 	}
 

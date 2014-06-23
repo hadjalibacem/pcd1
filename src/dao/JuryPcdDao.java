@@ -42,7 +42,7 @@ public class JuryPcdDao {
 		if(id==0 )return null;
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from JuryPcd where id="+id);
+		Query query=session.createQuery("from JuryPcd where (departement is null or departement="+user.getDepartement()+") and id="+id);
 		return (JuryPcd) query.uniqueResult();
 	}
 	
@@ -51,7 +51,7 @@ public class JuryPcdDao {
 		if(id==0 )return null;
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from JuryPcd where membre1="+id+" or membre2="+id+" or membre3="+id);
+		Query query=session.createQuery("from JuryPcd where (departement is null or departement="+user.getDepartement()+") and  membre1="+id+" or membre2="+id+" or membre3="+id);
 		return (JuryPcd) query.uniqueResult();
 	}
 	
@@ -59,7 +59,7 @@ public class JuryPcdDao {
 	{
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery(" select count(*) from AffPCD where jury="+id);
+		Query query=session.createQuery(" select count(*) from AffPCD where pcd in(select id from Pcd where departement is null or departement="+user.getDepartement()+") and jury="+id);
 		return (Long) query.uniqueResult();
 	}
 

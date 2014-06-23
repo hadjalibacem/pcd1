@@ -47,7 +47,7 @@ public class JuryPpDao {
 		if(id==0 )return null;
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from JuryPp where membre1="+id+" or membre2="+id+" or membre3="+id);
+		Query query=session.createQuery("from JuryPp where membre1="+id+" or membre2="+id);
 		return (JuryPp) query.uniqueResult();
 	}
 	
@@ -64,7 +64,7 @@ public class JuryPpDao {
 		
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from Enseignant e where not exists (from JuryPp where membre1=e.id or membre2=e.id or membre3=e.id)");
+		Query query=session.createQuery("from Enseignant e where not exists (from JuryPp where membre1=e.id or membre2=e.id)");
 		return query.list();
 	}
 	

@@ -12,7 +12,7 @@ public class Enseignant {
 	private String nom;
 	private String prenom;
 	private String email;
-	private int bureau;
+	private Integer bureau;
 	private String motsCles;
 	private Integer departement;
 	private boolean jury;
