@@ -10,6 +10,7 @@ import model.AffProjProg;
 import model.ChefDepart;
 import model.Enseignant;
 import model.HibernateUtils;
+import model.JuryPcd;
 import model.JuryPp;
 
 import org.hibernate.Query;
@@ -64,7 +65,7 @@ public class JuryPpDao {
 		
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from Enseignant e where not exists (from JuryPp where membre1=e.id or membre2=e.id)");
+		Query query=session.createQuery("from Enseignant e where jury=1 and not exists (from JuryPp where membre1=e.id or membre2=e.id)");
 		return query.list();
 	}
 	
@@ -77,7 +78,22 @@ public class JuryPpDao {
 		return query.list();
 	}
 	
-	
+	public boolean delete(JuryPp jur1) {
+
+		// TODO Auto-generated method stub
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			session.delete(jur1);
+			session.getTransaction().commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			System.out.print("erreur delete" + e.getMessage());
+			return false;
+		}
+		
+	}
 	
 	
 

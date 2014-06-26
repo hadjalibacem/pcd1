@@ -22,6 +22,7 @@ import model.ChefDepart;
 import model.ChxProjProg;
 import model.Enseignant;
 import model.Etudiant;
+import model.JuryPcd;
 import model.JuryPp;
 import model.Message;
 import model.Projet_prog;
@@ -44,6 +45,25 @@ public class ChPpBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer coEquip1 = null;
 	private Integer coEquip2 = null;
+	private Integer jury1,jury2;
+	public Integer getJury1() {
+		return jury1;
+	}
+
+	public void setJury1(Integer jury1) {
+		this.jury1 = jury1;
+	}
+
+	public Integer getJury2() {
+		return jury2;
+	}
+
+	public void setJury2(Integer jury2) {
+		this.jury2 = jury2;
+	}
+
+
+
 	private int idPpAaffecter;
 	private JuryPpDao jurD = new JuryPpDao();
 
@@ -99,6 +119,18 @@ public class ChPpBean implements Serializable {
 	private Integer idPp = null;
 	private EnseignantDao ensD = new EnseignantDao();
 	private List<Enseignant> listEnseignants = ensD.getList();
+	private List<Enseignant> listEnseignants4Jury = ensD.getListOfJury(null);
+
+	public List<Enseignant> getListEnseignants4Jury() {
+		return listEnseignants4Jury;
+	}
+
+	public void setListEnseignants4Jury(List<Enseignant> listEnseignants4Jury) {
+		this.listEnseignants4Jury = listEnseignants4Jury;
+	}
+
+
+
 	private Integer jury;
 	private Projet_prog ppAajouter = new Projet_prog(0, "", null, 0, 0, null);
 
@@ -637,7 +669,7 @@ public class ChPpBean implements Serializable {
 				listRandom.add(0);
 			} else {
 				List<Enseignant> listEns = ensD.getListByKeyWords(pp
-						.getMotsCles().split(","));
+						.getMotsCles().split(","),null);
 				if (listEns.isEmpty()) {
 					listRandom.add(idpp);
 					listRandom.add(0);
@@ -853,6 +885,23 @@ public class ChPpBean implements Serializable {
 		if (jury==0 ||jury==null)
 			return null;
 		JuryPp jur=jurD.getJuryById(jury);
+		if(jur==null) return null;
 		return AfficheEnseignant(jur.getMembre1())+" et "+AfficheEnseignant(jur.getMembre2());
+	}
+	public String AjoutJury()
+	{
+		
+		
+		JuryPp jur1=jurD.getJury(jury1);
+		if(jur1!=null)
+			{removeJury(jur1.getId());
+			jurD.delete(jur1);}
+		JuryPp jur2=jurD.getJury(jury2);
+		if(jur2!=null)
+		{removeJury(jur2.getId());
+			jurD.delete(jur2);}
+		JuryPp jury=new JuryPp(0, jury1, jury2);
+		jurD.add(jury);
+		return "stage1_ChD";
 	}
 }

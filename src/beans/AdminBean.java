@@ -1,13 +1,16 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import model.Administration;
+import model.Enseignant;
 import dao.AdminDao;
+import dao.EnseignantDao;
 
 
 @ManagedBean
@@ -18,8 +21,10 @@ public class AdminBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	AdminDao admD=new AdminDao();
-	Administration admin=admD.getAdministration();
+	private AdminDao admD=new AdminDao();
+	private Administration admin=admD.getAdministration();
+	private EnseignantDao ensD=new EnseignantDao();
+	private List<Enseignant> listEns=ensD.getAll();
 public Administration getAdmin() {
 		return admin;
 	}
@@ -45,16 +50,13 @@ public void setPp_choix(boolean pp_choix) {
 	this.pp_choix = pp_choix;
 }
 private Integer pcd_nbchoix=admin.getPCD_nbChoix();
-private Integer nbaffjury =admin.getPCD_nbSujetAjugerParProf();
+private Integer pCD_nbSujetAjugerParProf =admin.getPCD_nbSujetAjugerParProf();
+
+private Integer pp_nbSujetAjugerParProf =admin.getPP_nbSujetAjugerParProf();
+
+private Integer pp_nbchoix=admin.getPP_nbChoix();
 
 
-
-public Integer getNbaffjury() {
-	return nbaffjury;
-}
-public void setNbaffjury(Integer nbaffjury) {
-	this.nbaffjury = nbaffjury;
-}
 
 public void setPcd_nbchoix(Integer pcd_nbchoix) {
 	this.pcd_nbchoix = pcd_nbchoix;
@@ -134,11 +136,15 @@ public void setPcd_nbchoix(int pcd_nbchoix) {
 	this.pcd_nbchoix = pcd_nbchoix;
 }
 @SuppressWarnings("deprecation")
-public void convertToDate(String dateS,Date date)
+public Date convertToDate(String dateS,Date date)
 {
+	if(date==null)
+		date= new Date(2000, 01, 01);
 	date.setYear(Integer.parseInt(dateS.split("-")[0])-1900);
 	date.setMonth(Integer.parseInt(dateS.split("-")[1])-1);
 	date.setDate(Integer.parseInt(dateS.split("-")[2]));
+	return date;
+	
 }
 public String save()
 {
@@ -146,34 +152,37 @@ public String save()
 		convertToDate(pcd_dateccharge,admin.getPCD_dateCCharge());
 	else admin.setPCD_dateCCharge(null);
 	if(!pcd_datechoix.isEmpty())
-	convertToDate(pcd_datechoix,admin.getPCD_dateChoix());
+		admin.setPCD_dateChoix(convertToDate(pcd_datechoix,admin.getPCD_dateChoix()));
 	else admin.setPCD_dateChoix(null);
 	if(!pcd_daterapport.isEmpty())
-	convertToDate(pcd_daterapport,admin.getPCD_dateRapport());
+		admin.setPCD_dateRapport(convertToDate(pcd_daterapport,admin.getPCD_dateRapport()));
 	else admin.setPCD_dateRapport(null);
 	if(!pfe_daterapport.isEmpty())
-	convertToDate(pfe_daterapport,admin.getPFE_dateRapport());
+		admin.setPFE_dateRapport(convertToDate(pfe_daterapport,admin.getPFE_dateRapport()));
 	else admin.setPFE_dateRapport(null);
 	if(!pfe_dateccharge.isEmpty())
-	convertToDate(pfe_dateccharge,admin.getPFE_dateCCharge());
+		admin.setPFE_dateCCharge(convertToDate(pfe_dateccharge,admin.getPFE_dateCCharge()));
 	else admin.setPFE_dateCCharge(null);
 	if(!pp_datechoix.isEmpty())
-	convertToDate(pp_datechoix,admin.getPP_dateChoix());
+		admin.setPP_dateChoix(convertToDate(pp_datechoix,admin.getPP_dateChoix()));
 	else admin.setPP_dateChoix(null);
 	if(!pp_daterapport.isEmpty())
-	convertToDate(pp_daterapport,admin.getPP_dateRapport());
+		admin.setPP_dateRapport(convertToDate(pp_daterapport,admin.getPP_dateRapport()));
 	else admin.setPP_dateRapport(null);
 	if(!filiere_datechoix.isEmpty())
-	convertToDate(filiere_datechoix,admin.getFiliere_dateChoix());
+		admin.setFiliere_dateChoix(convertToDate(filiere_datechoix,admin.getFiliere_dateChoix()));
 	else admin.setFiliere_dateChoix(null);
 	if(!modopt_datechoix.isEmpty())
-	convertToDate(modopt_datechoix,admin.getModOpt_dateChoix());
+		admin.setModOpt_dateChoix(convertToDate(modopt_datechoix,admin.getModOpt_dateChoix()));
 	else admin.setModOpt_dateChoix(null);
 
 	admin.setAnnee(annee);
 	admin.setPCD_choix(pcd_choix);
 	admin.setPP_choix(pp_choix);
+	admin.setPCD_nbSujetAjugerParProf(pCD_nbSujetAjugerParProf);
+	admin.setPP_nbSujetAjugerParProf(pp_nbSujetAjugerParProf);
 	admin.setPCD_nbChoix(pcd_nbchoix);
+	admin.setPP_nbChoix(pp_nbchoix);
 	admD.add(admin);
 	return "";
 }
@@ -189,6 +198,38 @@ public AdminBean() {
 	if(admin.getFiliere_dateChoix()!=null)  filiere_datechoix=admin.getFiliere_dateChoix().toString();
 	if(admin.getModOpt_dateChoix()!=null)  modopt_datechoix=admin.getModOpt_dateChoix().toString();
 	
+}
+public Integer getpCD_nbSujetAjugerParProf() {
+	return pCD_nbSujetAjugerParProf;
+}
+public void setpCD_nbSujetAjugerParProf(Integer pCD_nbSujetAjugerParProf) {
+	this.pCD_nbSujetAjugerParProf = pCD_nbSujetAjugerParProf;
+}
+public Integer getPp_nbSujetAjugerParProf() {
+	return pp_nbSujetAjugerParProf;
+}
+public void setPp_nbSujetAjugerParProf(Integer pp_nbSujetAjugerParProf) {
+	this.pp_nbSujetAjugerParProf = pp_nbSujetAjugerParProf;
+}
+public Integer getPp_nbchoix() {
+	return pp_nbchoix;
+}
+public void setPp_nbchoix(Integer pp_nbchoix) {
+	this.pp_nbchoix = pp_nbchoix;
+}
+public List<Enseignant> getListEns() {
+	return listEns;
+}
+public void setListEns(List<Enseignant> listEns) {
+	this.listEns = listEns;
+}
+public String save4Jury()
+{
+	for (Enseignant ens:listEns)
+	{
+		ensD.add(ens);
+	}
+	return "Admin";
 }
 
 }

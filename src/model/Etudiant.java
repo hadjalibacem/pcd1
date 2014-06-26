@@ -16,7 +16,7 @@ public class Etudiant {
 	private String adresse;
 	private String email;
 	
-	private int rang;
+	private Integer rang;
 	private Integer departement;
 	
 	
@@ -63,10 +63,10 @@ public class Etudiant {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getRang() {
+	public Integer getRang() {
 		return rang;
 	}
-	public void setRang(int rang) {
+	public void setRang(Integer rang) {
 		this.rang = rang;
 	}
 	public int getDepartement() {

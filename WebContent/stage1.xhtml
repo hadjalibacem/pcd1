@@ -57,6 +57,7 @@
  
     
 	</h:dataTable>
+	<c:if test="#{pcdBean.user.niveau==1}">
 				<c:if test="#{ppBean.date.before(ppBean.adm.getPP_dateChoix())}">
 					<h2>Remplissez Votre Liste de choix</h2>
 					<div>
@@ -81,6 +82,7 @@
 					</h:dataTable>
 					<h:commandButton actionListener="#{ppBean.SaisirChoixPP}"
 						value="Go !" />
+				</c:if>
 				</c:if>
 			</h:form>
 

@@ -26,7 +26,7 @@ public class EnseignantDao {
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
-			session.save(enseignant);
+			session.saveOrUpdate(enseignant);
 			session.getTransaction().commit();
 			session.close();
 			System.out.print("bien ajouté");
@@ -44,9 +44,9 @@ public class EnseignantDao {
 		return (Enseignant) query.uniqueResult();
 	}
 
-	public List<Enseignant> getListByKeyWords(String[] motsCles) {
+	public List<Enseignant> getListByKeyWords(String[] motsCles, Integer dep) {
 		List<Enseignant> list = new ArrayList<Enseignant>();
-		List<Enseignant> listAll = getList();
+		List<Enseignant> listAll = getListOfJury(dep);
 
 		for (Enseignant ens : listAll) {
 			if (ens.getMotsCles() != null) {
@@ -77,4 +77,26 @@ public class EnseignantDao {
 	return query.list();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Enseignant> getListOfJury(Integer dep) {
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query;
+		if(dep!=null)
+		query = session.createQuery("from Enseignant where jury=1 and (departement is null or departement="+dep+")");
+		else query = session.createQuery("from Enseignant where jury=1 ");
+	return query.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Enseignant> getAll()
+	{
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		
+		Query query = session.createQuery("from Enseignant");
+	return query.list();
+		
+	}
+	
 }

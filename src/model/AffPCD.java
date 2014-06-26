@@ -27,7 +27,7 @@ public class AffPCD {
 
 
 	private Integer Jury;
-	private Boolean resultat;
+	private float resultat;
 	private Integer coEquipier3;
 	
 
@@ -107,12 +107,12 @@ public class AffPCD {
 	}
 
 
-	public Boolean getResultat() {
+	public float getResultat() {
 		return resultat;
 	}
 
 
-	public void setResultat(Boolean resultat) {
+	public void setResultat(float resultat) {
 		this.resultat = resultat;
 	}
 
@@ -136,7 +136,7 @@ public class AffPCD {
 
 	public AffPCD(int id, int coEquipier1, int pCD, int coEquipier2,
 			Boolean depotCCharge, Boolean depotRapport, String dateSoutenance,
-			Integer jury, Boolean resultat, Integer coEquipier3) {
+			Integer jury, float resultat, Integer coEquipier3) {
 		super();
 		this.id = id;
 		this.coEquipier1 = coEquipier1;

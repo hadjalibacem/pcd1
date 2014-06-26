@@ -68,6 +68,7 @@
     </h:column>
     
 	</h:dataTable>
+	<c:if test="#{pcdBean.user.niveau==2}">
 				<c:if test="#{pcdBean.date.before(pcdBean.adm.getPCD_dateChoix())}">
 					<h2>Remplissez Votre Liste de choix</h2>
 					<div>
@@ -95,6 +96,7 @@
 					</h:dataTable>
 					<h:commandButton actionListener="#{pcdBean.SaisirChoixPCD}"
 						value="Go !" />
+				</c:if>
 				</c:if>
 			</h:form>
 

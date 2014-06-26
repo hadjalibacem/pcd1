@@ -82,8 +82,8 @@ public class Administration {
 	public Date getPCD_dateCCharge() {
 		return PCD_dateCCharge;
 	}
-	public void setPCD_dateCCharge(Date pCD_dateCCharge) {
-		PCD_dateCCharge = pCD_dateCCharge;
+	public void setPCD_dateCCharge(Date date) {
+		PCD_dateCCharge = date;
 	}
 	public Date getPCD_dateRapport() {
 		return PCD_dateRapport;

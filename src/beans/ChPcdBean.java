@@ -72,6 +72,31 @@ public class ChPcdBean implements Serializable {
 	 * 
 	 * public void setIdPcd(int idPcd) { this.idPcd = idPcd; }
 	 */
+	private Integer jury1,jury2,jury3;
+	
+	public Integer getJury1() {
+		return jury1;
+	}
+
+	public void setJury1(Integer jury1) {
+		this.jury1 = jury1;
+	}
+
+	public Integer getJury2() {
+		return jury2;
+	}
+
+	public void setJury2(Integer jury2) {
+		this.jury2 = jury2;
+	}
+
+	public Integer getJury3() {
+		return jury3;
+	}
+
+	public void setJury3(Integer jury3) {
+		this.jury3 = jury3;
+	}
 
 	private PcdDao pcdD = new PcdDao();
 	HttpServletRequest request = (HttpServletRequest) FacesContext
@@ -105,7 +130,7 @@ public class ChPcdBean implements Serializable {
 		this.listJury = listJury;
 	}
 
-	private boolean validation;
+	private float validation;
 	private AdminDao admD = new AdminDao();
 	private Administration adm = admD.getAdministration();
 	private List<AffPCD> listAff = affpD.getList();
@@ -115,6 +140,16 @@ public class ChPcdBean implements Serializable {
 	private Integer idPcd = null;
 	private EnseignantDao ensD = new EnseignantDao();
 	private List<Enseignant> listEnseignants = ensD.getList();
+	private List<Enseignant> listEnseignants4Jury = ensD.getListOfJury(user.getDepartement());
+
+	public List<Enseignant> getListEnseignants4Jury() {
+		return listEnseignants4Jury;
+	}
+
+	public void setListEnseignants4Jury(List<Enseignant> listEnseignants4Jury) {
+		this.listEnseignants4Jury = listEnseignants4Jury;
+	}
+
 	private Integer jury;
 	private Pcd pcdAajouter = new Pcd(0, "", null, 0, null, 0, null);
 
@@ -164,11 +199,13 @@ public class ChPcdBean implements Serializable {
 
 	EtudiantDao etD = new EtudiantDao();
 
-	public boolean isValidation() {
+
+
+	public float getValidation() {
 		return validation;
 	}
 
-	public void setValidation(boolean validation) {
+	public void setValidation(float validation) {
 		this.validation = validation;
 	}
 
@@ -321,7 +358,7 @@ public class ChPcdBean implements Serializable {
 
 	public void affect(Pcd pcd, int coEquip1, int coEquip2, Integer coEquip3) {
 		AffPCD affpcd = new AffPCD(0, coEquip1, pcd.getId(), coEquip2, null,
-				null, null, null, null, coEquip3);
+				null, null, null, 0, coEquip3);
 		if (affpD.affect(affpcd)) {
 			pcd.setNbAaffecter(pcd.getNbAaffecter() - 1);
 			pcdD.add(pcd);
@@ -690,7 +727,7 @@ public class ChPcdBean implements Serializable {
 				listRandom.add(0);
 			} else {
 				List<Enseignant> listEns = ensD.getListByKeyWords(pcd
-						.getMotsCles().split(","));
+						.getMotsCles().split(","),user.getDepartement());
 				if (listEns.isEmpty()) {
 					listRandom.add(idpcd);
 					listRandom.add(0);
@@ -762,7 +799,7 @@ public class ChPcdBean implements Serializable {
 					"Tous les groupes sont affectés aux jurys !");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
-		return "";
+		return "PCD_ChD";
 
 	}
 
@@ -972,6 +1009,27 @@ public class ChPcdBean implements Serializable {
 		if (jury==0 ||jury==null)
 			return null;
 		JuryPcd jur=jurD.getJuryById(jury);
+		if (jur==null) return null;
 		return AfficheEnseignant(jur.getMembre1())+", "+AfficheEnseignant(jur.getMembre2())+" et "+AfficheEnseignant(jur.getMembre3());
+	}
+	public String AjoutJury()
+	{
+		
+		
+		JuryPcd jur1=jurD.getJury(jury1);
+		if(jur1!=null)
+			{removeJury(jur1.getId());
+			jurD.delete(jur1);}
+		JuryPcd jur2=jurD.getJury(jury2);
+		if(jur2!=null)
+		{removeJury(jur2.getId());
+			jurD.delete(jur2);}
+		JuryPcd jur3=jurD.getJury(jury3);
+		if(jur3!=null)
+		{removeJury(jur3.getId());
+			jurD.delete(jur3);}
+		JuryPcd jury=new JuryPcd(0, jury1, jury2, jury3,user.getDepartement());
+		jurD.add(jury);
+		return "PCD_ChD";
 	}
 }

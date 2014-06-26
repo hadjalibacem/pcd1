@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head />
+<body>
+
+	<h1>Projet de Fin d'Etude</h1>
+
+			<h:form>
+				
+				<div>
+					<c:if test="#{pfeBean.adm.PFE_dateCCharge!=null}">
+						<h:outputText
+							value="date limite de depôt des cahiers de charges : #{pfeBean.adm.PFE_dateCCharge}" />
+					</c:if>
+				</div>
+				<div>
+					<c:if test="#{pfeBean.adm.PFE_dateRapport!=null}">
+						<h:outputText
+							value="date limite de depôt des rapports: #{pfeBean.adm.PFE_dateRapport}" />
+					</c:if>
+				</div>
+				</h:form>
+
+</body>
+</html>

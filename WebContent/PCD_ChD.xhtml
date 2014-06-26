@@ -171,11 +171,8 @@
 						<f:selectItem itemValue="true" itemLabel="Oui" />
 						<f:selectItem itemValue="false" itemLabel="Non" />
 					</h:selectOneMenu>
-					<h:outputText for="valid" value="validation" />
-					<h:selectOneMenu id="valid" value="#{chPcdBean.validation}">
-						<f:selectItem itemValue="true" itemLabel="Oui" />
-						<f:selectItem itemValue="false" itemLabel="Non" />
-					</h:selectOneMenu>
+					<h:outputText for="valid" value="Note de Jury" />
+					<h:inputText value="#{chPcdBean.validation}" />
 				</h:panelGrid>
 				<h:commandButton value="Enregistrer"
 					action="#{chPcdBean.updateAffpcd}" type="submit" />
@@ -183,6 +180,38 @@
 			<!-- >
 		</c:if>
 	</c:if></!-->
+	<h2>Ajouter un Jury</h2>
+	<h:form>
+	<div>
+	<h:outputText>Membre 1</h:outputText>
+	<h:selectOneMenu value="#{chPcdBean.jury1}">
+					<f:selectItem />
+					<f:selectItems value="#{chPcdBean.listEnseignants4Jury}" var="ens"
+						itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom}" />
+
+				</h:selectOneMenu>
+				</div>
+				<div>
+				<h:outputText>Membre 2</h:outputText>
+	<h:selectOneMenu value="#{chPcdBean.jury2}">
+					<f:selectItem />
+					<f:selectItems value="#{chPcdBean.listEnseignants4Jury}" var="ens"
+						itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom}" />
+
+				</h:selectOneMenu>
+				</div>
+	<div>
+	<h:outputText>Membre 3</h:outputText>
+	<h:selectOneMenu value="#{chPcdBean.jury3}">
+					<f:selectItem />
+					<f:selectItems value="#{chPcdBean.listEnseignants4Jury}" var="ens"
+						itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom}" />
+
+				</h:selectOneMenu>
+	</div>
+	<h:commandButton value="Enregistrer"
+					action="#{chPcdBean.AjoutJury}" type="submit" />
+	</h:form>
 	<h2>Choisir le jury</h2>
 	<h:form>
 		<h:panelGrid>

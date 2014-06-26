@@ -68,7 +68,7 @@ public class JuryPcdDao {
 		
 		Session session=HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from Enseignant e where (departement is null or departement="+user.getDepartement()+") and not exists (from JuryPcd where membre1=e.id or membre2=e.id or membre3=e.id)");
+		Query query=session.createQuery("from Enseignant e where (departement is null or departement="+user.getDepartement()+") and jury=1 and not exists (from JuryPcd where membre1=e.id or membre2=e.id or membre3=e.id)");
 		return query.list();
 	}
 	
@@ -79,6 +79,22 @@ public class JuryPcdDao {
 		session.beginTransaction();
 		Query query=session.createQuery("from JuryPcd where departement is null or departement="+user.getDepartement());
 		return query.list();
+	}
+	public boolean delete(JuryPcd jur1) {
+
+		// TODO Auto-generated method stub
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			session.delete(jur1);
+			session.getTransaction().commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			System.out.print("erreur delete" + e.getMessage());
+			return false;
+		}
+		
 	}
 	
 	

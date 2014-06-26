@@ -30,14 +30,14 @@
 					value="#{adminBean.pcd_daterapport}" />
 
 				<h:outputLabel for="ppdatechoix"
-					value="Date limite de choix des sujets PP" />
+					value="Date limite de choix des sujets Projets d'été" />
 				<h:inputText id="ppdatechoix" value="#{adminBean.pp_datechoix}" />
 
 
 
 
 				<h:outputLabel for="ppdaterapport"
-					value="Date limite de depôt des Rapport PP" />
+					value="Date limite de depôt des Rapport Projet d'été" />
 				<h:inputText id="ppdaterapport" value="#{adminBean.pp_daterapport}" />
 
 				<h:outputLabel for="pfedaterapport"
@@ -46,7 +46,7 @@
 					value="#{adminBean.pfe_daterapport}" />
 
 				<h:outputLabel for="pfedatecc"
-					value="Date limite de depôt des chahiers ded charges PFE" />
+					value="Date limite de depôt des chahiers de charges PFE" />
 				<h:inputText id="pfedatecc" value="#{adminBean.pfe_dateccharge}" />
 
 				<h:outputLabel for="fildatechoix"
@@ -66,22 +66,43 @@
 					<f:selectItem itemValue="true" itemLabel="Oui" />
 					<f:selectItem itemValue="false" itemLabel="Non" />
 				</h:selectOneMenu>
+				<h:outputLabel for="ppchoix" value="Publier les sujets Projets d'été" />
 
+
+				<h:selectOneMenu id="ppchoix" value="#{adminBean.pp_choix}">
+					<f:selectItem itemValue="true" itemLabel="Oui" />
+					<f:selectItem itemValue="false" itemLabel="Non" />
+				</h:selectOneMenu>
 				<h:outputLabel for="pcdnbchoix"
 					value="Nombre Maximum des choix des sujets PCD" />
 				<h:inputText id="pcdnbchoix" value="#{adminBean.pcd_nbchoix}" />
-				<h:outputLabel value="Nombre d'enseignants par jury" />
-				<h:inputText value="#{adminBean.nbjury}" />
+				
 				<h:outputLabel
-					value="Nombre limite d'affectation en jury par enseignant" />
-				<h:inputText value="#{adminBean.nbaffjury}" />
+					value="Nombre limite de sujets PCD à juger par enseignant" />
+				<h:inputText value="#{adminBean.pCD_nbSujetAjugerParProf}" />
+				<h:outputLabel for="ppnbchoix"
+					value="Nombre Maximum des choix des sujets Projets d'été" />
+				<h:inputText id="ppnbchoix" value="#{adminBean.pp_nbchoix}" />
+				<h:outputLabel
+					value="Nombre limite de sujets Projets d'été à juger par enseignant" />
+				<h:inputText value="#{adminBean.pp_nbSujetAjugerParProf}" />
 			</h:panelGrid>
 
 			<h:commandButton value="Enregistrer" action="#{adminBean.save()}"
 				type="submit" />
 
 		</h:form>
-
+		<h:form>
+		<h2>Marquer les enseignants prêts à juger</h2>
+		<c:forEach var="ens" items="#{adminBean.listEns}">
+		<div>
+		<h:outputText value="#{ens.nom} #{ens.prenom}"/>
+		<h:selectBooleanCheckbox value="#{ens.jury}" />
+		</div>
+		</c:forEach>
+		<h:commandButton value="Enregistrer" action="#{adminBean.save4Jury()}"
+				type="submit" />
+</h:form>
 	</f:view>
 	<h:form>
 

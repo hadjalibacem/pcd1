@@ -109,7 +109,29 @@
 			</h:form>
 		<!-- ></c:if></!-->
 
+<h2>Ajouter un Jury</h2>
+	<h:form>
+	<div>
+	<h:outputText>Membre 1</h:outputText>
+	<h:selectOneMenu value="#{chPpBean.jury1}">
+					<f:selectItem />
+					<f:selectItems value="#{chPpBean.listEnseignants4Jury}" var="ens"
+						itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom}" />
 
+				</h:selectOneMenu>
+				</div>
+				<div>
+				<h:outputText>Membre 2</h:outputText>
+	<h:selectOneMenu value="#{chPpBean.jury2}">
+					<f:selectItem />
+					<f:selectItems value="#{chPpBean.listEnseignants4Jury}" var="ens"
+						itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom}" />
+
+				</h:selectOneMenu>
+				</div>
+	<h:commandButton value="Enregistrer"
+					action="#{chPpBean.AjoutJury}" type="submit" />
+	</h:form>
 		<h:form>
 
 			<h2>Affecter des sujets</h2>
@@ -183,7 +205,7 @@
 				<h:selectOneMenu  value="#{chPpBean.jury}">
 					<f:selectItem />
 					<f:selectItems value="#{chPpBean.listJury}" var="jur"
-						itemValue="#{jur.id}" itemLabel="#{chPpBean.AfficheEnseignant(jur.membre1)} et #{chPpBean.AfficheEnseignant(jur.membre2)} }" />
+						itemValue="#{jur.id}" itemLabel="#{chPpBean.AfficheEnseignant(jur.membre1)} et #{chPpBean.AfficheEnseignant(jur.membre2)} " />
 
 				</h:selectOneMenu>
 			</h:column>

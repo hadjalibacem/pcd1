@@ -42,6 +42,14 @@ public class PcdBean implements Serializable {
 	HttpSession session = request.getSession();
 	private Etudiant user = (Etudiant) session.getAttribute("user");
 
+	public Etudiant getUser() {
+		return user;
+	}
+
+	public void setUser(Etudiant user) {
+		this.user = user;
+	}
+
 	private PcdDao pcdD = new PcdDao();
 	private List<Pcd> listPCD = pcdD.getList();
 	private List<Enseignant> listENS;
