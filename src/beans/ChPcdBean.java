@@ -47,6 +47,33 @@ public class ChPcdBean implements Serializable {
 	private Integer coEquip1 = null;
 	private Integer coEquip2 = null;
 	private Integer coEquip3 = null;
+	private int duree=30;
+	private Date dateS;
+	private int jury4Soutenance;
+	public int getDuree() {
+		return duree;
+	}
+
+	public void setDuree(int duree) {
+		this.duree = duree;
+	}
+
+	public Date getDateS() {
+		return dateS;
+	}
+
+	public void setDateS(Date dateS) {
+		this.dateS = dateS;
+	}
+
+	public int getJury4Soutenance() {
+		return jury4Soutenance;
+	}
+
+	public void setJury4Soutenance(int jury4Soutenance) {
+		this.jury4Soutenance = jury4Soutenance;
+	}
+
 	private int idPcdAaffecter;
 	private JuryPcdDao jurD = new JuryPcdDao();
 
@@ -830,17 +857,26 @@ public class ChPcdBean implements Serializable {
 				}
 			} else {
 				JuryPcd jury = jurD.getJury(listRand.get(i + 1));
+				
 				if (jury == null) {
 					if (listRand.get(i + 2).equals(0)) {
-						listNotAffToJury = jurD.getListNotAffToJury();
+						
 						if (listNotAffToJury.size() >= 2) {
-							JuryPcd juryN = new JuryPcd(0, listRand.get(i + 1),
+							if(listRand.get(i+1)!=listNotAffToJury.get(0).getId() && listRand.get(i+1)!=listNotAffToJury.get(1).getId())
+							{JuryPcd juryN = new JuryPcd(0, listRand.get(i + 1),
 									listNotAffToJury.get(0).getId(),
 									listNotAffToJury.get(1).getId(),user.getDepartement());
 							jurD.add(juryN);
 							pcdaff.setJury(jurD.getJury(juryN.getMembre1())
 									.getId());
-							affpD.affect(pcdaff);
+							affpD.affect(pcdaff);}
+							else
+							{
+								listRand.add(listRand.get(i));
+								listRand.add(listRand.get(i+1));
+								listRand.add(listNotAffToJury.get(listNotAffToJury.size()-1).getId());
+								listRand.add(listNotAffToJury.get(listNotAffToJury.size()-2).getId());
+							}
 						} else {
 							int j = 0;
 							List<JuryPcd> list = jurD.getList();
@@ -853,11 +889,13 @@ public class ChPcdBean implements Serializable {
 							affpD.affect(pcdaff);}
 						}
 					} else {
+						
 						JuryPcd jury2 = jurD.getJury(listRand.get(i + 2));
 						if (jury2 == null) {
 							if (listRand.get(i + 3).equals(0)) {
-								listNotAffToJury = jurD.getListNotAffToJury();
 								if (listNotAffToJury.size() >= 1) {
+									if(listRand.get(i+1)!=listNotAffToJury.get(0).getId() && listRand.get(i+2)!=listNotAffToJury.get(0).getId())
+									{
 									JuryPcd juryN = new JuryPcd(0,
 											listRand.get(i + 1),
 											listRand.get(i + 2),
@@ -866,8 +904,16 @@ public class ChPcdBean implements Serializable {
 									pcdaff.setJury(jurD.getJury(
 											juryN.getMembre1()).getId());
 									affpD.affect(pcdaff);
+									}
+									else
+									{
+										listRand.add(listRand.get(i));
+										listRand.add(listRand.get(i+1));
+										listRand.add(listRand.get(i+2));
+										listRand.add(listNotAffToJury.get(listNotAffToJury.size()-1).getId());
+									}
 								} else {
-									int j = 0;
+									 int j = 0;
 									List<JuryPcd> list = jurD.getList();
 									while (j<list.size()&&jurD.getNbAffJury(list.get(j).getId()).toString()
 											.equals(limit.toString()))
@@ -882,8 +928,6 @@ public class ChPcdBean implements Serializable {
 										.get(i + 3));
 								if (jury3 == null) {
 									if (listRand.get(i + 3).equals(0)) {
-										listNotAffToJury = jurD
-												.getListNotAffToJury();
 										if (listNotAffToJury.size() >= 1) {
 											JuryPcd juryN = new JuryPcd(0,
 													listRand.get(i + 1),
@@ -906,6 +950,7 @@ public class ChPcdBean implements Serializable {
 											affpD.affect(pcdaff);}
 										}
 									} else {
+
 										JuryPcd juryNN = new JuryPcd(0,
 												listRand.get(i + 1),
 												listRand.get(i + 2),
@@ -914,8 +959,11 @@ public class ChPcdBean implements Serializable {
 										pcdaff.setJury(jurD.getJury(
 												juryNN.getMembre1()).getId());
 										affpD.affect(pcdaff);
+									
+										
 									}
 								}
+								else
 								{
 									if (jurD.getNbAffJury(jury3.getId()).toString()
 											.equals(limit.toString())) {
@@ -1031,5 +1079,64 @@ public class ChPcdBean implements Serializable {
 		JuryPcd jury=new JuryPcd(0, jury1, jury2, jury3,user.getDepartement());
 		jurD.add(jury);
 		return "PCD_ChD";
+	}
+	@SuppressWarnings("deprecation")
+	public String saveDateSoutenance()
+	{
+		List<AffPCD> listaff=affpD.getListPcdOfJury(jury4Soutenance);
+		
+		int i=0;
+		for(AffPCD aff:listaff)
+		{
+			if(i!=0){
+				int min=dateS.getMinutes()+duree;
+			dateS.setMinutes(min%60);
+			dateS.setHours(dateS.getHours()+(min/60));
+			}
+			else i++;
+			aff.setDateSoutenance(dateS);
+			affpD.affect(aff);
+			
+		}
+		return "PCD_ChD";
+	}
+	public String notifySoutenance()
+	{
+		List<AffPCD> listAff = affpD.getList();
+
+		Date date = Calendar.getInstance().getTime();
+
+		for (AffPCD affpcd : listAff) {
+			if (pcdD.getPcd(affpcd.getPCD()).getDepartement() == user
+					.getDepartement()) {
+				
+					
+				Message msg = new Message(0, affpcd.getCoEquipier1(), null,
+						date, false, "Détails de votre Soutenance",
+						affpcd.getCoEquipier1(), "Bonjour, \n"
+								+ "Votre travail sera jugé par "
+								+ AfficheJury(affpcd.getJury())
+								+" le "+affpcd.getDateSoutenance());
+				msgD.add(msg);
+				msg = new Message(0, affpcd.getCoEquipier2(), null, date,
+						false, "Détails de votre Soutenance",
+						affpcd.getCoEquipier1(), "Bonjour, \n"
+								+ "Votre travail sera jugé par"
+								+ AfficheJury(affpcd.getJury())
+								+" le "+affpcd.getDateSoutenance());
+				msgD.add(msg);
+				if (affpcd.getCoEquipier3() != null) {
+					msg = new Message(0, affpcd.getCoEquipier3(), null, date,
+							false, "Détails de votre Soutenance",
+							affpcd.getCoEquipier1(), "Bonjour, \n"
+									+ "Votre travail sera jugé par"
+									+ AfficheJury(affpcd.getJury())
+									+" le "+affpcd.getDateSoutenance());
+					msgD.add(msg);
+				}
+
+			}
+		}
+		return null;
 	}
 }

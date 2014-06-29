@@ -109,108 +109,108 @@
 	</h:form>
 	<!-- ><c:if test="#{chPcdBean.adm.PCD_dateChoix!=null}">
 		<c:if test="#{chPcdBean.date.after(chPcdBean.adm.getPCD_dateChoix())}"></!-->
-			<h:form>
-				<h:commandButton value="Affecter Les Sujets Selon les choix"
-					action="#{chPcdBean.affectAll}" type="submit" />
-				<h:commandButton value="Notifier les étudiants de leur affectations"
-					action="#{chPcdBean.notifyEtud}" type="submit" />
-			</h:form>
-		<!-- ></c:if>
+	<h:form>
+		<h:commandButton value="Affecter Les Sujets Selon les choix"
+			action="#{chPcdBean.affectAll}" type="submit" />
+		<h:commandButton value="Notifier les étudiants de leur affectations"
+			action="#{chPcdBean.notifyEtud}" type="submit" />
+	</h:form>
+	<!-- ></c:if>
 
 		<c:if test="#{chPcdBean.adm.PCD_choix==false}"></!-->
-			<h:form>
-				<h:commandButton value="Publier Liste de Choix"
-					action="#{chPcdBean.publishListPcd(true)}" type="submit" />
-			</h:form>
-		<!-- ></c:if></!-->
+	<h:form>
+		<h:commandButton value="Publier Liste de Choix"
+			action="#{chPcdBean.publishListPcd(true)}" type="submit" />
+	</h:form>
+	<!-- ></c:if></!-->
 
 
-		<h:form>
+	<h:form>
 
-			<h2>Affecter des sujets</h2>
+		<h2>Affecter des sujets</h2>
 
-			<h:panelGrid columns="2">
-				<h:outputLabel for="coEquip1" value="Id du 1er Co-Equipier" />
-				<h:inputText id="coEquip1" value="#{chPcdBean.coEquip1}"
-					required="true" />
-				<h:outputLabel for="coEquip2" value="Id du 2eme Co-Equipier" />
-				<h:inputText id="coEquip2" value="#{chPcdBean.coEquip2}"
-					required="true" />
-				<h:outputLabel for="coEquip3" value="Id du 3eme Co-Equipier" />
-				<h:inputText id="coEquip3" value="#{chPcdBean.coEquip3}" />
+		<h:panelGrid columns="2">
+			<h:outputLabel for="coEquip1" value="Id du 1er Co-Equipier" />
+			<h:inputText id="coEquip1" value="#{chPcdBean.coEquip1}"
+				required="true" />
+			<h:outputLabel for="coEquip2" value="Id du 2eme Co-Equipier" />
+			<h:inputText id="coEquip2" value="#{chPcdBean.coEquip2}"
+				required="true" />
+			<h:outputLabel for="coEquip3" value="Id du 3eme Co-Equipier" />
+			<h:inputText id="coEquip3" value="#{chPcdBean.coEquip3}" />
 
-				<h:selectOneMenu value="#{chPcdBean.idPcdAaffecter}">
-					<f:selectItems value="#{chPcdBean.listPCDbyDep}" var="pcd"
-						itemValue="#{pcd.id}"
-						itemLabel="#{pcd.sujet}( #{pcd.nbAaffecter} )" />
+			<h:selectOneMenu value="#{chPcdBean.idPcdAaffecter}">
+				<f:selectItems value="#{chPcdBean.listPCDbyDep}" var="pcd"
+					itemValue="#{pcd.id}"
+					itemLabel="#{pcd.sujet}( #{pcd.nbAaffecter} )" />
 
-				</h:selectOneMenu>
+			</h:selectOneMenu>
 
-			</h:panelGrid>
-			<h:commandButton value="Affecter" action="#{chPcdBean.affecter}"
-				type="submit" />
+		</h:panelGrid>
+		<h:commandButton value="Affecter" action="#{chPcdBean.affecter}"
+			type="submit" />
 
-		</h:form>
+	</h:form>
 
 
-		<!-- ><c:if test="#{chPcdBean.date.after(chPcdBean.adm.getPCD_dateChoix())}"></!-->
+	<!-- ><c:if test="#{chPcdBean.date.after(chPcdBean.adm.getPCD_dateChoix())}"></!-->
 
-			<h:form>
+	<h:form>
 
-				<h2>Valider la réception des rapports et cahiers des charges</h2>
-				<h:panelGrid columns="2">
-					<h:outputText value="Id de groupe" />
-					<h:inputText value="#{chPcdBean.idpcdaff}" />
-					<h:outputText for="ccharge" value="Dépôt de Cahier des charges" />
-					<h:selectOneMenu id="ccharge" value="#{chPcdBean.depotCcharge}">
-						<f:selectItem itemValue="true" itemLabel="Oui" />
-						<f:selectItem itemValue="false" itemLabel="Non" />
-					</h:selectOneMenu>
-					<h:outputText for="rapport" value="Dépôt du Rapport" />
-					<h:selectOneMenu id="rapport" value="#{chPcdBean.depotRapport}">
-						<f:selectItem itemValue="true" itemLabel="Oui" />
-						<f:selectItem itemValue="false" itemLabel="Non" />
-					</h:selectOneMenu>
-					<h:outputText for="valid" value="Note de Jury" />
-					<h:inputText value="#{chPcdBean.validation}" />
-				</h:panelGrid>
-				<h:commandButton value="Enregistrer"
-					action="#{chPcdBean.updateAffpcd}" type="submit" />
-			</h:form>
-			<!-- >
+		<h2>Valider la réception des rapports et cahiers des charges</h2>
+		<h:panelGrid columns="2">
+			<h:outputText value="Id de groupe" />
+			<h:inputText value="#{chPcdBean.idpcdaff}" />
+			<h:outputText for="ccharge" value="Dépôt de Cahier des charges" />
+			<h:selectOneMenu id="ccharge" value="#{chPcdBean.depotCcharge}">
+				<f:selectItem itemValue="true" itemLabel="Oui" />
+				<f:selectItem itemValue="false" itemLabel="Non" />
+			</h:selectOneMenu>
+			<h:outputText for="rapport" value="Dépôt du Rapport" />
+			<h:selectOneMenu id="rapport" value="#{chPcdBean.depotRapport}">
+				<f:selectItem itemValue="true" itemLabel="Oui" />
+				<f:selectItem itemValue="false" itemLabel="Non" />
+			</h:selectOneMenu>
+			<h:outputText for="valid" value="Note de Jury" />
+			<h:inputText value="#{chPcdBean.validation}" />
+		</h:panelGrid>
+		<h:commandButton value="Enregistrer"
+			action="#{chPcdBean.updateAffpcd}" type="submit" />
+	</h:form>
+	<!-- >
 		</c:if>
 	</c:if></!-->
 	<h2>Ajouter un Jury</h2>
 	<h:form>
-	<div>
-	<h:outputText>Membre 1</h:outputText>
-	<h:selectOneMenu value="#{chPcdBean.jury1}">
-					<f:selectItem />
-					<f:selectItems value="#{chPcdBean.listEnseignants4Jury}" var="ens"
-						itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom}" />
+		<div>
+			<h:outputText>Membre 1</h:outputText>
+			<h:selectOneMenu value="#{chPcdBean.jury1}">
+				<f:selectItem />
+				<f:selectItems value="#{chPcdBean.listEnseignants4Jury}" var="ens"
+					itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom}" />
 
-				</h:selectOneMenu>
-				</div>
-				<div>
-				<h:outputText>Membre 2</h:outputText>
-	<h:selectOneMenu value="#{chPcdBean.jury2}">
-					<f:selectItem />
-					<f:selectItems value="#{chPcdBean.listEnseignants4Jury}" var="ens"
-						itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom}" />
+			</h:selectOneMenu>
+		</div>
+		<div>
+			<h:outputText>Membre 2</h:outputText>
+			<h:selectOneMenu value="#{chPcdBean.jury2}">
+				<f:selectItem />
+				<f:selectItems value="#{chPcdBean.listEnseignants4Jury}" var="ens"
+					itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom}" />
 
-				</h:selectOneMenu>
-				</div>
-	<div>
-	<h:outputText>Membre 3</h:outputText>
-	<h:selectOneMenu value="#{chPcdBean.jury3}">
-					<f:selectItem />
-					<f:selectItems value="#{chPcdBean.listEnseignants4Jury}" var="ens"
-						itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom}" />
+			</h:selectOneMenu>
+		</div>
+		<div>
+			<h:outputText>Membre 3</h:outputText>
+			<h:selectOneMenu value="#{chPcdBean.jury3}">
+				<f:selectItem />
+				<f:selectItems value="#{chPcdBean.listEnseignants4Jury}" var="ens"
+					itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom}" />
 
-				</h:selectOneMenu>
-	</div>
-	<h:commandButton value="Enregistrer"
-					action="#{chPcdBean.AjoutJury}" type="submit" />
+			</h:selectOneMenu>
+		</div>
+		<h:commandButton value="Enregistrer" action="#{chPcdBean.AjoutJury}"
+			type="submit" />
 	</h:form>
 	<h2>Choisir le jury</h2>
 	<h:form>
@@ -224,22 +224,44 @@
 						itemValue="#{aff.id}" itemLabel="#{aff.sujet}" />
 
 				</h:selectOneMenu>
-				
+
 			</h:column>
 			<h:column>
 				<h:outputLabel value="jury" />
 
-				<h:selectOneMenu  value="#{chPcdBean.jury}">
+				<h:selectOneMenu value="#{chPcdBean.jury}">
 					<f:selectItem />
 					<f:selectItems value="#{chPcdBean.listJury}" var="jur"
-						itemValue="#{jur.id}" itemLabel="#{chPcdBean.AfficheEnseignant(jur.membre1)} , #{chPcdBean.AfficheEnseignant(jur.membre2)} et #{chPcdBean.AfficheEnseignant(jur.membre3)}" />
+						itemValue="#{jur.id}"
+						itemLabel="#{chPcdBean.AfficheEnseignant(jur.membre1)} , #{chPcdBean.AfficheEnseignant(jur.membre2)} et #{chPcdBean.AfficheEnseignant(jur.membre3)}" />
 
 				</h:selectOneMenu>
 			</h:column>
-			<h:commandButton action="#{chPcdBean.affectJury}" value="Affecter le jury"/>
+			<h:commandButton action="#{chPcdBean.affectJury}"
+				value="Affecter le jury" />
 		</h:panelGrid>
-<h:commandButton action="#{chPcdBean.affectJury4All}" value="Affecter les jury"/>
+		<h:commandButton action="#{chPcdBean.affectJury4All}"
+			value="Affecter les jury" />
 	</h:form>
+	<h:form>
+		<h2>Précisez la Date de Soutenance</h2>
+		<h:outputLabel value="Jury" />
+		<h:selectOneMenu value="#{chPcdBean.jury4Soutenance}">
+			<f:selectItem></f:selectItem>
+			<f:selectItems value="#{chPcdBean.listJury}" var="jur"
+				itemValue="#{jur.id}"
+				itemLabel="#{chPcdBean.AfficheEnseignant(jur.membre1)} , #{chPcdBean.AfficheEnseignant(jur.membre2)} et #{chPcdBean.AfficheEnseignant(jur.membre3)}" />
+
+		</h:selectOneMenu>
+		<h:outputLabel>Date de début des soutenances</h:outputLabel>
+		<h:inputText value="#{chPcdBean.dateS}"/>
+		<h:outputText value="Durée de Soutenance en minutes"/>
+		<h:inputText value="#{chPcdBean.duree}"/>
+		<h:commandButton action="#{chPcdBean.saveDateSoutenance}"
+				value="Enregistrer" />
+	</h:form>
+	<h:form><h:commandButton value="Notifier les étudiants de leur soutenances"
+			action="#{chPcdBean.notifySoutenance}" type="submit" /></h:form>
 	<h:form>
 		<h:dataTable id="listAff" value="#{chPcdBean.listAff}" var="affpcd"
 			border="1">
@@ -257,7 +279,8 @@
             <h:outputText value="Equipe" />
         </f:facet>
 
-          <h:outputText value="#{chPcdBean.AfficheEtudiant(affpcd.coEquipier1)} #{chPcdBean.AfficheEtudiant(affpcd.coEquipier2)}  #{chPcdBean.AfficheEtudiant(affpcd.coEquipier3)}" />
+          <h:outputText
+					value="#{chPcdBean.AfficheEtudiant(affpcd.coEquipier1)} #{chPcdBean.AfficheEtudiant(affpcd.coEquipier2)}  #{chPcdBean.AfficheEtudiant(affpcd.coEquipier3)}" />
 
     </h:column>
 			<h:column>
@@ -270,53 +293,47 @@
         <f:facet name="header">
             <h:outputText value="Sujet" />
         </f:facet>
-        <h:outputText
-					value="#{chPcdBean.pcdD.getPcd(affpcd.PCD).sujet}" />
+        <h:outputText value="#{chPcdBean.pcdD.getPcd(affpcd.PCD).sujet}" />
     </h:column>
  <h:column>
         <f:facet name="header">
             <h:outputText value="Dépôt de cahier des charges" />
         </f:facet>
-        <h:outputText
-					value="#{affpcd.depotCCharge}" />
+        <h:outputText value="#{affpcd.depotCCharge}" />
     </h:column>
-<h:column>
+			<h:column>
         <f:facet name="header">
             <h:outputText value="Dépôt du rapport" />
         </f:facet>
-        <h:outputText
-					value="#{affpcd.depotRapport}" />
+        <h:outputText value="#{affpcd.depotRapport}" />
     </h:column>
-<h:column>
+			<h:column>
         <f:facet name="header">
             <h:outputText value="Date de Soutenance" />
         </f:facet>
-        <h:outputText
-					value="#{affpcd.dateSoutenance}" />
+        <h:outputText value="#{affpcd.dateSoutenance}" />
     </h:column>
     <h:column>
         <f:facet name="header">
             <h:outputText value="Membres de Jury" />
         </f:facet>
-        <h:outputText
-					value="#{chPcdBean.AfficheJury(affpcd.jury)}"/> 
+        <h:outputText value="#{chPcdBean.AfficheJury(affpcd.jury)}" /> 
 					
     </h:column>
-<h:column>
+			<h:column>
         <f:facet name="header">
             <h:outputText value="Résultat" />
         </f:facet>
-        <h:outputText
-					value="#{affpcd.resultat}" />
+        <h:outputText value="#{affpcd.resultat}" />
     </h:column>
-	</h:dataTable>
+		</h:dataTable>
 
 	</h:form>
-<!-- >
+	<!-- >
 		</c:if>
 	</!-->
 	<h:form>
-		
+
 		<div>
 			<h:commandLink action="Acceuil" value="Acceuil" styleClass="link" />
 		</div>

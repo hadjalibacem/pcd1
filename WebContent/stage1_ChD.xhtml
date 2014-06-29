@@ -214,6 +214,24 @@
 <h:commandButton action="#{chPpBean.affectJury4All}" value="Affecter les jury"/>
 	</h:form>
 	<h:form>
+		<h2>Précisez la Date de Soutenance</h2>
+		<h:outputLabel value="Jury" />
+		<h:selectOneMenu value="#{chPpBean.jury4Soutenance}">
+			<f:selectItem></f:selectItem>
+			<f:selectItems value="#{chPpBean.listJury}" var="jur"
+				itemValue="#{jur.id}"
+				itemLabel="#{chPpBean.AfficheJury(jur.id)}" />
+
+		</h:selectOneMenu>
+		<h:outputText value="Durée de Soutenance en minutes"/>
+		<h:inputText value="#{chPpBean.duree}"/>
+		<h:commandButton action="#{chPpBean.saveDateSoutenance}"
+				value="Enregistrer" />
+	</h:form>
+	<h:form><h:commandButton value="Notifier les étudiants de leur soutenances"
+			action="#{chPpBean.notifySoutenance}" type="submit" /></h:form>
+	
+	<h:form>
 		<h:dataTable id="listAff" value="#{chPpBean.listAff}" var="affpp"
 			border="1">
     <f:facet name="header">

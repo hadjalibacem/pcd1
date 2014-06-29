@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +15,7 @@ public class AffProjProg {
 	private int proj_prog;
 	private Integer coEquipier2;
 	private Boolean depotRapport;
-	private String dateSoutenance;
+	private Date dateSoutenance;
 	
 
 
@@ -52,10 +52,10 @@ public class AffProjProg {
 	public void setDepotRapport(Boolean depotRapport) {
 		this.depotRapport = depotRapport;
 	}
-	public String getDateSoutenance() {
+	public Date getDateSoutenance() {
 		return dateSoutenance;
 	}
-	public void setDateSoutenance(String dateSoutenance) {
+	public void setDateSoutenance(Date dateSoutenance) {
 		this.dateSoutenance = dateSoutenance;
 	}
 	public Integer getJury() {
@@ -71,7 +71,7 @@ public class AffProjProg {
 		this.resultat = resultat;
 	}
 	public AffProjProg(int id, int coEquipier1, int pP, Integer coEquipier2,
-			Boolean depotRapport, String dateSoutenance, Integer jury,
+			Boolean depotRapport, Date dateSoutenance, Integer jury,
 			Boolean resultat) {
 		super();
 		this.id = id;

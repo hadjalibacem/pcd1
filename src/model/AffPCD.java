@@ -1,6 +1,8 @@
 package model;
 
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -15,14 +17,14 @@ public class AffPCD {
 	private int coEquipier2;
 	private Boolean depotCCharge;
 	private Boolean depotRapport;
-	private String dateSoutenance;
-	public String getDateSoutenance() {
+	private Date dateSoutenance;
+	public Date getDateSoutenance() {
 		return dateSoutenance;
 	}
 
 
-	public void setDateSoutenance(String dateSoutenance) {
-		this.dateSoutenance = dateSoutenance;
+	public void setDateSoutenance(Date dateS) {
+		this.dateSoutenance = dateS;
 	}
 
 
@@ -135,7 +137,7 @@ public class AffPCD {
 
 
 	public AffPCD(int id, int coEquipier1, int pCD, int coEquipier2,
-			Boolean depotCCharge, Boolean depotRapport, String dateSoutenance,
+			Boolean depotCCharge, Boolean depotRapport, Date dateSoutenance,
 			Integer jury, float resultat, Integer coEquipier3) {
 		super();
 		this.id = id;

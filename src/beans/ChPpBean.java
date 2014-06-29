@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import model.Administration;
+import model.AffPCD;
 import model.AffProjProg;
 import model.ChefDepart;
 import model.ChxProjProg;
@@ -45,6 +46,35 @@ public class ChPpBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer coEquip1 = null;
 	private Integer coEquip2 = null;
+	private Date dateS;
+	private int jury4Soutenance;
+	private int duree;
+	public Date getDateS() {
+		return dateS;
+	}
+
+	public void setDateS(Date dateS) {
+		this.dateS = dateS;
+	}
+
+	public int getJury4Soutenance() {
+		return jury4Soutenance;
+	}
+
+	public void setJury4Soutenance(int jury4Soutenance) {
+		this.jury4Soutenance = jury4Soutenance;
+	}
+
+	public int getDuree() {
+		return duree;
+	}
+
+	public void setDuree(int duree) {
+		this.duree = duree;
+	}
+
+
+
 	private Integer jury1,jury2;
 	public Integer getJury1() {
 		return jury1;
@@ -767,7 +797,9 @@ public class ChPpBean implements Serializable {
 					
 							if (listRand.get(i + 2).equals(0)) {
 								listNotAffToJury = jurD.getListNotAffToJury();
-								if (listNotAffToJury.size() >= 1) {
+								
+								if (listNotAffToJury.size() >= 1 &&listRand.get(i+1)!=listNotAffToJury.get(0).getId())
+								{
 									JuryPp juryN = new JuryPp(0,
 											listRand.get(i + 1),
 											listNotAffToJury.get(0).getId());
@@ -775,6 +807,8 @@ public class ChPpBean implements Serializable {
 									ppaff.setJury(jurD.getJury(
 											juryN.getMembre1()).getId());
 									affpD.affect(ppaff);
+									
+								
 								} else {
 									int j = 0;
 									List<JuryPp> list = jurD.getList();
@@ -793,7 +827,7 @@ public class ChPpBean implements Serializable {
 									if (listRand.get(i + 2).equals(0)) {
 										listNotAffToJury = jurD
 												.getListNotAffToJury();
-										if (listNotAffToJury.size() >= 1) {
+										if (listNotAffToJury.size() >= 1&&listNotAffToJury.get(0).getId()!=listRand.get(i+1)) {
 											JuryPp juryN = new JuryPp(0,
 													listRand.get(i + 1),
 													listNotAffToJury.get(0)
@@ -903,5 +937,58 @@ public class ChPpBean implements Serializable {
 		JuryPp jury=new JuryPp(0, jury1, jury2);
 		jurD.add(jury);
 		return "stage1_ChD";
+	}
+	@SuppressWarnings("deprecation")
+	public String saveDateSoutenance()
+	{
+		List<AffProjProg> listaff=affpD.getListPpOfJury(jury4Soutenance);
+		dateS=new Date();
+		int i=0;
+		for(AffProjProg aff:listaff)
+		{
+			if(i!=0){
+				int min=dateS.getMinutes()+duree;
+			dateS.setMinutes(min%60);
+			dateS.setHours(dateS.getHours()+(min/60));
+			}
+			else i++;
+			aff.setDateSoutenance(dateS);
+			affpD.affect(aff);
+			
+		}
+		return "";
+	}
+	public String notifySoutenance()
+	{
+		List<AffProjProg> listAff = affpD.getList();
+
+		Date date = Calendar.getInstance().getTime();
+
+		for (AffProjProg affpp: listAff) {
+			
+				
+					
+				Message msg = new Message(0, affpp.getCoEquipier1(), null,
+						date, false, "Détails de votre Soutenance",
+						affpp.getCoEquipier1(), "Bonjour, \n"
+								+ "Votre travail sera jugé par "
+								+ AfficheJury(affpp.getJury())
+								+" le "+affpp.getDateSoutenance());
+				msgD.add(msg);
+				if(affpp.getCoEquipier2()!=null)
+				{
+				msg = new Message(0, affpp.getCoEquipier2(), null, date,
+						false, "Détails de votre Soutenance",
+						affpp.getCoEquipier1(), "Bonjour, \n"
+								+ "Votre travail sera jugé par"
+								+ AfficheJury(affpp.getJury())
+								+" le "+affpp.getDateSoutenance());
+				msgD.add(msg);}
+				
+				}
+
+			
+		
+		return null;
 	}
 }
