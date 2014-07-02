@@ -942,7 +942,6 @@ public class ChPpBean implements Serializable {
 	public String saveDateSoutenance()
 	{
 		List<AffProjProg> listaff=affpD.getListPpOfJury(jury4Soutenance);
-		dateS=new Date();
 		int i=0;
 		for(AffProjProg aff:listaff)
 		{
